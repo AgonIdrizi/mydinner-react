@@ -1,11 +1,11 @@
 .Header {
-  position: absolute;
   right: 0;
   left: 0;
   z-index: 999;
   display: block;
   margin: 0 auto;
   width: 100%;
+  
   height: 60px;
   font-size: 18px;
   background-color: #ff7119;
@@ -14,8 +14,11 @@
 
 .NavContent {
   display: flex;
-  margin-right: 11%;
-  margin-left: 11%;
+  text-align: center;
+  margin: 0 auto;
+  max-width: 1000px;
+  position: relative;
+  z-index: 2;
   h2{
     text-align: left;
     width: 18%;
