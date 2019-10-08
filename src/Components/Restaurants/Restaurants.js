@@ -1,4 +1,5 @@
 import React from "react";
+import RestaurantCard from './RestaurantCard/RestaurantCard';
 import "./Restaurants.scss";
 import 'antd/es/input/style/index.css';
 import { Input } from "antd";
@@ -19,7 +20,9 @@ const Restaurants = () => {
             style={{ width: 200 }}
           />
         </div>
-        <div className="AllRestaurants"></div>
+        <div className="AllRestaurants">
+          {[0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15].map(elem => <RestaurantCard />)}
+        </div>
       </section>
     </div>
   );

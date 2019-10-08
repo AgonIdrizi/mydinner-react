@@ -43,6 +43,13 @@
   }
 }
 
+.AllRestaurants {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(170px, 1fr) ) ;
+  
+  margin-right: 40px;
+}
+
 @media (min-width: 1000px){
   .Restaurants {
     width: 1000px;
