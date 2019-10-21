@@ -1,15 +1,14 @@
 .RestaurantCardContainer {
   border: 1px solid #e0e0e0;
+  border-radius: 4px;
   height: 192px;
   margin: 20px;
-  
+  cursor: pointer;
   &:hover {
-    margin:-10px;
-    height: 200px;
+    margin:0px;
+    
     box-shadow: 0 5px 10px 0 #c2c2c2;
-    
-    
-  transition: height ease-in-out 100ms, margin ease-in 100ms
+    transition:  margin ease-in 100ms
   }
 }
 .ResLogoDiv {
