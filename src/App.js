@@ -1,11 +1,11 @@
-import React from 'react';
-import MyDinnerBuilder from './Containers/MyDinnerBuilder/MyDinnerBuilder';
-import './App.css';
+import React from "react";
+import MyDinnerBuilder from "./Containers/MyDinnerBuilder/MyDinnerBuilder";
+import "./App.css";
 
 function App() {
   return (
     <div className="App">
-    <MyDinnerBuilder />
+      <MyDinnerBuilder />
     </div>
   );
 }
