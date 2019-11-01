@@ -1,7 +1,8 @@
 import React from "react";
 import { Switch, Route } from "react-router-dom";
 import { ROUTE_PATHS } from "../../../../config/constants";
-import { AsyncRestaurants } from "./AppScreens";
+import { AsyncRestaurants, AsyncLogin } from "./AppScreens";
+
 
 const AppRouter = () => {
   return (
@@ -11,6 +12,7 @@ const AppRouter = () => {
         render={() => <AsyncRestaurants />}
         exact={true}
       />
+      <Route path={ROUTE_PATHS.LOGIN} render={() => <AsyncLogin />} />
       <Route path="/" render={() => <AsyncRestaurants />} exact={true} />
     </Switch>
   );
