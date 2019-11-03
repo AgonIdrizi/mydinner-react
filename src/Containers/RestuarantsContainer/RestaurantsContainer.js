@@ -1,9 +1,8 @@
-import React from 'react';
-import Restaurants from '../../screens/Restaurants/Restaurants'
+import React from "react";
+import Restaurants from "../../screens/Restaurants/Restaurants";
 
 const RestaurantsContainer = () => {
+  return <Restaurants />;
+};
 
-  return <Restaurants />
-}
-
-export default RestaurantsContainer
+export default RestaurantsContainer;

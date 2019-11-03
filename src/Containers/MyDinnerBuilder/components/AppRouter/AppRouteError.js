@@ -4,12 +4,7 @@ import { ROUTE_PATHS } from "../../../../config/constants";
 const AppRouteError = ({ location, children }) => {
   const [isError, setIsError] = useState(false);
 
-  useEffect(() => {
-    const routeExists = Object.values(ROUTE_PATHS).includes(location.pathname);
-    if (!routeExists) {
-      setIsError(true);
-    }
-  }, [location]);
+  useEffect(() => {}, [location]);
 
   return (
     <div>

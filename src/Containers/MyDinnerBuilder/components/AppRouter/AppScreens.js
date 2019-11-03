@@ -7,3 +7,11 @@ export const AsyncRestaurants = React.lazy(() =>
 export const AsyncLogin = React.lazy(() =>
   import("../../../LoginContainer/LoginContainer")
 );
+
+export const AsyncRestaurant = React.lazy(() =>
+  import("../../../RestaurantContainer/RestaurantContainer")
+);
+
+export const AsyncRouteNotExists = React.lazy(() =>
+  import("../../../../screens/RouteNotExist/RouteNotExist")
+);
