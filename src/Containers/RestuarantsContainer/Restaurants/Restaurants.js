@@ -11,9 +11,19 @@ const Restaurants = ({ restaurantData }) => {
   const [filteredRestaurants, setFilteredRestaurants] = useState([]);
 
   const onSearchRestaurantHandler = event => {
+    if (event.target.value === "") {
+      setSearching(false);
+      setFilteredRestaurants([]);
+      return;
+    }
     setSearching(true);
     console.log(event.target.value);
-  }
+    const filteredData = restaurantData.filter(
+      elem =>
+        elem.restaurantName.toLowerCase().search(event.target.value) !== -1
+    );
+    setFilteredRestaurants(filteredData);
+  };
 
   return (
     <div className="RestaurantContainer">
@@ -31,6 +41,15 @@ const Restaurants = ({ restaurantData }) => {
         <div className="AllRestaurants">
           {!isSearching &&
             restaurantData.map((elem, index) => (
+              <RestaurantCard
+                key={elem.id}
+                imgUrl={elem.imgUrl}
+                name={elem.restaurantName}
+                type={elem.restaurantType}
+              />
+            ))}
+          {isSearching &&
+            filteredRestaurants.map((elem, index) => (
               <RestaurantCard
                 key={elem.id}
                 imgUrl={elem.imgUrl}
