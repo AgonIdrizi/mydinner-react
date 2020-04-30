@@ -8,6 +8,10 @@ export const AsyncLogin = React.lazy(() =>
   import("../../../LoginContainer/LoginContainer")
 );
 
+export const AsyncSignUp = React.lazy(() =>
+  import("../../../SignUpContainer/SignUpContainer")
+);
+
 export const AsyncRestaurant = React.lazy(() =>
   import("../../../RestaurantContainer/RestaurantContainer")
 );
