@@ -1,6 +1,8 @@
 import React from "react";
 import * as yup from "yup";
 import { Formik, Form, Field } from "formik";
+import { Button } from 'antd';
+import "antd/es/button/style/index.css";
 import { TextFormField } from "../../../Components/UI/FormFields/TextFormField";
 import "./Login.scss";
 
@@ -18,7 +20,8 @@ const schema = yup.object({
 
 const Login = () => {
   return (
-    <div classname="Login">
+    <div className="Login">
+      <h2>Login</h2>
       <Formik
         validationSchema={schema}
         initialValues={{ username: "", email: "" }}
@@ -26,7 +29,6 @@ const Login = () => {
       >
         {() => (
           <Form>
-            <label>Username</label>
             <Field
               label="Username"
               name="username"
@@ -42,6 +44,7 @@ const Login = () => {
           </Form>
         )}
       </Formik>
+      <Button type="primary" size="medium">Login</Button>
     </div>
   );
 };

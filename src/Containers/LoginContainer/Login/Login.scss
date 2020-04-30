@@ -1,0 +1,13 @@
+.Login {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  form {
+    width: 40%;
+  }
+  button {
+    width: 100px;
+    margin-top: 15px;
+  }
+}
