@@ -1,6 +1,5 @@
 import React from "react";
-import Restaurant from "../../screens/Restaurant/Restaurant";
-
+import Restaurant from "./Restaurant/Restaurant";
 
 const RestaurantContainer = () => {
   return <Restaurant />;

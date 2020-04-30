@@ -13,5 +13,5 @@ export const AsyncRestaurant = React.lazy(() =>
 );
 
 export const AsyncRouteNotExists = React.lazy(() =>
-  import("../../../../screens/RouteNotExist/RouteNotExist")
+  import("../../../RouteNotExist/RouteNotExist")
 );

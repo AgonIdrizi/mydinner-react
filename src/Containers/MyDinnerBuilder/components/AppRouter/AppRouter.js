@@ -11,7 +11,7 @@ const AppRouter = () => {
       <UnAuthedRoute
         path={ROUTE_PATHS.ALL_RESTAURANTS}
         render={() => <AsyncRestaurants />}
-        isAuthed={true}
+        
         exact={true}
       />
       <UnAuthedRoute

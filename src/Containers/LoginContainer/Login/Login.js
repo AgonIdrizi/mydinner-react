@@ -1,7 +1,7 @@
 import React from "react";
 import * as yup from "yup";
 import { Formik, Form, Field } from "formik";
-import { TextFormField } from "../../Components/UI/FormFields/TextFormField";
+import { TextFormField } from "../../../Components/UI/FormFields/TextFormField";
 import "./Login.scss";
 
 const schema = yup.object({
@@ -26,6 +26,7 @@ const Login = () => {
       >
         {() => (
           <Form>
+            <label>Username</label>
             <Field
               label="Username"
               name="username"
