@@ -1,8 +1,7 @@
 import React from "react";
 import * as yup from "yup";
 import { Formik, Form, Field } from "formik";
-import { Button } from 'antd';
-import "antd/es/button/style/index.css";
+import Button from "../../../Components/UI/Button/Button";
 import { TextFormField } from "../../../Components/UI/FormFields/TextFormField";
 import "./Login.scss";
 
@@ -44,7 +43,7 @@ const Login = () => {
           </Form>
         )}
       </Formik>
-      <Button type="primary" size="medium">Login</Button>
+      <Button text="Login" type="primary" size="medium" />
     </div>
   );
 };

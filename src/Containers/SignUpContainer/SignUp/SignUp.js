@@ -1,7 +1,6 @@
 import React from "react";
 import * as Yup from "yup";
-import { Button } from 'antd';
-import "antd/es/button/style/index.css";
+import Button from "../../../Components/UI/Button/Button";
 import { Formik, Form, Field } from "formik";
 import { TextFormField } from "../../../Components/UI/FormFields/TextFormField";
 
@@ -10,7 +9,7 @@ const schema = Yup.object({
     .string()
     .required()
     .min(3),
-  email: Yup.string().email(),
+  email: Yup.string().email().required(),
   password: Yup
     .string()
     .required("No password provided.")
@@ -43,19 +42,19 @@ const SignUp = () => {
               placeholder="Username"
               component={TextFormField}
             />
-            <Field 
+            <Field
               label="Email"
               name="email"
               placeholder="Email"
               component={TextFormField}
             />
-            <Field 
+            <Field
               label="Password"
               name="password"
               placeholder="Password"
               component={TextFormField}
             />
-            <Field 
+            <Field
               label="Password confirmation"
               name="password_confirmation"
               placeholder="Password confirmation"
@@ -64,7 +63,7 @@ const SignUp = () => {
           </Form>
         )}
       </Formik>
-      <Button type="primary" size="medium">Sign Up</Button>
+      <Button text="Sign Up" type="primary" size="medium" />
     </div>
   );
 };
