@@ -2,7 +2,8 @@ import React from "react";
 import * as yup from "yup";
 import { Formik, Form, Field } from "formik";
 import Button from "../../../Components/UI/Button/Button";
-import { TextFormField } from "../../../Components/UI/FormFields/TextFormField";
+import { TextFormField } from "../../../Components/UI/TextFormFields/TextFormField/TextFormField";
+import ErrorMessage from "../../../Components/UI/ErrorMessage/ErrorMessage";
 import "./Login.scss";
 
 const schema = yup.object({
@@ -34,12 +35,14 @@ const Login = () => {
               placeholder="Username"
               component={TextFormField}
             />
+            <ErrorMessage name="username" />
             <Field
               label="Password"
               name="password"
               placeholder="Password"
               component={TextFormField}
             />
+            <ErrorMessage name="password" />
           </Form>
         )}
       </Formik>

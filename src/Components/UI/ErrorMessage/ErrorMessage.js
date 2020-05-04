@@ -1,7 +1,13 @@
 import React from "react";
+import { connect, getIn } from "formik";
 
 import "./ErrorMessage.scss";
 
-export const ErrorMessage = ({ errorText }) => {
-  return <p className="errorMsg">{errorText}</p>;
+const ErrorMessage = props => {
+  // All FormikProps available on props.formik!
+  const error = getIn(props.formik.errors, props.name);
+  const touch = getIn(props.formik.touched, props.name);
+  return <div className="errorMsg">{touch && error ? error : null}</div>
 };
+
+export default connect(ErrorMessage);
