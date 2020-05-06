@@ -26,7 +26,7 @@ const Restaurants = ({ restaurantData }) => {
   };
 
   return (
-    <div className="RestaurantContainer">
+    <div className="RestaurantsContainer">
       <section className="Restaurants">
         <div className="RestaurantHeaderText">
           <h2>Restaurants</h2>

@@ -6,7 +6,7 @@ import "./Button.scss";
 const Button = ({ text, type, size }) => {
   return (
     <div class="button">
-      <AntButton type={type} size={size}>
+      <AntButton style={{background: "#f56a00", borderColor: '#d75000'}} type={type} size={size}>
         {text}
       </AntButton>
     </div>
