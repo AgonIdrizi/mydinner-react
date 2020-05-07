@@ -13,6 +13,6 @@ const RestaurantContainer = () => {
     ]
   }
 
-  return <Restaurant />;
+  return <Restaurant resData={mockedRestaurantData} />;
 };
 export default RestaurantContainer;

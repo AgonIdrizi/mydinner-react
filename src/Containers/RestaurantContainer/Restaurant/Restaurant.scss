@@ -11,4 +11,23 @@
   margin-right: auto;
   margin-left: auto;
 
+  .RestaurantHeader {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding-top: 10px;
+    margin-left: 30px;
+    margin-right: 30px;
+    margin-bottom: 30px;
+    .RestaurantInfos {
+      margin-top: 20px;
+    }
+  }
+
+}
+
+@media (min-width: 1000px){
+  .Restaurant {
+    width: 1000px;
+  }
 }

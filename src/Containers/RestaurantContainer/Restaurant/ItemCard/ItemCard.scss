@@ -1,0 +1,38 @@
+.ItemCard {
+  display: flex;
+  width: 400px;
+  .DishLogoDiv {
+    width: 70px;
+    margin-right: 25px;
+    img {
+      width: 100%;
+      padding: 5px;
+      height: 70px;
+      border: 1px solid #e0e0e0;
+    }
+  }
+  .DishCardLeft {
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    .DishInfo {
+      display: flex;
+      justify-content: flex-start;
+      width: 75%;
+      .DishName {
+        margin-bottom: 0!important;
+        margin-top: 5px;
+        text-align-last: justify;
+      }
+      .DishIngredients {
+        text-align: left;
+        font-size: 12px;
+        color: #727272;
+      }
+    }
+    .DishActions {
+      width: 25%;
+    }
+  }
+  
+}
