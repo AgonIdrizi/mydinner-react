@@ -4,6 +4,7 @@
   "private": true,
   "dependencies": {
     "@google-cloud/storage": "^4.0.0",
+    "@n8tb1t/use-scroll-position": "^1.0.43",
     "child-process-promise": "^2.2.1",
     "formik": "^2.0.3",
     "node-sass": "^4.12.0",
