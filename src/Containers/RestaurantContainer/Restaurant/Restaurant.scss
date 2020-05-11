@@ -26,7 +26,7 @@
   .RestaurantMenu {
     display: flex;
     .Categories {
-      width: 30%;
+      width: 160px;
       height: 365px;
       border-radius: 2px;
       background-color: #fff;
@@ -35,7 +35,16 @@
       padding: 16px 15px;
     }
     .Menus {
-
+      width: 502px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;          
+    }
+    .ResCard {
+      width: 306px;
+      height: 286px;
+      box-shadow: 0 2px 1px 0 rgba(0,0,0,.12), 0 1px 1px 0 rgba(0,0,0,.14), 0 1px 3px 0 rgba(0,0,0,.02);
+      border: .5px solid rgba(0,0,0,.1);
     }
   }
   
