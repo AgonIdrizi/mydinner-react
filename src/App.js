@@ -1,11 +1,15 @@
 import React from "react";
 import MyDinnerBuilder from "./Containers/MyDinnerBuilder/MyDinnerBuilder";
 import "./App.css";
+import CartContextProvider from "./contexts/CartContext";
 
 function App() {
   return (
     <div className="App">
-      <MyDinnerBuilder />
+      <CartContextProvider >
+          <MyDinnerBuilder />
+      </CartContextProvider>
+      
     </div>
   );
 }
