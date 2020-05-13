@@ -1,8 +1,12 @@
-import React from "react";
+import React, { useContext } from "react";
+import { CartContext } from "../../../../contexts/CartContext";
 import imgUrl from "../../../../assets/dishes/dish1.jpg";
 import "./ItemCard.scss";
 
-const ItemCard = ({ name }) => {
+const ItemCard = ({ id, name, imgUrl }) => {
+  const context = useContext(CartContext)
+  const item = { id, name, imgUrl };
+  const { onAddMenuHandler } = context;
   return (
     <div className="ItemCard">
       <div className="DishLogoDiv">
@@ -16,7 +20,7 @@ const ItemCard = ({ name }) => {
           </span>
         </div>
         <div className="DishActions">
-          <button>Add</button>
+          <button onClick={() => onAddMenuHandler(item)}>Add</button>
         </div>
       </div>
     </div>

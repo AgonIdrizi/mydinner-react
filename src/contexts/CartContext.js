@@ -4,8 +4,17 @@ export const CartContext = createContext();
 
 const CartContextProvider = props => {
   const [itemsInCart, setItemsInCart] = useState([])
+
+  const onAddMenuHandler = item => {
+    setItemsInCart([...itemsInCart, item]);
+    console.log("addMenu")
+  }
+
+  const onRemoveMenuHandler = id => {
+    console.log("removeMenu")
+  }
   return (
-    <CartContext.Provider value={{ agon: "agon" }}>
+    <CartContext.Provider value={{ itemsInCart, onAddMenuHandler }}>
       {props.children}
     </CartContext.Provider>
   );

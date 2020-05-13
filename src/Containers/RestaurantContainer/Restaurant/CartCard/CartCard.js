@@ -3,11 +3,13 @@ import "./CartCard.scss";
 import { CartContext } from "../../../../contexts/CartContext";
 
 const CartCard = () => {
-  const agon = useContext(CartContext)
-  console.log("agon", agon)
+  const context = useContext(CartContext)
+  const { itemsInCart } = context;
+  console.log("agon", itemsInCart)
   return (
     <div className="CartCard">
       <h2>Cart</h2>
+      <p>{itemsInCart.length}</p>
     </div>
   );
 };
