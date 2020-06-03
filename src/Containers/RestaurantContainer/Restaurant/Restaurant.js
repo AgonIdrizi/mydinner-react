@@ -108,6 +108,7 @@ const Restaurant = ({ resData }) => {
             {!isSearching &&
               resData.restaurantMenus.map(elem => (
                 <ItemCard
+                  id={elem.id}
                   key={elem.id}
                   name={elem.menuName}
                   imgUrl={elem.menuImgUrl}
@@ -117,6 +118,7 @@ const Restaurant = ({ resData }) => {
             {isSearching &&
               filteredMenus.map(elem => (
                 <ItemCard
+                  id={elem.id}
                   key={elem.id}
                   name={elem.menuName}
                   imgUrl={elem.menuImgUrl}

@@ -5,8 +5,9 @@ import "./ItemCard.scss";
 
 const ItemCard = ({ id, name, imgUrl }) => {
   const context = useContext(CartContext)
-  const item = { id, name, imgUrl };
   const { onAddMenuHandler } = context;
+  const item = { id, name, imgUrl };
+  
   return (
     <div className="ItemCard">
       <div className="DishLogoDiv">

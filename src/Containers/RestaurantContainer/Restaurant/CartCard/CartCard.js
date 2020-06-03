@@ -1,22 +1,23 @@
-import React, { useContext, useEffect } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import "./CartCard.scss";
 import { CartContext } from "../../../../contexts/CartContext";
 
+const countObjectsWithEqualProperty = arrayOfObjects => {
+  return arrayOfObjects.reduce((acc, elem) => {
+    acc[elem.name] ? acc[elem.name]++ : (acc[elem.name] = 1);
+    return acc;
+  }, {});
+};
+
 const CartCard = () => {
+  const [displayItemsObj, setDisplayItemsObj] = useState({});
   const context = useContext(CartContext);
   const { itemsInCart } = context;
-  const displayItemsObj = {};
 
   useEffect(() => {
-    itemsInCart.map(cartObj => {
-      displayItemsObj[cartObj.name] === undefined
-        ? (displayItemsObj[cartObj.name] = 1)
-        : displayItemsObj[cartObj.name]++;
-    });
+    setDisplayItemsObj(countObjectsWithEqualProperty(itemsInCart));
   }, [itemsInCart]);
-  console.log(displayItemsObj);
 
-  console.log("agon", itemsInCart);
   return (
     <div className="CartCard">
       <h2>Cart</h2>
@@ -24,7 +25,7 @@ const CartCard = () => {
       <div>
         {Object.keys(displayItemsObj).map(item => (
           <p>
-          {item} : {displayItemsObj[item].value}
+            {item} : {displayItemsObj[item]}
           </p>
         ))}
       </div>
