@@ -1,13 +1,7 @@
 import React, { useContext, useEffect, useState } from "react";
 import "./CartCard.scss";
 import { CartContext } from "../../../../contexts/CartContext";
-
-const countObjectsWithEqualProperty = arrayOfObjects => {
-  return arrayOfObjects.reduce((acc, elem) => {
-    acc[elem.name] ? acc[elem.name]++ : (acc[elem.name] = 1);
-    return acc;
-  }, {});
-};
+import { countObjectsWithEqualProperty } from "../../../../utils/helperFunctions";
 
 const CartCard = () => {
   const [displayItemsObj, setDisplayItemsObj] = useState({});
