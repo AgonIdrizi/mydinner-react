@@ -112,6 +112,7 @@ const Restaurant = ({ resData }) => {
                   key={elem.id}
                   name={elem.menuName}
                   imgUrl={elem.menuImgUrl}
+                  price={elem.price}
                   ingredients={elem.ingredients}
                 />
               ))}
@@ -122,6 +123,7 @@ const Restaurant = ({ resData }) => {
                   key={elem.id}
                   name={elem.menuName}
                   imgUrl={elem.menuImgUrl}
+                  price={elem.price}
                   ingredients={elem.ingredients}
                 />
               ))}

@@ -3,10 +3,10 @@ import { CartContext } from "../../../../contexts/CartContext";
 import imgUrl from "../../../../assets/dishes/dish1.jpg";
 import "./ItemCard.scss";
 
-const ItemCard = ({ id, name, imgUrl }) => {
+const ItemCard = ({ id, name, imgUrl, price }) => {
   const context = useContext(CartContext)
   const { onAddMenuHandler } = context;
-  const item = { id, name, imgUrl };
+  const item = { id, name, imgUrl, price };
   
   return (
     <div className="ItemCard">

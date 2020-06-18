@@ -6,6 +6,11 @@ const CartContextProvider = props => {
   const [itemsInCart, setItemsInCart] = useState([]);
 
   const onAddMenuHandler = item => {
+    if (typeof item == "string") {
+      const newitem = itemsInCart.find(elem => elem.name === item);
+      setItemsInCart([...itemsInCart, newitem]);
+      return;
+    }
     setItemsInCart([...itemsInCart, item]);
   };
 
