@@ -4,6 +4,8 @@ import CartCard from "./CartCard/CartCard";
 import Card from "../../../Components/UI/Card/Card";
 import "antd/es/input/style/index.css";
 import { Input } from "antd";
+import { Button } from "antd";
+import "antd/es/button/style/index.css";
 import { useScrollPosition } from "@n8tb1t/use-scroll-position";
 import "./Restaurant.scss";
 import RestaurantImage from "../../../assets/restaurant/restaurantImage.jpeg";
@@ -14,6 +16,10 @@ const Restaurant = ({ resData }) => {
   const [categoriesStyle, setCategoriesStyle] = useState({});
   const [menusStyle, setMenusStyle] = useState({});
   const [cartStyle, setCartStyle] = useState({});
+  const [categoryClicked, setCategoryClicked] = useState(false);
+  const [filteredMenusByCategory, setfilteredMenusByCategory] = useState(
+    resData.restaurantMenus
+  );
   const [isSearching, setSearching] = useState(false);
   const [filteredMenus, setFilteredMenus] = useState({});
 
@@ -64,11 +70,33 @@ const Restaurant = ({ resData }) => {
     }
     setSearching(true);
     console.log(event.target.value);
-    const filteredData = resData.restaurantMenus.filter(
-      elem => elem.menuName.toLowerCase().search(event.target.value) !== -1
-    );
-    setFilteredMenus(filteredData);
+    if (categoryClicked) {
+      const filteredData = filteredMenusByCategory.filter(
+        elem => elem.menuName.toLowerCase().search(event.target.value) !== -1
+      );
+      setFilteredMenus(filteredData);
+    } else {
+      const filteredData = resData.restaurantMenus.filter(
+        elem => elem.menuName.toLowerCase().search(event.target.value) !== -1
+      );
+      setFilteredMenus(filteredData);
+    }
   };
+
+  const onCategoryClickHandler = catName => {
+    if (catName === "all") {
+      setCategoryClicked(false);
+      setfilteredMenusByCategory(resData.restaurantMenus);
+    } else {
+      setCategoryClicked(true);
+    const filteredByCategory = resData.restaurantMenus.filter(
+      elem => elem.category === catName
+    )
+    setfilteredMenusByCategory(filteredByCategory)
+    console.log(catName);
+    }
+    
+  }
 
   return (
     <div className="RestaurantContainer">
@@ -90,12 +118,16 @@ const Restaurant = ({ resData }) => {
               style={categoriesStyle}
               className="Categories"
             >
-              <div>sdfsdfsdf</div>
-              <div>sdfsdfsdf</div>
-              <div>sdfsdfsdf</div>
-              <div>sdfsdfsdf</div>
-              <div>sdfsdfsdf</div>
-              <div>sdfsdfsdf</div>
+              <Button type="text" onClick={e => onCategoryClickHandler("all")}>
+                All
+              </Button>
+              {resData.categories.map(category => (
+                <Button
+                  type="text"
+                  onClick={e => onCategoryClickHandler(category.catName)}>
+                  {category.catName}
+                </Button>
+              ))}
             </section>
           </Card>
           <section ref={menusRef} style={menusStyle} className="Menus">
@@ -106,7 +138,7 @@ const Restaurant = ({ resData }) => {
               />
             </div>
             {!isSearching &&
-              resData.restaurantMenus.map(elem => (
+              filteredMenusByCategory.map(elem => (
                 <ItemCard
                   id={elem.id}
                   key={elem.id}
@@ -116,7 +148,18 @@ const Restaurant = ({ resData }) => {
                   ingredients={elem.ingredients}
                 />
               ))}
-            {isSearching &&
+            {isSearching && categoryClicked &&
+              filteredMenus.map(elem => (
+                <ItemCard
+                  id={elem.id}
+                  key={elem.id}
+                  name={elem.menuName}
+                  imgUrl={elem.menuImgUrl}
+                  price={elem.price}
+                  ingredients={elem.ingredients}
+                />
+              ))}
+              {isSearching && !categoryClicked &&
               filteredMenus.map(elem => (
                 <ItemCard
                   id={elem.id}
