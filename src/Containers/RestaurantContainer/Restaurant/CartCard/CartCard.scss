@@ -1,4 +1,31 @@
 .CartCard {
   display: flex;
-  width: 400px;
+  flex-direction: column;
+  .CartCardHeader {
+    background-color: #ff7119;
+  }
+  .CartRestaurantName {
+    h3 {
+      margin: 7px 0 7px 0;
+    }
+  }
+  .LineBreak {
+    height: 2px;
+    background-color: lightgrey;
+  }
+  .CartItem {
+    display: flex;
+  }
+  table {
+    tbody{
+      tr{
+        td {
+          span {
+            display: inline-block;
+            width: 23px;
+          }
+        }
+      }
+    }
+  }
 }

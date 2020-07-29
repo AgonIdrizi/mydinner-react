@@ -3,7 +3,7 @@ import "./CartCard.scss";
 import { CartContext } from "../../../../contexts/CartContext";
 import { countObjectsWithEqualProperty } from "../../../../utils/helperFunctions";
 
-const CartCard = () => {
+const CartCard = ({ restaurantName }) => {
   const [displayItemsObj, setDisplayItemsObj] = useState({});
   const context = useContext(CartContext);
   const { itemsInCart, onAddMenuHandler, onRemoveMenuHandler } = context;
@@ -23,19 +23,33 @@ const CartCard = () => {
 
   return (
     <div className="CartCard">
-      <h2>Cart</h2>
-      <div>
-        {Object.keys(displayItemsObj).map(item => (
-          <div>
-            <p>
-              {item} : {displayItemsObj[item]}
-            </p>
-            {countprice(item, displayItemsObj[item])}
-            <button onClick={() => onRemoveMenuHandler(item)}>-</button>
-            <button onClick={() => onAddMenuHandler(item)}>+</button>
-          </div>
-        ))}
+      <div className="CartCardHeader">
+        <h2>Cart</h2>
       </div>
+      <div className="CartRestaurantName">
+        <h3>{restaurantName}</h3>
+      </div>
+      <div></div>
+      <div className="LineBreak"></div>
+      <table>
+        <tbody>
+          {Object.keys(displayItemsObj).map(item => (
+            <tr>
+              <td>
+                <button onClick={() => onRemoveMenuHandler(item)}>-</button>
+                <span >{displayItemsObj[item]}</span>
+                <button onClick={() => onAddMenuHandler(item)}>+</button>
+              </td>
+              <td>
+                {item}
+              </td>
+              <td>
+                {countprice(item, displayItemsObj[item])}
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
     </div>
   );
 };
