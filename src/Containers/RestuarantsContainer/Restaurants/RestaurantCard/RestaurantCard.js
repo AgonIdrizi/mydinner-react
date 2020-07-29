@@ -1,11 +1,15 @@
 import React from "react";
 import './RestaurantCard.scss';
 import Restaurants from "../Restaurants";
+import { withRouter } from 'react-router-dom';
 
-const RestaurantCard = ({ name, type, imgUrl }) => {
+const RestaurantCard = ({id, name, type, imgUrl, history }) => {
+  const clickHandler = (id) => {
+    history.push(`/restaurant/${id}`)
+  }
   return (
-    <div className="RestaurantCardContainer">
-      <div className="ResLogoDiv"><img src={imgUrl} alt="Res Logo" /></div>
+    <div className="RestaurantCardContainer" onClick={() => clickHandler(id)}>
+      <div className="ResLogoDiv"><img src={imgUrl} alt="Res Logo"/></div>
       <div className="ResInfoDiv">
         <p className="ResName">{name}</p>
         <p className="ResType">{type}</p>
@@ -14,4 +18,4 @@ const RestaurantCard = ({ name, type, imgUrl }) => {
   );
 };
 
-export default RestaurantCard;
+export default withRouter(RestaurantCard);

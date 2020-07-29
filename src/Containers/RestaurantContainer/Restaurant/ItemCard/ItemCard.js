@@ -1,12 +1,14 @@
 import React, { useContext } from "react";
 import { CartContext } from "../../../../contexts/CartContext";
 import imgUrl from "../../../../assets/dishes/dish1.jpg";
+import { Button } from "antd";
+import "antd/es/button/style/index.css";
 import "./ItemCard.scss";
 
-const ItemCard = ({ id, name, imgUrl, price }) => {
+const ItemCard = ({ id, name, imgUrl, ingrdients, price }) => {
   const context = useContext(CartContext)
   const { onAddMenuHandler } = context;
-  const item = { id, name, imgUrl, price };
+  const item = { id, name, imgUrl, ingrdients, price };
   
   return (
     <div className="ItemCard">
@@ -17,11 +19,17 @@ const ItemCard = ({ id, name, imgUrl, price }) => {
         <div className="DishInfo">
           <p className="DishName">{name}</p>
           <span className="DishIngredients">
-            sdfskldjfsdlkfjslkdjflksdfklsdflkj sdlkfsdklfjsdlkfjsdfklj
+            mushrooms, tomato sauce, cheese
           </span>
         </div>
         <div className="DishActions">
-          <button onClick={() => onAddMenuHandler(item)}>Add</button>
+          <Button
+            type="default"
+            shape="round"
+            onClick={() => onAddMenuHandler(item)}
+          >
+            Add
+          </Button>
         </div>
       </div>
     </div>

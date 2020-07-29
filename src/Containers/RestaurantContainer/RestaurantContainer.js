@@ -1,6 +1,7 @@
 import React from "react";
 import Restaurant from "./Restaurant/Restaurant";
 
+
 const RestaurantContainer = () => {
   const mockedRestaurantData = {
     restaurantName: "Tivoli",

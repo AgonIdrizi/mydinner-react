@@ -43,6 +43,7 @@ const Restaurants = ({ restaurantData }) => {
             restaurantData.map((elem, index) => (
               <RestaurantCard
                 key={elem.id}
+                id={elem.id}
                 imgUrl={elem.imgUrl}
                 name={elem.restaurantName}
                 type={elem.restaurantType}
@@ -52,6 +53,7 @@ const Restaurants = ({ restaurantData }) => {
             filteredRestaurants.map((elem, index) => (
               <RestaurantCard
                 key={elem.id}
+                id={elem.id}
                 imgUrl={elem.imgUrl}
                 name={elem.restaurantName}
                 type={elem.restaurantType}

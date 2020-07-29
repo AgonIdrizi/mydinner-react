@@ -12,16 +12,16 @@ import RestaurantImage from "../../../assets/restaurant/restaurantImage.jpeg";
 
 const { Search } = Input;
 
-const Restaurant = ({ resData }) => {
+const Restaurant = props => {
   const [categoriesStyle, setCategoriesStyle] = useState({});
   const [menusStyle, setMenusStyle] = useState({});
   const [cartStyle, setCartStyle] = useState({});
   const [categoryClicked, setCategoryClicked] = useState(false);
   const [filteredMenusByCategory, setfilteredMenusByCategory] = useState(
-    resData.restaurantMenus
+    props.resData.restaurantMenus
   );
   const [isSearching, setSearching] = useState(false);
-  const [filteredMenus, setFilteredMenus] = useState({});
+  const [filteredMenus, setFilteredMenus] = useState([]);
 
   const restaurantRef = useRef(null);
   const categoriesRef = useRef(null);
@@ -71,12 +71,12 @@ const Restaurant = ({ resData }) => {
     setSearching(true);
     console.log(event.target.value);
     if (categoryClicked) {
-      const filteredData = filteredMenusByCategory.filter(
-        elem => elem.menuName.toLowerCase().search(event.target.value) !== -1
-      );
+      const filteredData = filteredMenusByCategory.filter(elem => {
+        return elem.menuName.toLowerCase().search(event.target.value) !== -1;
+      });
       setFilteredMenus(filteredData);
     } else {
-      const filteredData = resData.restaurantMenus.filter(
+      const filteredData = props.resData.restaurantMenus.filter(
         elem => elem.menuName.toLowerCase().search(event.target.value) !== -1
       );
       setFilteredMenus(filteredData);
@@ -86,28 +86,27 @@ const Restaurant = ({ resData }) => {
   const onCategoryClickHandler = catName => {
     if (catName === "all") {
       setCategoryClicked(false);
-      setfilteredMenusByCategory(resData.restaurantMenus);
+      setfilteredMenusByCategory(props.resData.restaurantMenus);
     } else {
       setCategoryClicked(true);
-    const filteredByCategory = resData.restaurantMenus.filter(
-      elem => elem.category === catName
-    )
-    setfilteredMenusByCategory(filteredByCategory)
-    console.log(catName);
+      const filteredByCategory = props.resData.restaurantMenus.filter(
+        elem => elem.category === catName
+      );
+      setfilteredMenusByCategory(filteredByCategory);
+      console.log(catName);
     }
-    
-  }
+  };
 
   return (
     <div className="RestaurantContainer">
       <div ref={restaurantRef} className="Restaurant">
         <div className="RestaurantHeader">
-          <h2>{resData.restaurantName}</h2>
+          <h2>{props.resData.restaurantName}</h2>
           <img src={RestaurantImage} alt="restaurant" />
           <div className="RestaurantInfos">
-            <span>{resData.restaurantName}, </span>
-            <span>{resData.restaurantAddress}, </span>
-            <span>{resData.restaurantContact}</span>
+            <span>{props.resData.restaurantName}, </span>
+            <span>{props.resData.restaurantAddress}, </span>
+            <span>{props.resData.restaurantContact}</span>
           </div>
         </div>
 
@@ -118,13 +117,14 @@ const Restaurant = ({ resData }) => {
               style={categoriesStyle}
               className="Categories"
             >
-              <Button type="text" onClick={e => onCategoryClickHandler("all")}>
+              <Button type="link" onClick={e => onCategoryClickHandler("all")}>
                 All
               </Button>
-              {resData.categories.map(category => (
+              {props.resData.categories.map(category => (
                 <Button
-                  type="text"
-                  onClick={e => onCategoryClickHandler(category.catName)}>
+                  type="link"
+                  onClick={e => onCategoryClickHandler(category.catName)}
+                >
                   {category.catName}
                 </Button>
               ))}
@@ -138,17 +138,34 @@ const Restaurant = ({ resData }) => {
               />
             </div>
             {!isSearching &&
-              filteredMenusByCategory.map(elem => (
-                <ItemCard
-                  id={elem.id}
-                  key={elem.id}
-                  name={elem.menuName}
-                  imgUrl={elem.menuImgUrl}
-                  price={elem.price}
-                  ingredients={elem.ingredients}
-                />
-              ))}
-            {isSearching && categoryClicked &&
+              filteredMenusByCategory.map(elem => {
+                return (
+                  <ItemCard
+                    id={elem.id}
+                    key={elem.id}
+                    name={elem.menuName}
+                    imgUrl={elem.menuImgUrl}
+                    price={elem.price}
+                    ingrdients={elem.ingredients}
+                  />
+                );
+              })}
+            {isSearching &&
+              categoryClicked &&
+              filteredMenus.map(elem => {
+                return (
+                  <ItemCard
+                    id={elem.id}
+                    key={elem.id}
+                    name={elem.menuName}
+                    imgUrl={elem.menuImgUrl}
+                    price={elem.price}
+                    ingrdients={elem.ingredients}
+                  />
+                );
+              })}
+            {isSearching &&
+              !categoryClicked &&
               filteredMenus.map(elem => (
                 <ItemCard
                   id={elem.id}
@@ -156,18 +173,7 @@ const Restaurant = ({ resData }) => {
                   name={elem.menuName}
                   imgUrl={elem.menuImgUrl}
                   price={elem.price}
-                  ingredients={elem.ingredients}
-                />
-              ))}
-              {isSearching && !categoryClicked &&
-              filteredMenus.map(elem => (
-                <ItemCard
-                  id={elem.id}
-                  key={elem.id}
-                  name={elem.menuName}
-                  imgUrl={elem.menuImgUrl}
-                  price={elem.price}
-                  ingredients={elem.ingredients}
+                  ingrdients={elem.ingredients}
                 />
               ))}
           </section>
