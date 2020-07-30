@@ -32,4 +32,16 @@
       }
     }
   }
+  .CardCheckout {
+    height: 120px;
+    padding: 10px;
+    div {
+      display: flex;
+      justify-content: space-between;
+      margin-top:10px;
+    }
+    button {
+      margin-top: 10px;;
+    }
+  }
 }

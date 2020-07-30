@@ -31,9 +31,9 @@ const Restaurant = props => {
   useScrollPosition(({ prevPos, currPos }) => {
     console.log(currPos.x, currPos.y);
     if (currPos.y < -390) {
-      categoriesRef.current.style.backgroundColor = "red";
+      categoriesRef.current.style.backgroundColor = "";
       setCategoriesStyle({
-        backgroundColor: "red",
+        backgroundColor: "",
         position: "fixed",
         top: "20px",
         bottom: "auto",
@@ -47,7 +47,7 @@ const Restaurant = props => {
         right: "auto"
       });
       setCartStyle({
-        backgroundColor: "red",
+        backgroundColor: "",
         position: "fixed",
         top: "20px",
         bottom: "auto",

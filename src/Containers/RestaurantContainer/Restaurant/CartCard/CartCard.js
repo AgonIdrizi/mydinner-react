@@ -4,6 +4,7 @@ import LineBreak from "../../../../Components/UI/LineBreak/LineBreak";
 import "./CartCard.scss";
 import { CartContext } from "../../../../contexts/CartContext";
 import { countObjectsWithEqualProperty } from "../../../../utils/helperFunctions";
+import {Button} from "antd"
 
 import  emptyCartImg from "../../../../assets/empty-cart.svg"
 
@@ -59,7 +60,12 @@ const CartCard = ({ restaurantName }) => {
       )}
       {Object.keys(displayItemsObj).length !== 0 ? <LineBreak /> : null}
       {Object.keys(displayItemsObj).length === 0 ? null : (
-        <div style={{ height: "100px" }}>Proceed to checkout</div>
+        <div className="CardCheckout" style={{ height: "120px" }}>
+          <div><span>SubTotal</span><span>{1000}</span></div>
+          <div><span>Delivery Fee</span><span>Free</span></div>
+          <div><span>Total Amount</span><span>{1000}</span></div>
+          <Button style={{backgroundColor:"#00a53c", color: 'white'}}>PROCEED TO CHECKOUT</Button>
+        </div>
       )}
     </div>
   );
