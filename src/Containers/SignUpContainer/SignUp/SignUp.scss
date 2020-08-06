@@ -5,9 +5,12 @@
   flex-direction: column;
   form {
     width: 40%;
+    button {
+      width: 100px;
+      margin-top: 15px;
+      background: rgb(245, 106, 0);
+      border-color: rgb(215, 80, 0);
+    }
   }
-  button {
-    width: 100px;
-    margin-top: 15px;
-  }
+  
 }

@@ -1,4 +1,5 @@
 import React, { createContext, useState } from "react";
+import {withRouter} from "react-router-dom";
 
 export const UserContext = createContext();
 
@@ -10,18 +11,22 @@ const UserContextProvider = props => {
     // async call to backend
     setUser(user);
     // redirect to homepage
+    props.history.push('/')
   }
   const onUserSignUpHandler = user => {
     console.log("onUserLoginHadler", user)
     // async call to backend
     setUser(user);
+
     //redirect to homepage
+    props.history.push('/')
   }
 
   const onUserLogOutHandler = (e) => {
-    e.preventDefault()
+    e.preventDefault();
     setUser(null);
     // go to homepage
+    props.history.push('/')
   }
 
   return (
@@ -32,4 +37,4 @@ const UserContextProvider = props => {
   );
 };
 
-export default UserContextProvider;
+export default withRouter(UserContextProvider);

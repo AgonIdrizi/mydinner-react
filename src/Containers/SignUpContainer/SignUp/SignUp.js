@@ -1,6 +1,7 @@
-import React from "react";
+import React, { useContext } from "react";
 import * as Yup from "yup";
 import Button from "../../../Components/UI/Button/Button";
+import { UserContext } from "../../../contexts/UserContext";
 import { Formik, Form, Field } from "formik";
 import { TextFormField } from "../../../Components/UI/TextFormFields/TextFormField/TextFormField";
 import ErrorMessage from "../../../Components/UI/ErrorMessage/ErrorMessage";
@@ -24,6 +25,9 @@ const schema = Yup.object({
 });
 
 const SignUp = () => {
+  const context = useContext(UserContext);
+  const { onUserSignUpHandler } = context;
+
   return (
     <div className="SignUp">
       <h2>Sign Up</h2>
@@ -35,8 +39,9 @@ const SignUp = () => {
           password: "",
           password_confirmation: ""
         }}
+        onSubmit={(values) => onUserSignUpHandler(values)}
       >
-        {({ values, touched, errors }) => (
+        {({ values, isValid, touched, errors }) => (
           <Form>
             <Field
               label="Username"
@@ -66,10 +71,10 @@ const SignUp = () => {
               component={TextFormField}
             />
             <ErrorMessage name="password_confirmation" />
+            <button className={["ant-btn ant-btn-primary"]} disabled={!isValid} type="submit">Sign Up</button>
           </Form>
         )}
       </Formik>
-      <Button text="Sign Up" type="primary" size="medium" />
     </div>
   );
 };
