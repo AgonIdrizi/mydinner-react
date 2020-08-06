@@ -1,3 +1,5 @@
+@import "../../../styles/variables.scss";
+
 .Login {
   display: flex;
   justify-content: center;
@@ -5,9 +7,15 @@
   flex-direction: column;
   form {
     width: 40%;
+    button {
+      width: 100px;
+      margin-top: 15px;
+      margin-bottom: 10px;
+      background: rgb(245, 106, 0);
+      border-color: rgb(215, 80, 0);
+    }
   }
-  button {
-    width: 100px;
-    margin-top: 15px;
+  .singUpLink {
+    font-size: $font-small;
   }
 }

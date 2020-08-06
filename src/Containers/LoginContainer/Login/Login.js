@@ -1,6 +1,8 @@
-import React from "react";
+import React, { useContext } from "react";
 import * as yup from "yup";
 import { Formik, Form, Field } from "formik";
+import { Link } from "react-router-dom";
+import { UserContext } from "../../../contexts/UserContext";
 import Button from "../../../Components/UI/Button/Button";
 import { TextFormField } from "../../../Components/UI/TextFormFields/TextFormField/TextFormField";
 import ErrorMessage from "../../../Components/UI/ErrorMessage/ErrorMessage";
@@ -19,15 +21,18 @@ const schema = yup.object({
 });
 
 const Login = () => {
+  const context = useContext(UserContext);
+  const { onUserLoginHandler } = context;
+ 
   return (
     <div className="Login">
       <h2>Login</h2>
       <Formik
         validationSchema={schema}
         initialValues={{ username: "", email: "" }}
-        onSubmit={() => {}}
+        onSubmit={(values) => onUserLoginHandler(values)}
       >
-        {() => (
+        {(props) => (
           <Form>
             <Field
               label="Username"
@@ -43,10 +48,14 @@ const Login = () => {
               component={TextFormField}
             />
             <ErrorMessage name="password" />
+            <button className={["ant-btn ant-btn-primary"]} disabled={!props.isValid} type="submit">Login</button>
           </Form>
         )}
       </Formik>
-      <Button text="Login" type="primary" size="medium" />
+      <div className="singUpLink">
+        <span>Not registered?</span>
+        <Link to="/sign-up">Sign Up</Link>
+      </div>
     </div>
   );
 };
