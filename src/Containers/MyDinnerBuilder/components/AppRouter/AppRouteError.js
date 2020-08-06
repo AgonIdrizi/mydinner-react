@@ -7,13 +7,13 @@ const AppRouteError = ({ location, children }) => {
   useEffect(() => {}, [location]);
 
   return (
-    <div>
+    <>
       {isError ? (
         <div>Opps, we couldn't find that, please try again</div>
       ) : (
         children
       )}
-    </div>
+    </>
   );
 };
 

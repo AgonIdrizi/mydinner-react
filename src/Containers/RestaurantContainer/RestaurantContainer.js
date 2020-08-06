@@ -159,15 +159,14 @@ const RestaurantContainer = () => {
     return new Promise(resolve =>
       setTimeout(resolve => {
         setIsLoading(false);
+        setState(mockedRestaurantData);
         return resolve;
       }, milliseconds)
     );
   };
   useEffect(() => {
     const fakeApiCall = async () => {
-      await sleep(2000);
-      setState(mockedRestaurantData);
-      setIsLoading(false);
+      await sleep(1000);
     };
     fakeApiCall();
     return;
