@@ -16,6 +16,11 @@ export const AsyncRestaurant = React.lazy(() =>
   import("../../../RestaurantContainer/RestaurantContainer")
 );
 
+export const AsyncProfile = React.lazy(() =>
+ import("../../../Profile/Profile")
+)
+
 export const AsyncRouteNotExists = React.lazy(() =>
   import("../../../RouteNotExist/RouteNotExist")
 );
+

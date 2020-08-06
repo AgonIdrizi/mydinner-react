@@ -7,7 +7,8 @@ import {
   AsyncLogin,
   AsyncSignUp,
   AsyncRestaurant,
-  AsyncRouteNotExists
+  AsyncRouteNotExists,
+  AsyncProfile
 } from "./AppScreens";
 
 const AppRouter = () => {
@@ -33,6 +34,11 @@ const AppRouter = () => {
       <UnAuthedRoute
         path={ROUTE_PATHS.SIGN_UP}
         render={() => <AsyncSignUp />}
+        exact={true}
+      />
+      <UnAuthedRoute
+        path={ROUTE_PATHS.PROFILE}
+        render={() => <AsyncProfile />}
         exact={true}
       />
 
