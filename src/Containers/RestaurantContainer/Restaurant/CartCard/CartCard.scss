@@ -1,3 +1,5 @@
+@import "../../../../styles//variables.scss";
+
 .CartCard {
   display: flex;
   flex-direction: column;
@@ -33,12 +35,18 @@
     }
   }
   .CardCheckout {
-    height: 120px;
+    height: 150px;
     padding: 10px;
     div {
       display: flex;
       justify-content: space-between;
       margin-top:10px;
+    }
+    .DeliveryFee {
+      span {
+        color: $font-color-light;
+      }
+      
     }
     button {
       margin-top: 10px;;

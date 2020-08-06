@@ -11,7 +11,7 @@ import  emptyCartImg from "../../../../assets/empty-cart.svg"
 const CartCard = ({ restaurantName }) => {
   const [displayItemsObj, setDisplayItemsObj] = useState({});
   const context = useContext(CartContext);
-  const { itemsInCart, onAddMenuHandler, onRemoveMenuHandler } = context;
+  const { itemsInCart, totalAmount, onAddMenuHandler, onRemoveMenuHandler } = context;
 
   useEffect(() => {
     if (itemsInCart.length === 0) {
@@ -60,10 +60,10 @@ const CartCard = ({ restaurantName }) => {
       )}
       {Object.keys(displayItemsObj).length !== 0 ? <LineBreak /> : null}
       {Object.keys(displayItemsObj).length === 0 ? null : (
-        <div className="CardCheckout" style={{ height: "120px" }}>
-          <div><span>SubTotal</span><span>{1000}</span></div>
-          <div><span>Delivery Fee</span><span>Free</span></div>
-          <div><span>Total Amount</span><span>{1000}</span></div>
+        <div className="CardCheckout">
+          <div><span>SubTotal</span><span>{totalAmount}</span></div>
+          <div className="DeliveryFee"><span>Delivery Fee</span><span>Free</span></div>
+          <div><span>Total Amount</span><span>{totalAmount}</span></div>
           <Button style={{backgroundColor:"#00a53c", color: 'white'}}>PROCEED TO CHECKOUT</Button>
         </div>
       )}
