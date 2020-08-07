@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Switch, Route } from "react-router-dom";
 import { AuthedRoute, UnAuthedRoute } from './AppRouterWrapper';
 import { ROUTE_PATHS } from "../../../../config/constants";
@@ -8,10 +8,14 @@ import {
   AsyncSignUp,
   AsyncRestaurant,
   AsyncRouteNotExists,
-  AsyncProfile
+  AsyncProfile,
+  AsyncHome
 } from "./AppScreens";
+import { UserContext } from "../../../../contexts/UserContext";
 
 const AppRouter = () => {
+  const context = useContext(UserContext);
+  const { user } = context;
   return (
     <Switch>
       <UnAuthedRoute
@@ -36,13 +40,14 @@ const AppRouter = () => {
         render={() => <AsyncSignUp />}
         exact={true}
       />
-      <UnAuthedRoute
+      <AuthedRoute
         path={ROUTE_PATHS.PROFILE}
         render={() => <AsyncProfile />}
         exact={true}
+        isAuthed={user != null ? true : false}
       />
 
-      <Route path="/" render={() =><div>Home</div>} exact={true} />
+      <Route path="/" render={() => <AsyncHome />} exact={true} />
       <Route component={AsyncRouteNotExists} />
     </Switch>
   );

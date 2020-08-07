@@ -20,6 +20,10 @@ export const AsyncProfile = React.lazy(() =>
  import("../../../Profile/Profile")
 )
 
+export const AsyncHome = React.lazy(() =>
+  import("../../../Home/HomeContainer")
+);
+
 export const AsyncRouteNotExists = React.lazy(() =>
   import("../../../RouteNotExist/RouteNotExist")
 );
