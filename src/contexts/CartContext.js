@@ -10,7 +10,7 @@ const CartContextProvider = props => {
     if (typeof item == "string") {
       const newitem = itemsInCart.find(elem => elem.name === item);
       setItemsInCart([...itemsInCart, newitem]);
-      setTotalAmount(totalAmount + item.price)
+      setTotalAmount(totalAmount + newitem.price)
       return;
     }
     setItemsInCart([...itemsInCart, item]);
@@ -19,12 +19,11 @@ const CartContextProvider = props => {
 
   const onRemoveMenuHandler = item => {
     let indexOfObject = itemsInCart.findIndex(elem => elem.name === item);
-    console.log(item)
+    let itemToDelete = itemsInCart.find(elem => elem.name === item);
+
     itemsInCart.splice(indexOfObject, 1);
     setItemsInCart([...itemsInCart]);
-    console.log(item)
-    //setTotalAmount(totalAmount - item.price);
-  
+    setTotalAmount(totalAmount - itemToDelete.price);
   };
   return (
     <CartContext.Provider
