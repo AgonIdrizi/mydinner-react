@@ -3,12 +3,11 @@
   border-radius: 4px;
   height: 192px;
   margin: 20px;
+  transition:  margin ease-in 100ms;
   cursor: pointer;
   &:hover {
     margin:0px;
-    
     box-shadow: 0 5px 10px 0 #c2c2c2;
-    transition:  margin ease-in 100ms
   }
 }
 .ResLogoDiv {

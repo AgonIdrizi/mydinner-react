@@ -7,6 +7,7 @@ const RestaurantCard = ({id, name, type, imgUrl, history }) => {
   const clickHandler = (id) => {
     history.push(`/restaurant/${id}`)
   }
+  
   return (
     <div className="RestaurantCardContainer" onClick={() => clickHandler(id)}>
       <div className="ResLogoDiv"><img src={imgUrl} alt="Res Logo"/></div>
