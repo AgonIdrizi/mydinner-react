@@ -1,3 +1,3 @@
 export const TestApiUrls = {
-  restaurantsGet: "https://run.mocky.io/v3/daaadafc-3345-42a2-bd4a-18b75f83d2ff"
+  restaurantsGet: "https://run.mocky.io/v3/4a5f6794-012b-455e-824f-55cf4405a58e"
 }

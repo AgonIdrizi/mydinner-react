@@ -1,33 +1,31 @@
 import React, { useState, useEffect } from "react";
-import axios from 'axios';
+import axios from "axios";
+import useDataApi from "../../hooks/useDataApi";
 import Restaurants from "./Restaurants/Restaurants";
-import { TestApiUrls } from '../../config/testApiUrls';
+import { TestApiUrls } from "../../config/testApiUrls";
 
 const RestaurantsContainer = () => {
-  const [mockedRestaurantData, setMockedRestaurantData] = useState([]);
-  const [isLoading, setIsLoading] = useState(false);
+  const [restaurantData, setRestaurantData] = useState([]);
+  //const [isLoading, setIsLoading] = useState(false);
+  const [{ data, isLoading, isError }, doFetch] = useDataApi(
+    TestApiUrls.restaurantsGet
+  );
 
 
   useEffect(() => {
-    const fetchData = async () => {
-      setIsLoading(true)
-      try {
-        const response = await axios.get(TestApiUrls.restaurantsGet);
-        console.log(response.data)
-
-        setMockedRestaurantData(response.data.restaurants);
-      
-      } catch (error) {
-        console.log('error',error)
-      }
-      setIsLoading(false);
-      
-    };
-   fetchData()
-  }, [])
+     if( data != undefined ) {
+      setRestaurantData(data.restaurants)
+     }
+  },[data])
 
   return (
-   <> { isLoading ? <h1>"Loading"</h1> : <Restaurants restaurants={mockedRestaurantData} />}</>
+    <>
+      {isLoading ? (
+        <h1>"Loading"</h1>
+      ) : (
+        <Restaurants restaurants={restaurantData} />
+      )}
+    </>
   );
 };
 
