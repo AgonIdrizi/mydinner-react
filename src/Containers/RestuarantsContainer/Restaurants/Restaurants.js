@@ -6,7 +6,7 @@ import { Input } from "antd";
 
 const { Search } = Input;
 
-const Restaurants = ({ restaurantData }) => {
+const Restaurants = ({ restaurants }) => {
   const [isSearching, setSearching] = useState(false);
   const [filteredRestaurants, setFilteredRestaurants] = useState([]);
 
@@ -18,7 +18,7 @@ const Restaurants = ({ restaurantData }) => {
     }
     setSearching(true);
     console.log(event.target.value);
-    const filteredData = restaurantData.filter(
+    const filteredData = restaurants.filter(
       elem =>
         elem.restaurantName.toLowerCase().search(event.target.value) !== -1
     );
@@ -40,7 +40,7 @@ const Restaurants = ({ restaurantData }) => {
         </div>
         <div className="AllRestaurants">
           {!isSearching &&
-            restaurantData.map((elem, index) => (
+            restaurants.map((elem, index) => (
               <RestaurantCard
                 key={elem.id}
                 id={elem.id}
