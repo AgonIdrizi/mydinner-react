@@ -1,5 +1,5 @@
 import React, { createContext, useState } from "react";
-import {withRouter} from "react-router-dom";
+import { withRouter } from "react-router-dom";
 
 export const UserContext = createContext();
 

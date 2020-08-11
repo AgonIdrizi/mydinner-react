@@ -1,3 +1,82 @@
 .HomeContainer {
-  
+  .HomeImage {
+    margin-top: 60px;
+    height: 464px!important;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 1;
+    overflow: hidden;
+    background-color: #ffeee5;
+    .ImgBanner1 {
+      position: absolute;
+      left: 0;
+      top: 50px;
+      width: 194px;
+      height: 366px;
+    }
+    .ImgBanner2 {
+      position: absolute;
+      right: 0;
+      width: 349px;
+      height: 471px;
+    }
+  }
+  .HomeSearchInput {
+    position: absolute;
+    padding-bottom: 110px;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    z-index: 2;
+    width: 100%;
+    .SearchActions {
+      display: flex;
+      justify-content: center;
+      button {
+        height: 50px;
+        width: 100px;
+        margin-left: 15px;
+        background: rgb(245, 106, 0);
+      border-color: rgb(215, 80, 0);
+      }
+    }
+  }
+}
+
+.ant-input {
+  height: 52px!important;
+}
+.ant-select {
+  height: 52px!important;
+}
+.ant-select-selection__rendered{
+  height: 52px!important;
+}
+.ant-select-selection--single {
+  height: 52px!important;
+}
+
+.certain-category-search-dropdown .ant-select-dropdown-menu-item-group-title {
+  color: #666;
+  font-weight: bold;
+}
+
+.certain-category-search-dropdown .ant-select-dropdown-menu-item-group {
+  border-bottom: 1px solid #f6f6f6;
+}
+
+.certain-category-search-dropdown .ant-select-dropdown-menu-item {
+  padding-left: 16px;
+}
+
+.certain-category-search-dropdown .ant-select-dropdown-menu-item.show-all {
+  text-align: center;
+  cursor: default;
+}
+
+.certain-category-search-dropdown .ant-select-dropdown-menu {
+  max-height: 300px;
 }
