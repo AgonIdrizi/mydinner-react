@@ -4,13 +4,12 @@ import axios from "axios";
 const useDataApi = (initialUrl, initialData) => {
   const [data, setData] = useState(initialData);
   const [url, setUrl] = useState(initialUrl);
-  const [isLoading, setIsLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
   const [isError, setIsError] = useState(false);
 
   useEffect(() => {
     const fetchData = async () => {
       setIsError(false);
-      setIsLoading(true);
 
       try {
         const result = await axios(url);
@@ -18,10 +17,13 @@ const useDataApi = (initialUrl, initialData) => {
       } catch (error) {
         setIsError(true);
       }
-      setIsLoading(false);
     };
     fetchData();
   }, [url]);
+
+  useEffect(() => {
+    if (data !== undefined) setIsLoading(false);
+  }, [data]);
 
   return [{ data, isLoading, isError }, setUrl];
 }

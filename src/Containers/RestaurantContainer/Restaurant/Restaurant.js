@@ -96,9 +96,10 @@ const Restaurant = props => {
       console.log(catName);
     }
   };
-
+  
   return (
     <div className="RestaurantContainer">
+      { console.log("props Restaurant", props) }
       <div ref={restaurantRef} className="Restaurant">
         <div className="RestaurantHeader">
           <h2>{props.resData.restaurantName}</h2>
