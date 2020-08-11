@@ -10,6 +10,7 @@ const { Option } = AutoComplete;
 
 const Home = () => {
   const [result, setResult] = useState([]);
+  const [selected, setSelected] = useState()
 
   const handleSearch = value => {
     let res = [];
@@ -23,7 +24,16 @@ const Home = () => {
     }
     setResult(res);
   };
-
+  const handleSearchClick = () => {
+    console.log("handleSearchClick")
+  }
+  const handleOnChange = value => {
+    setSelected(value)
+  }
+  const handleOnSelect = (value, option) => {
+    setSelected(value)
+    console.log(value)
+  }
   return (
     <div className="HomeContainer">
       <div className="HomeImage">
@@ -34,11 +44,14 @@ const Home = () => {
         <h1>Order Food online</h1>
         <div className="SearchActions">
           <AutoComplete
+            value={selected}
             style={{
               width: 500,
               zIndex: 1
             }}
             onSearch={handleSearch}
+            onChange={handleOnChange}
+            onSelect={handleOnSelect}
             placeholder="Enter your location"
             allowClear={true}
           >
@@ -48,7 +61,7 @@ const Home = () => {
               </Option>
             ))}
           </AutoComplete>
-          <button className={["ant-btn ant-btn-primary"]} >Search</button>
+          <button className={["ant-btn ant-btn-primary"]} onClick={handleSearchClick} >Search</button>
         </div>
       </div>
     </div>
