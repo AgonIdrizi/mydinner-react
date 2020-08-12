@@ -1,7 +1,9 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./Home.scss";
-import { Input, AutoComplete } from "antd";
+import { Input, AutoComplete, Dropdown } from "antd";
 import Button from "../../../Components/UI/Button/Button";
+import axios from "axios";
+import {TestApiUrls} from "../../../config/testApiUrls"
 
 import banner1 from "../../../assets/home-banners/marshmallow-banner-img-1.webp";
 import banner2 from "../../../assets/home-banners/marshamallow-banner-img-2.webp";
@@ -10,30 +12,41 @@ const { Option } = AutoComplete;
 
 const Home = () => {
   const [result, setResult] = useState([]);
-  const [selected, setSelected] = useState()
+  const [inputValue, setInputValue] = useState("");
+  const [selected, setSelected] = useState("");
+  const [apiResponseError, setApiResponseError] = useState("")
 
-  const handleSearch = value => {
-    let res = [];
-
-    if (!value || value.indexOf("@") >= 0) {
-      res = [];
-    } else {
-      res = ["gmail.com", "163.com", "qq.com"].map(
-        domain => `${value}@${domain}`
-      );
+  useEffect(() => {
+    if (inputValue !== "") {
+      axios
+        .get(TestApiUrls.searchLocationsGet(inputValue))
+        .then(res => {
+          console.log(res);
+          setResult(res.data.map(elem => elem.display_name));
+          setSelected("");
+        })
+        .catch(err => {
+          console.log(err)
+          if (inputValue === "") return;
+          setApiResponseError("Ups there was an error geting data")
+        });
     }
-    setResult(res);
-  };
+  }, [inputValue]);
+
   const handleSearchClick = () => {
-    console.log("handleSearchClick")
-  }
+    console.log("handleSearchClick");
+  };
   const handleOnChange = value => {
-    setSelected(value)
-  }
+    if (value === "") {
+      setSelected("");
+      setResult([]);
+    }
+    setInputValue(value);
+  };
   const handleOnSelect = (value, option) => {
-    setSelected(value)
-    console.log(value)
-  }
+    setSelected(value);
+    console.log(value);
+  };
   return (
     <div className="HomeContainer">
       <div className="HomeImage">
@@ -44,24 +57,30 @@ const Home = () => {
         <h1>Order Food online</h1>
         <div className="SearchActions">
           <AutoComplete
-            value={selected}
+            value={inputValue}
             style={{
               width: 500,
               zIndex: 1
             }}
-            onSearch={handleSearch}
+            //onSearch={handleSearch}
             onChange={handleOnChange}
             onSelect={handleOnSelect}
             placeholder="Enter your location"
             allowClear={true}
+            notFoundContent={apiResponseError !="" ? apiResponseError: ""}
           >
-            {result.map(email => (
-              <Option key={email} value={email}>
-                {email}
+            {(apiResponseError =="") && result.map(elem => (
+              <Option key={elem} value={elem}>
+                {elem}
               </Option>
             ))}
           </AutoComplete>
-          <button className={["ant-btn ant-btn-primary"]} onClick={handleSearchClick} >Search</button>
+          <button
+            className={["ant-btn ant-btn-primary"]}
+            onClick={handleSearchClick}
+          >
+            Search
+          </button>
         </div>
       </div>
     </div>
