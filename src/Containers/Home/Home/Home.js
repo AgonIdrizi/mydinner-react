@@ -27,7 +27,7 @@ const Home = () => {
         })
         .catch(err => {
           console.log(err)
-          if (inputValue === "") return;
+
           setApiResponseError("Ups there was an error geting data")
         });
     }
@@ -40,6 +40,7 @@ const Home = () => {
     if (value === "") {
       setSelected("");
       setResult([]);
+      setApiResponseError("")
     }
     setInputValue(value);
   };
@@ -69,7 +70,7 @@ const Home = () => {
             allowClear={true}
             notFoundContent={apiResponseError !="" ? apiResponseError: ""}
           >
-            {(apiResponseError =="") && result.map(elem => (
+            {result.map(elem => (
               <Option key={elem} value={elem}>
                 {elem}
               </Option>
