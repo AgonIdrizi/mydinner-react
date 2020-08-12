@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import "./Home.scss";
-import { Input, AutoComplete, Dropdown } from "antd";
+import { Input, AutoComplete, Modal } from "antd";
 import Button from "../../../Components/UI/Button/Button";
 import axios from "axios";
 import {TestApiUrls} from "../../../config/testApiUrls"
@@ -14,7 +14,9 @@ const Home = () => {
   const [result, setResult] = useState([]);
   const [inputValue, setInputValue] = useState("");
   const [selected, setSelected] = useState("");
-  const [apiResponseError, setApiResponseError] = useState("")
+  const [apiResponseError, setApiResponseError] = useState("");
+  const [modalVisible, setModalVisible] = useState(false);
+  const [confirmModalLoading, setConfirmModalLoading] = useState(false);
 
   useEffect(() => {
     if (inputValue !== "") {
@@ -48,6 +50,25 @@ const Home = () => {
     setSelected(value);
     console.log(value);
   };
+
+  const showModal = () => {
+    setModalVisible(true)
+  }
+
+  const handleOkModal = () => {
+    setConfirmModalLoading(true);
+    setTimeout(() => {
+      setModalVisible(false);
+      setConfirmModalLoading(false)
+    }, 2000)
+  }
+
+  const handleCancelModal = () => {
+    console.log("clicked cancel button");
+    setModalVisible(false)
+  }
+
+
   return (
     <div className="HomeContainer">
       <div className="HomeImage">
@@ -78,12 +99,22 @@ const Home = () => {
           </AutoComplete>
           <button
             className={["ant-btn ant-btn-primary"]}
-            onClick={handleSearchClick}
+            onClick={showModal}
           >
-            Search
+            Let's go
           </button>
         </div>
       </div>
+      <Modal
+        title="Modal Title"
+        visible={modalVisible}
+        onOk={handleOkModal}
+        confirmLoading={confirmModalLoading}
+        onCancel={handleCancelModal}
+        centered
+      >
+        Modal text goes here
+      </Modal>
     </div>
   );
 };
