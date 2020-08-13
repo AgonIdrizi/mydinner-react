@@ -9,7 +9,8 @@ import {
   AsyncRestaurant,
   AsyncRouteNotExists,
   AsyncProfile,
-  AsyncHome
+  AsyncHome,
+  AsyncCart
 } from "./AppScreens";
 import { UserContext } from "../../../../contexts/UserContext";
 
@@ -38,6 +39,12 @@ const AppRouter = () => {
       <UnAuthedRoute
         path={ROUTE_PATHS.SIGN_UP}
         render={() => <AsyncSignUp />}
+        exact={true}
+      />
+
+      <UnAuthedRoute
+        path={ROUTE_PATHS.CART}
+        render={() => <AsyncCart />}
         exact={true}
       />
       <AuthedRoute

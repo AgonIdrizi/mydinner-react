@@ -4,5 +4,6 @@ export const ROUTE_PATHS = {
   LOGIN: "/login",
   SIGN_UP: "/sign-up",
   PROFILE: "/profile",
-  RESTAURANT: (id = ':id') => `/restaurant/${id}`
+  RESTAURANT: (id = ':id') => `/restaurant/${id}`,
+  CART: "/cart"
 };

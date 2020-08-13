@@ -24,6 +24,10 @@ export const AsyncHome = React.lazy(() =>
   import("../../../Home/HomeContainer")
 );
 
+export const AsyncCart = React.lazy(() =>
+  import("../../../CartContainer/CartContainer")
+);
+
 export const AsyncRouteNotExists = React.lazy(() =>
   import("../../../RouteNotExist/RouteNotExist")
 );

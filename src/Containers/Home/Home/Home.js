@@ -39,7 +39,7 @@ const Home = () => {
     console.log("handleSearchClick");
   };
   const handleOnChange = value => {
-    if (value === "") {
+    if (value === "" || value === undefined) {
       setSelected("");
       setResult([]);
       setApiResponseError("")
