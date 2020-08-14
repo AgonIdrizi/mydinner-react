@@ -3,8 +3,9 @@ import "./Home.scss";
 import { Input, AutoComplete, Modal } from "antd";
 import Button from "../../../Components/UI/Button/Button";
 import axios from "axios";
-import {TestApiUrls} from "../../../config/testApiUrls"
-import LeafletMap from "../LeafletMap/LeafletMap"
+import { TestApiUrls } from "../../../config/testApiUrls";
+import LeafletMap from "../LeafletMap/LeafletMap";
+import useDataApi from "../../../hooks/useDataApi";
 
 import banner1 from "../../../assets/home-banners/marshmallow-banner-img-1.webp";
 import banner2 from "../../../assets/home-banners/marshamallow-banner-img-2.webp";
@@ -18,7 +19,8 @@ const Home = () => {
   const [apiResponseError, setApiResponseError] = useState("");
   const [modalVisible, setModalVisible] = useState(false);
   const [confirmModalLoading, setConfirmModalLoading] = useState(false);
-  const [deliveryAddressLongLang, setDeliveryAddressLongLang] = useState([])
+  const [deliveryAddressLongLang, setDeliveryAddressLongLang] = useState([]);
+  const [deliveryAddressInString, setDeliveryAddressInString] = useState("");
 
   useEffect(() => {
     if (inputValue !== "") {
@@ -30,23 +32,49 @@ const Home = () => {
           setSelected("");
         })
         .catch(err => {
-          console.log(err)
-
-          setApiResponseError("Ups there was an error geting data")
+          console.log(err);
+          setResult([]);
+          setSelected("");
+          setApiResponseError("Ups there was an error geting data");
         });
     }
   }, [inputValue]);
+
+  useEffect(() => {
+    if (deliveryAddressLongLang) {
+      axios
+        .get(TestApiUrls.locationReverseGeocoding(deliveryAddressLongLang))
+        .then(res => {
+          setDeliveryAddressInString(res.data.display_name);
+        })
+        .catch(err => {
+          console.log(err);
+        });
+    }
+  }, [deliveryAddressLongLang]);
 
   const handleSearchClick = () => {
     console.log("handleSearchClick");
   };
   const handleOnChange = value => {
-    if (value === "" || value === undefined) {
+    if (value === "" ) {
       setSelected("");
       setResult([]);
-      setApiResponseError("")
+      setApiResponseError("");
+      setInputValue(value);
     }
-    setInputValue(value);
+    //use case when clear input-value is clicked, value is undefined
+    if (value === undefined) {
+      setSelected("");
+      setResult([]);
+      setApiResponseError("");
+      setInputValue("");
+    }
+
+    if (value !== undefined && value !== "") {
+      setInputValue(value);
+    }
+
   };
   const handleOnSelect = (value, option) => {
     setSelected(value);
@@ -54,25 +82,25 @@ const Home = () => {
   };
 
   const showModal = () => {
-    setModalVisible(true)
-  }
+    setModalVisible(true);
+  };
 
   const handleOkModal = () => {
     setConfirmModalLoading(true);
     setTimeout(() => {
       setModalVisible(false);
-      setConfirmModalLoading(false)
-    }, 2000)
-  }
+      setConfirmModalLoading(false);
+    }, 2000);
+  };
 
   const handleCancelModal = () => {
     console.log("clicked cancel button");
-    setModalVisible(false)
-  }
+    setModalVisible(false);
+  };
 
-  const handleDeliveryAddressChange = (langLong) => {
-    setDeliveryAddressLongLang(langLong)
-  }
+  const handleDeliveryAddressChange = langLong => {
+    setDeliveryAddressLongLang(langLong);
+  };
 
   return (
     <div className="HomeContainer">
@@ -92,20 +120,18 @@ const Home = () => {
             //onSearch={handleSearch}
             onChange={handleOnChange}
             onSelect={handleOnSelect}
+            onClear={() => console.log('OnCancel')}
             placeholder="Enter your location"
             allowClear={true}
-            notFoundContent={apiResponseError !="" ? apiResponseError: ""}
+            notFoundContent={apiResponseError != "" ? apiResponseError : ""}
           >
-            {result.map(elem => (
-              <Option key={elem} value={elem}>
+            {result.map((elem, id) => (
+              <Option key={elem+id} value={elem}>
                 {elem}
               </Option>
             ))}
           </AutoComplete>
-          <button
-            className={["ant-btn ant-btn-primary"]}
-            onClick={showModal}
-          >
+          <button className={["ant-btn ant-btn-primary"]} onClick={showModal}>
             Let's go
           </button>
         </div>
@@ -116,11 +142,13 @@ const Home = () => {
         onOk={handleOkModal}
         confirmLoading={confirmModalLoading}
         onCancel={handleCancelModal}
-        style={{height: '500px'}}
+        style={{ height: "500px" }}
         centered
       >
         <LeafletMap handleDeliveryAddressChange={handleDeliveryAddressChange} />
-        {deliveryAddressLongLang && <div>delivery address {deliveryAddressLongLang}</div>}
+        {deliveryAddressLongLang && (
+          <div>Delivery address: {deliveryAddressInString}</div>
+        )}
       </Modal>
     </div>
   );
