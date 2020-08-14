@@ -4,6 +4,7 @@ import { Input, AutoComplete, Modal } from "antd";
 import Button from "../../../Components/UI/Button/Button";
 import axios from "axios";
 import {TestApiUrls} from "../../../config/testApiUrls"
+import LeafletMap from "../LeafletMap/LeafletMap"
 
 import banner1 from "../../../assets/home-banners/marshmallow-banner-img-1.webp";
 import banner2 from "../../../assets/home-banners/marshamallow-banner-img-2.webp";
@@ -17,6 +18,7 @@ const Home = () => {
   const [apiResponseError, setApiResponseError] = useState("");
   const [modalVisible, setModalVisible] = useState(false);
   const [confirmModalLoading, setConfirmModalLoading] = useState(false);
+  const [deliveryAddressLongLang, setDeliveryAddressLongLang] = useState([])
 
   useEffect(() => {
     if (inputValue !== "") {
@@ -68,6 +70,9 @@ const Home = () => {
     setModalVisible(false)
   }
 
+  const handleDeliveryAddressChange = (langLong) => {
+    setDeliveryAddressLongLang(langLong)
+  }
 
   return (
     <div className="HomeContainer">
@@ -106,14 +111,16 @@ const Home = () => {
         </div>
       </div>
       <Modal
-        title="Modal Title"
+        title="Select delivery adress"
         visible={modalVisible}
         onOk={handleOkModal}
         confirmLoading={confirmModalLoading}
         onCancel={handleCancelModal}
+        style={{height: '500px'}}
         centered
       >
-        Modal text goes here
+        <LeafletMap handleDeliveryAddressChange={handleDeliveryAddressChange} />
+        {deliveryAddressLongLang && <div>delivery address {deliveryAddressLongLang}</div>}
       </Modal>
     </div>
   );
