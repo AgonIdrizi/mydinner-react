@@ -10,11 +10,11 @@ const CartContextProvider = props => {
     if (typeof item == "string") {
       const newitem = itemsInCart.find(elem => elem.name === item);
       setItemsInCart([...itemsInCart, newitem]);
-      setTotalAmount(totalAmount + newitem.price)
+      setTotalAmount(totalAmount + newitem.price);
       return;
     }
     setItemsInCart([...itemsInCart, item]);
-    setTotalAmount(totalAmount + item.price)
+    setTotalAmount(totalAmount + item.price);
   };
 
   const onRemoveMenuHandler = item => {

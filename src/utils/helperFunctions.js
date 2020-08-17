@@ -5,3 +5,8 @@ export const countObjectsWithEqualProperty = arrayOfObjects => {
     return acc;
   }, {});
 };
+
+// returns tru if object is empty
+export const isEmptyObject = obj => {
+  return Object.keys(obj).length === 0;
+}

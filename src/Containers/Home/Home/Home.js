@@ -5,8 +5,8 @@ import Button from "../../../Components/UI/Button/Button";
 import axios from "axios";
 import { TestApiUrls } from "../../../config/testApiUrls";
 import LeafletMap from "../LeafletMap/LeafletMap";
-import useDataApi from "../../../hooks/useDataApi";
 import useDebounce from "../../../hooks/useDebounce";
+import { isEmptyObject } from "../../../utils/helperFunctions"
 
 import banner1 from "../../../assets/home-banners/marshmallow-banner-img-1.webp";
 import banner2 from "../../../assets/home-banners/marshamallow-banner-img-2.webp";
@@ -25,6 +25,9 @@ const Home = () => {
 
   const debounceApiCall = useDebounce(inputValue, 500);
 
+  //ask for browserLocations and then set lan long based on that, otherwise search location from input/map
+
+
   useEffect(() => {
     const fetchData = () => {
       axios
@@ -41,7 +44,7 @@ const Home = () => {
               };
             })
           );
-         // setSelected({});
+          // setSelected({});
         })
         .catch(err => {
           console.log(err);
@@ -82,7 +85,7 @@ const Home = () => {
       setApiResponseError("");
       setInputValue(value);
       setDeliveryAddress("");
-      setDeliveryAddressLongLang([])
+      setDeliveryAddressLongLang([]);
     }
     //use case when clear input-value is clicked, value is undefined
     if (value === undefined) {
@@ -91,7 +94,7 @@ const Home = () => {
       setApiResponseError("");
       setInputValue("");
       setDeliveryAddress({});
-      setDeliveryAddressLongLang([])
+      setDeliveryAddressLongLang([]);
     }
 
     if (value !== undefined && value !== "") {
@@ -99,10 +102,9 @@ const Home = () => {
     }
   };
   const handleOnSelect = (value, option) => {
-    const selectedObject = result.find(elem => elem.display_name === value)
-    setSelected(selectedObject)
-    setDeliveryAddressLongLang([selectedObject.lat, selectedObject.lon])
-
+    const selectedObject = result.find(elem => elem.display_name === value);
+    setSelected(selectedObject);
+    setDeliveryAddressLongLang([selectedObject.lat, selectedObject.lon]);
   };
 
   const showModal = () => {
@@ -119,6 +121,12 @@ const Home = () => {
 
   const handleCancelModal = () => {
     console.log("clicked cancel button");
+    setSelected({});
+    setResult([]);
+    setApiResponseError("");
+    setInputValue("");
+    setDeliveryAddress({});
+    setDeliveryAddressLongLang([]);
     setModalVisible(false);
   };
 
@@ -147,7 +155,7 @@ const Home = () => {
             onClear={() => console.log("OnCancel")}
             placeholder="Enter your location"
             allowClear={true}
-            notFoundContent={apiResponseError != "" ? apiResponseError : ""}
+            notFoundContent={apiResponseError !== "" ? apiResponseError : ""}
           >
             {result &&
               result.map((elem, id) => (
@@ -156,13 +164,17 @@ const Home = () => {
                 </Option>
               ))}
           </AutoComplete>
-          <button className={["ant-btn ant-btn-primary"]} onClick={showModal}>
+          <button
+            disabled={isEmptyObject(selected)}
+            className={["ant-btn ant-btn-primary"]}
+            onClick={showModal}
+          >
             Let's go
           </button>
         </div>
       </div>
       <Modal
-        title="Select delivery adress"
+        title="Select delivery address"
         visible={modalVisible}
         onOk={handleOkModal}
         confirmLoading={confirmModalLoading}
@@ -170,10 +182,11 @@ const Home = () => {
         style={{ height: "500px" }}
         centered
       >
-        <LeafletMap latLon={deliveryAddressLongLang} handleDeliveryAddressChange={handleDeliveryAddressChange} />
-        {deliveryAddressLongLang && (
-          <div>Delivery address: {deliveryAddress.addressName}</div>
-        )}
+        <LeafletMap
+          latLon={deliveryAddressLongLang}
+          handleDeliveryAddressChange={handleDeliveryAddressChange}
+        />
+        <div>Delivery address: {deliveryAddress.addressName}</div>
       </Modal>
     </div>
   );
