@@ -6,6 +6,7 @@ import axios from "axios";
 import { TestApiUrls } from "../../../config/testApiUrls";
 import LeafletMap from "../LeafletMap/LeafletMap";
 import useDataApi from "../../../hooks/useDataApi";
+import useDebounce from "../../../hooks/useDebounce";
 
 import banner1 from "../../../assets/home-banners/marshmallow-banner-img-1.webp";
 import banner2 from "../../../assets/home-banners/marshamallow-banner-img-2.webp";
@@ -13,30 +14,44 @@ import banner2 from "../../../assets/home-banners/marshamallow-banner-img-2.webp
 const { Option } = AutoComplete;
 
 const Home = () => {
-  const [result, setResult] = useState([]);
+  const [result, setResult] = useState([]); // {boundingbox: array, display_name: string, importance: number, lat: string, licence: string, lon}
   const [inputValue, setInputValue] = useState("");
-  const [selected, setSelected] = useState("");
+  const [selected, setSelected] = useState({}); // {boundingbox: array, display_name: string, importance: number, lat: string, licence: string, lon}
   const [apiResponseError, setApiResponseError] = useState("");
   const [modalVisible, setModalVisible] = useState(false);
   const [confirmModalLoading, setConfirmModalLoading] = useState(false);
   const [deliveryAddressLongLang, setDeliveryAddressLongLang] = useState([]);
-  const [deliveryAddressInString, setDeliveryAddressInString] = useState("");
+  const [deliveryAddress, setDeliveryAddress] = useState(""); //{address_name:, postalCode:}
+
+  const debounceApiCall = useDebounce(inputValue, 500);
 
   useEffect(() => {
-    if (inputValue !== "") {
+    const fetchData = () => {
       axios
         .get(TestApiUrls.searchLocationsGet(inputValue))
         .then(res => {
           console.log(res);
-          setResult(res.data.map(elem => elem.display_name));
-          setSelected("");
+          setResult(
+            res.data.map(elem => {
+              console.log("elem", elem);
+              return {
+                display_name: elem.display_name,
+                lat: elem.lat,
+                lon: elem.lon
+              };
+            })
+          );
+         // setSelected({});
         })
         .catch(err => {
           console.log(err);
           setResult([]);
-          setSelected("");
+          setSelected({});
           setApiResponseError("Ups there was an error geting data");
         });
+    };
+    if (inputValue !== "") {
+      fetchData();
     }
   }, [inputValue]);
 
@@ -45,7 +60,11 @@ const Home = () => {
       axios
         .get(TestApiUrls.locationReverseGeocoding(deliveryAddressLongLang))
         .then(res => {
-          setDeliveryAddressInString(res.data.display_name);
+          console.log("deliveryAddress", res.data);
+          setDeliveryAddress({
+            addressName: res.data.display_name,
+            postalCode: res.data.address.postcode
+          });
         })
         .catch(err => {
           console.log(err);
@@ -57,28 +76,33 @@ const Home = () => {
     console.log("handleSearchClick");
   };
   const handleOnChange = value => {
-    if (value === "" ) {
-      setSelected("");
+    if (value === "") {
+      setSelected({});
       setResult([]);
       setApiResponseError("");
       setInputValue(value);
+      setDeliveryAddress("");
+      setDeliveryAddressLongLang([])
     }
     //use case when clear input-value is clicked, value is undefined
     if (value === undefined) {
-      setSelected("");
+      setSelected({});
       setResult([]);
       setApiResponseError("");
       setInputValue("");
+      setDeliveryAddress({});
+      setDeliveryAddressLongLang([])
     }
 
     if (value !== undefined && value !== "") {
       setInputValue(value);
     }
-
   };
   const handleOnSelect = (value, option) => {
-    setSelected(value);
-    console.log(value);
+    const selectedObject = result.find(elem => elem.display_name === value)
+    setSelected(selectedObject)
+    setDeliveryAddressLongLang([selectedObject.lat, selectedObject.lon])
+
   };
 
   const showModal = () => {
@@ -120,16 +144,17 @@ const Home = () => {
             //onSearch={handleSearch}
             onChange={handleOnChange}
             onSelect={handleOnSelect}
-            onClear={() => console.log('OnCancel')}
+            onClear={() => console.log("OnCancel")}
             placeholder="Enter your location"
             allowClear={true}
             notFoundContent={apiResponseError != "" ? apiResponseError : ""}
           >
-            {result.map((elem, id) => (
-              <Option key={elem+id} value={elem}>
-                {elem}
-              </Option>
-            ))}
+            {result &&
+              result.map((elem, id) => (
+                <Option key={elem.display_name + id} value={elem.display_name}>
+                  {elem.display_name}
+                </Option>
+              ))}
           </AutoComplete>
           <button className={["ant-btn ant-btn-primary"]} onClick={showModal}>
             Let's go
@@ -145,9 +170,9 @@ const Home = () => {
         style={{ height: "500px" }}
         centered
       >
-        <LeafletMap handleDeliveryAddressChange={handleDeliveryAddressChange} />
+        <LeafletMap latLon={deliveryAddressLongLang} handleDeliveryAddressChange={handleDeliveryAddressChange} />
         {deliveryAddressLongLang && (
-          <div>Delivery address: {deliveryAddressInString}</div>
+          <div>Delivery address: {deliveryAddress.addressName}</div>
         )}
       </Modal>
     </div>
