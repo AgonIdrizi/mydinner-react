@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import "./Home.scss";
 import { Input, AutoComplete, Modal } from "antd";
 import Button from "../../../Components/UI/Button/Button";
@@ -7,6 +7,7 @@ import { TestApiUrls } from "../../../config/testApiUrls";
 import LeafletMap from "../LeafletMap/LeafletMap";
 import useDebounce from "../../../hooks/useDebounce";
 import { isEmptyObject } from "../../../utils/helperFunctions"
+import { OrderContext } from "../../../contexts/OrderContext";
 
 import banner1 from "../../../assets/home-banners/marshmallow-banner-img-1.webp";
 import banner2 from "../../../assets/home-banners/marshamallow-banner-img-2.webp";
@@ -21,7 +22,9 @@ const Home = () => {
   const [modalVisible, setModalVisible] = useState(false);
   const [confirmModalLoading, setConfirmModalLoading] = useState(false);
   const [deliveryAddressLongLang, setDeliveryAddressLongLang] = useState([]);
-  const [deliveryAddress, setDeliveryAddress] = useState(""); //{address_name:, postalCode:}
+  const [deliveryAddress, setDeliveryAddress] = useState(""); //{address_name: string, postalCode: number}
+  const orderContext = useContext(OrderContext);
+  const { setOrderDeliveryAddress } = orderContext;
 
   const debounceApiCall = useDebounce(inputValue, 500);
 
@@ -115,8 +118,9 @@ const Home = () => {
     setConfirmModalLoading(true);
     setTimeout(() => {
       setModalVisible(false);
+      setOrderDeliveryAddress(deliveryAddress);
       setConfirmModalLoading(false);
-    }, 2000);
+    }, 300);
   };
 
   const handleCancelModal = () => {
