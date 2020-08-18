@@ -2,12 +2,15 @@ import React, { useState } from "react";
 import RestaurantCard from "./RestaurantCard/RestaurantCard";
 import "./Restaurants.scss";
 import "antd/es/input/style/index.css";
-import { Input } from "antd";
+import { Input, Button } from "antd";
 
 const { Search } = Input;
 
+const sortByArray = ['Newest', 'A to Z', 'Min. Order Amount', 'Fastest Delivery']
+
 const Restaurants = ({ restaurants }) => {
   const [isSearching, setSearching] = useState(false);
+  const [sortByClicked, setSortByClicked] = useState("Newest");
   const [filteredRestaurants, setFilteredRestaurants] = useState([]);
 
   const onSearchRestaurantHandler = event => {
@@ -25,6 +28,10 @@ const Restaurants = ({ restaurants }) => {
     setFilteredRestaurants(filteredData);
   };
 
+  const setSortButtonStyle = value => {
+    return value === sortByClicked ? "black" : "grey";
+  }
+
   return (
     <div className="RestaurantsContainer">
       <section className="Restaurants">
@@ -38,6 +45,18 @@ const Restaurants = ({ restaurants }) => {
             style={{ width: 200 }}
           />
         </div>
+        <div className="SortRestaurants">
+          <h3>Sort By:</h3>
+          {sortByArray.map(elem => (
+            <Button
+              style={{color: `${setSortButtonStyle(elem)}`}}
+              onClick={() => setSortByClicked(elem)}
+              type="link"
+            >
+              {elem}
+            </Button>
+          ))}
+      </div>
         <div className="AllRestaurants">
           {!isSearching &&
             restaurants.map((elem, index) => (

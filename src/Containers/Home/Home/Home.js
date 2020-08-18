@@ -8,14 +8,14 @@ import LeafletMap from "../LeafletMap/LeafletMap";
 import useDebounce from "../../../hooks/useDebounce";
 import { isEmptyObject } from "../../../utils/helperFunctions"
 import { OrderContext } from "../../../contexts/OrderContext";
-import _ from "lodash";
+import { withRouter } from "react-router-dom"
 
 import banner1 from "../../../assets/home-banners/marshmallow-banner-img-1.webp";
 import banner2 from "../../../assets/home-banners/marshamallow-banner-img-2.webp";
 
 const { Option } = AutoComplete;
 
-const Home = () => {
+const Home = (props) => {
   const [result, setResult] = useState([]); // {boundingbox: array, display_name: string, importance: number, lat: string, licence: string, lon}
   const [inputValue, setInputValue] = useState("");
   const [selected, setSelected] = useState({}); // {boundingbox: array, display_name: string, importance: number, lat: string, licence: string, lon}
@@ -57,7 +57,6 @@ const Home = () => {
 
   useEffect(() => {
     if (debouncedInputValue) {
-      console.log("useEffect debouncedInputValue", debouncedInputValue)
       fetchData();
     }
   }, [debouncedInputValue])
@@ -121,6 +120,7 @@ const Home = () => {
     setTimeout(() => {
       setModalVisible(false);
       setOrderDeliveryAddress(deliveryAddress);
+      props.history.push("all-restaurants");
       setConfirmModalLoading(false);
     }, 300);
   };
@@ -199,4 +199,4 @@ const Home = () => {
   );
 };
 
-export default Home;
+export default withRouter(Home);
