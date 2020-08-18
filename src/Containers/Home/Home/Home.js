@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from "react";
+import React, { useState, useEffect, useContext, useCallback } from "react";
 import "./Home.scss";
 import { Input, AutoComplete, Modal } from "antd";
 import Button from "../../../Components/UI/Button/Button";
@@ -8,6 +8,7 @@ import LeafletMap from "../LeafletMap/LeafletMap";
 import useDebounce from "../../../hooks/useDebounce";
 import { isEmptyObject } from "../../../utils/helperFunctions"
 import { OrderContext } from "../../../contexts/OrderContext";
+import _ from "lodash";
 
 import banner1 from "../../../assets/home-banners/marshmallow-banner-img-1.webp";
 import banner2 from "../../../assets/home-banners/marshamallow-banner-img-2.webp";
@@ -26,40 +27,40 @@ const Home = () => {
   const orderContext = useContext(OrderContext);
   const { setOrderDeliveryAddress } = orderContext;
 
-  const debounceApiCall = useDebounce(inputValue, 500);
+  const debouncedInputValue = useDebounce(inputValue, 800);
 
+  // todo
   //ask for browserLocations and then set lan long based on that, otherwise search location from input/map
 
+  const fetchData = () => {
+    axios
+      .get(TestApiUrls.searchLocationsGet(inputValue))
+      .then(res => {
+        setResult(
+          res.data.map(elem => {
+            return {
+              display_name: elem.display_name,
+              lat: elem.lat,
+              lon: elem.lon
+            };
+          })
+        );
+        // setSelected({});
+      })
+      .catch(err => {
+        console.log(err);
+        setResult([]);
+        setSelected({});
+        setApiResponseError("Ups there was an error geting data");
+      });
+  };
 
   useEffect(() => {
-    const fetchData = () => {
-      axios
-        .get(TestApiUrls.searchLocationsGet(inputValue))
-        .then(res => {
-          console.log(res);
-          setResult(
-            res.data.map(elem => {
-              console.log("elem", elem);
-              return {
-                display_name: elem.display_name,
-                lat: elem.lat,
-                lon: elem.lon
-              };
-            })
-          );
-          // setSelected({});
-        })
-        .catch(err => {
-          console.log(err);
-          setResult([]);
-          setSelected({});
-          setApiResponseError("Ups there was an error geting data");
-        });
-    };
-    if (inputValue !== "") {
+    if (debouncedInputValue) {
+      console.log("useEffect debouncedInputValue", debouncedInputValue)
       fetchData();
     }
-  }, [inputValue]);
+  }, [debouncedInputValue])
 
   useEffect(() => {
     if (deliveryAddressLongLang) {
@@ -102,6 +103,7 @@ const Home = () => {
 
     if (value !== undefined && value !== "") {
       setInputValue(value);
+      setResult([]);
     }
   };
   const handleOnSelect = (value, option) => {
@@ -149,6 +151,7 @@ const Home = () => {
         <div className="SearchActions">
           <AutoComplete
             value={inputValue}
+            filterOption={true}
             style={{
               width: 500,
               zIndex: 1
