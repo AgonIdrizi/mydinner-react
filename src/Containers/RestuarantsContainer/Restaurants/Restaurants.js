@@ -106,6 +106,7 @@ const Restaurants = ({ restaurants }) => {
           <h3>Sort By:</h3>
           {sortByArray.map(elem => (
             <Button
+              key={elem}
               style={{ color: `${setSortButtonStyle(elem)}` }}
               onClick={() => onSortByClickHandler(elem)}
               type="link"

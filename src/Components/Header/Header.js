@@ -5,6 +5,7 @@ import { Menu, Dropdown } from "antd";
 import "antd/es/menu/style/index";
 import "antd/es/dropdown/style/index";
 import "./Header.scss";
+import Logo from "../../assets/logo.png";
 
 import { DownOutlined } from "@ant-design/icons";
 
@@ -28,7 +29,7 @@ const Header = () => {
   return (
     <header className="Header">
       <div className="NavContent">
-        <h2>Food IN</h2>
+      <h2><Link to="/"><img src={Logo} alt="Food In"></img></Link></h2>
         <ul>
           <li>
             <Link to="/all-restaurants">All Restaurants</Link>
