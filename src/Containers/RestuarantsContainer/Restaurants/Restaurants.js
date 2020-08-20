@@ -15,7 +15,6 @@ const sortByArray = [
   "Fastest Delivery"
 ];
 
-
 const Restaurants = ({ restaurants }) => {
   const [allRestaurants, setAllRestaurants] = useState([]);
   const [filteredRestaurants, setFilteredRestaurants] = useState([]);
@@ -44,7 +43,14 @@ const Restaurants = ({ restaurants }) => {
       const sortedObject = entries.sort((a, b) => b[1] - a[1]);
       setFilterByCuisine(sortedObject);
     }
-  }, [restaurants])
+    if (isSearching) {
+      const countCuisines = countObjectOccurences(filteredRestaurants, "restaurantType");
+
+      const entries = Object.entries(countCuisines);
+      const sortedObject = entries.sort((a, b) => b[1] - a[1]);
+      setFilterByCuisine(sortedObject);
+    }
+  }, [restaurants, filteredRestaurants])
 
   const onSearchRestaurantHandler = event => {
     if (event.target.value === "") {
@@ -59,8 +65,6 @@ const Restaurants = ({ restaurants }) => {
         elem.restaurantName.toLowerCase().search(event.target.value) !== -1
     );
     const sortedData = sortByHandler(filteredData);
-    //sortByHandler()
-    console.log("sortedData", sortedData);
     setFilteredRestaurants(sortedData);
   };
 
@@ -146,7 +150,7 @@ const Restaurants = ({ restaurants }) => {
             <div className="FilterRestaurants">
               <Filter
                 filterByCuisine={filterByCuisine}
-                onCheckBoxClickHandle={onCheckBoxClickHandler}
+                onCheckBoxClickHandler={onCheckBoxClickHandler}
               />
             </div>
           </div>

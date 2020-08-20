@@ -13,11 +13,6 @@ export const isEmptyObject = obj => {
 
 export const countObjectOccurences = (array, type) => {
   const obj = {}
-  array.map(elem => {
-    if (obj[elem[type]] === undefined) {
-      obj[elem[type]] = 1;
-    }
-    obj[elem[type]]++;
-  })
+  array.map(elem => (obj[elem[type]] === undefined) ? obj[elem[type]] = 1 : obj[elem[type]]++ );
   return obj;
 }

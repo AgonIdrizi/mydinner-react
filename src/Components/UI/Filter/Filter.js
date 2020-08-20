@@ -2,16 +2,16 @@ import React from 'react';
 import { Checkbox } from "antd";
 import "./Filter.scss";
 
-const Filter = (props) => {
+const Filter = ({filterByCuisine, onCheckBoxClickHandler}) => {
   const onChange= (value) => {
-    props.onCheckBoxClickHandle(value)
+    onCheckBoxClickHandler(value)
     console.log(value)
   }
   return (
     <div className="Filters">
-      {props.filterByCuisine.map(elem => (
+      {filterByCuisine.map(elem => (
         <div className="Checkbox">
-          <Checkbox onChange={() => onChange(elem.restaurantType)}>{elem[0]}</Checkbox>
+          <Checkbox onChange={() => onChange(elem[0])}>{elem[0]}</Checkbox>
           <span>{elem[1]}</span>
         </div>
       ))}
