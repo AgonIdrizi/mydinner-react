@@ -9,10 +9,10 @@ const Filter = (props) => {
   }
   return (
     <div className="Filters">
-      {props.filterArray.map(elem => (
+      {props.filterByCuisine.map(elem => (
         <div className="Checkbox">
-          <Checkbox onChange={() => onChange(elem.restaurantType)}>{elem.restaurantType}</Checkbox>
-          <span>{elem.count}</span>
+          <Checkbox onChange={() => onChange(elem.restaurantType)}>{elem[0]}</Checkbox>
+          <span>{elem[1]}</span>
         </div>
       ))}
     </div>

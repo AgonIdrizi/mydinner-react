@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import RestaurantCard from "./RestaurantCard/RestaurantCard";
 import Filter from "../../../Components/UI/Filter/Filter";
+import { countObjectOccurences } from "../../../utils/helperFunctions";
 import "./Restaurants.scss";
 import "antd/es/input/style/index.css";
 import { Input, Button } from "antd";
@@ -14,34 +15,13 @@ const sortByArray = [
   "Fastest Delivery"
 ];
 
-const filterArray = [
-  "Sandwiches",
-  "Burgers",
-  "Healthy",
-  "Desserts",
-  "Oriental",
-  "Juices&Sandwiches",
-  "Italian",
-  "Traditional albanian",
-  "Traditional English"
-];
 
 const Restaurants = ({ restaurants }) => {
   const [allRestaurants, setAllRestaurants] = useState([]);
   const [filteredRestaurants, setFilteredRestaurants] = useState([]);
   const [isSearching, setSearching] = useState(false);
   const [sortByClicked, setSortByClicked] = useState("Newest");
-  const [filterByType, setTypeByCuisine] = useState([
-    { restaurantType: "Sendwiches", count: 4 },
-    { restaurantType: "Burgers", count: 4 },
-    { restaurantType: "Healthy", count: 3 },
-    { restaurantType: "Desserts", count: 5 },
-    { restaurantType: "Oriental", count: 6 },
-    { restaurantType: "Juices&Sandwiches", count: 6 },
-    { restaurantType: "Italian", count: 6 },
-    { restaurantType: "Traditional albanian", count: 6 },
-    { restaurantType: "Traditional English", count: 6 }
-  ]);
+  const [filterByCuisine, setFilterByCuisine] = useState([]);
   const [cuisineFilterChecboxes, setCuisineFilterCheckboxes] = useState([])
 
   useEffect(() => {
@@ -55,6 +35,16 @@ const Restaurants = ({ restaurants }) => {
       setFilteredRestaurants(filteredData);
     }
   }, [filteredRestaurants, sortByClicked]);
+
+  useEffect(() => {
+    if (restaurants) {
+      const countCuisines = countObjectOccurences(restaurants, "restaurantType");
+
+      const entries = Object.entries(countCuisines);
+      const sortedObject = entries.sort((a, b) => b[1] - a[1]);
+      setFilterByCuisine(sortedObject);
+    }
+  }, [restaurants])
 
   const onSearchRestaurantHandler = event => {
     if (event.target.value === "") {
@@ -154,7 +144,10 @@ const Restaurants = ({ restaurants }) => {
               />
             </div>
             <div className="FilterRestaurants">
-              <Filter filterArray={filterByType} onCheckBoxClickHandle={onCheckBoxClickHandler} />
+              <Filter
+                filterByCuisine={filterByCuisine}
+                onCheckBoxClickHandle={onCheckBoxClickHandler}
+              />
             </div>
           </div>
           <div className="AllRestaurants">
