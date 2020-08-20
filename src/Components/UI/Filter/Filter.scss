@@ -1,0 +1,10 @@
+.Filters {
+  display: flex;
+  flex-direction: column;
+  .Checkbox {
+    display: flex;
+    justify-content: space-between;
+    margin: 0 5px 0 5px;
+  }
+  
+}

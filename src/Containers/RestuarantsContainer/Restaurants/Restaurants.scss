@@ -16,6 +16,37 @@
     align-items: baseline;
   }
 
+  .ResInnerContainer {
+    display: flex;
+    .SearchFilterContainer {
+      display: flex;
+      flex-direction: column;
+      width: 25%;
+      .RestaurantSearchInput {
+        text-align: right;
+        span {
+          margin-right: 40px;
+          margin-right: 20px;
+          margin-bottom: 30px;
+          .ant-input-suffix{
+            
+            margin-right: 0px;
+          }
+        }
+      }
+
+      .FilterRestaurants {
+
+      }
+    }
+    .AllRestaurants {
+      width: 75%;;
+      padding-bottom: 20px;
+      margin-left: 20px;
+      margin-right: 40px;
+    }
+  }
+
 }
 
 .RestaurantHeaderText{
@@ -49,15 +80,6 @@
       margin-right: 0px;
     }
   }
-}
-
-.AllRestaurants {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(170px, 1fr) ) ;
-  grid-auto-rows: 234px;
-  padding-bottom: 20px;
-  margin-left: 20px;
-  margin-right: 40px;
 }
 
 
