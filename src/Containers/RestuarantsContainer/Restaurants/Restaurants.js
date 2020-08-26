@@ -19,53 +19,80 @@ const Restaurants = ({ restaurants }) => {
   const [allRestaurants, setAllRestaurants] = useState([]);
   const [filteredRestaurants, setFilteredRestaurants] = useState([]);
   const [isSearching, setSearching] = useState(false);
+  const [searchValue, setSearchValue] = useState("");
   const [sortByClicked, setSortByClicked] = useState("Newest");
   const [filterByCuisine, setFilterByCuisine] = useState([]);
-  const [cuisineFilterChecboxes, setCuisineFilterCheckboxes] = useState([])
+  const [cuisineFilterChecboxes, setCuisineFilterCheckboxes] = useState([]);
 
   useEffect(() => {
     const allrestaurants = sortByHandler(restaurants);
-    setAllRestaurants([...allrestaurants]);
-  }, [sortByClicked, restaurants]);
+    if (cuisineFilterChecboxes.length === 0) {
+      setAllRestaurants([...allrestaurants]);
+      return;
+    }
+    if (cuisineFilterChecboxes.length !== 0) {
+      const array = [];
+      cuisineFilterChecboxes.forEach(value => {
+        const filteredByCheckbox = allrestaurants.filter(
+          elem => elem.restaurantType === value
+        );
+        console.log(filteredByCheckbox);
+        array.push([...filteredByCheckbox]);
+      });
+      setAllRestaurants(array.flat());
+    }
+  }, [sortByClicked, cuisineFilterChecboxes, restaurants]);
 
   useEffect(() => {
-    if (filteredRestaurants) {
-      const filteredData = sortByHandler(filteredRestaurants);
-      setFilteredRestaurants(filteredData);
-    }
-  }, [filteredRestaurants, sortByClicked]);
+    if (isSearching) {
+      const filteredData = restaurants.filter(
+        elem => elem.restaurantName.toLowerCase().search(searchValue) !== -1
+      );
+      const sortedData = sortByHandler(filteredData);
 
+      if (cuisineFilterChecboxes.length === 0) {
+        setFilteredRestaurants([...sortedData]);
+        return;
+      }
+
+      let filteredByCuisine = [];
+      if (cuisineFilterChecboxes.length !== 0) {
+        cuisineFilterChecboxes.forEach(cuisine => {
+          const tempArray = sortedData.filter(
+            elem => elem.restaurantType === cuisine
+          );
+          filteredByCuisine.push([...tempArray]);
+        });
+      }
+
+      setFilteredRestaurants(filteredByCuisine.flat());
+    }
+  }, [sortByClicked, cuisineFilterChecboxes, searchValue]);
+
+  // useEffect to display Filter data
   useEffect(() => {
     if (restaurants) {
-      const countCuisines = countObjectOccurences(restaurants, "restaurantType");
-
+      const countCuisines = countObjectOccurences(
+        restaurants,
+        "restaurantType"
+      );
       const entries = Object.entries(countCuisines);
       const sortedObject = entries.sort((a, b) => b[1] - a[1]);
       setFilterByCuisine(sortedObject);
     }
-    if (isSearching) {
-      const countCuisines = countObjectOccurences(filteredRestaurants, "restaurantType");
-
-      const entries = Object.entries(countCuisines);
-      const sortedObject = entries.sort((a, b) => b[1] - a[1]);
-      setFilterByCuisine(sortedObject);
-    }
-  }, [restaurants, filteredRestaurants])
+  }, [restaurants]);
 
   const onSearchRestaurantHandler = event => {
     if (event.target.value === "") {
       setSearching(false);
+      setSearchValue("");
       setFilteredRestaurants([]);
       return;
     }
+
+    setSearchValue(event.target.value);
     setSearching(true);
     console.log(event.target.value);
-    const filteredData = restaurants.filter(
-      elem =>
-        elem.restaurantName.toLowerCase().search(event.target.value) !== -1
-    );
-    const sortedData = sortByHandler(filteredData);
-    setFilteredRestaurants(sortedData);
   };
 
   const sortByHandler = array => {
@@ -103,12 +130,15 @@ const Restaurants = ({ restaurants }) => {
   const onCheckBoxClickHandler = value => {
     let indexOfElem = cuisineFilterChecboxes.findIndex(elem => elem === value);
 
-    indexOfElem === -1
-      ? setCuisineFilterCheckboxes([...cuisineFilterChecboxes, value])
-      : setCuisineFilterCheckboxes(
-          cuisineFilterChecboxes.slice(0, indexOfElem)
-        );
-  }
+    if (indexOfElem === -1) {
+      setCuisineFilterCheckboxes([...cuisineFilterChecboxes, value]);
+    } else {
+      const updatedCuisineFilterCheckboxes = cuisineFilterChecboxes.filter(
+        elem => elem != value
+      );
+      setCuisineFilterCheckboxes(updatedCuisineFilterCheckboxes);
+    }
+  };
 
   const setSortButtonStyle = value => {
     return value === sortByClicked ? "black" : "grey";
