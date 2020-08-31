@@ -50,8 +50,23 @@ const Restaurants = ({ restaurants }) => {
       );
       const sortedData = sortByHandler(filteredData);
 
+
       if (cuisineFilterChecboxes.length === 0) {
         setFilteredRestaurants([...sortedData]);
+
+        const countFilteredCuisines = countObjectOccurences(
+          sortedData,
+          "restaurantType"
+        );
+
+        Object.keys(filterByCuisine).map(key => {
+          if (Object.keys(countFilteredCuisines).includes(key)) {
+            console.log('key',Object.keys(countFilteredCuisines).includes(key) )
+            filterByCuisine[key] = countFilteredCuisines[key]
+          } else {
+            filterByCuisine[key] = 0
+          }
+        })
         return;
       }
 
@@ -64,7 +79,22 @@ const Restaurants = ({ restaurants }) => {
           filteredByCuisine.push([...tempArray]);
         });
       }
+      
+      const countFilteredCuisines = countObjectOccurences(
+        filteredByCuisine.flat(),
+        "restaurantType"
+      );
 
+      Object.keys(filterByCuisine).map(key => {
+        if (Object.keys(countFilteredCuisines).includes(key)) {
+          console.log('key',Object.keys(countFilteredCuisines).includes(key) )
+          filterByCuisine[key] = countFilteredCuisines[key]
+          console.log('filteredByCuisine', filteredByCuisine)
+        } else {
+          filterByCuisine[key] = 0
+        }
+      })
+      //setFilterByCuisine(filterByCuisine);
       setFilteredRestaurants(filteredByCuisine.flat());
     }
   }, [sortByClicked, cuisineFilterChecboxes, searchValue]);
@@ -76,9 +106,10 @@ const Restaurants = ({ restaurants }) => {
         restaurants,
         "restaurantType"
       );
-      const entries = Object.entries(countCuisines);
-      const sortedObject = entries.sort((a, b) => b[1] - a[1]);
-      setFilterByCuisine(sortedObject);
+      console.log('countCousines',countCuisines)
+      //const entries = Object.entries(countCuisines);
+      //const sortedObject = entries.sort((a, b) => b[1] - a[1]);
+      setFilterByCuisine(countCuisines);
     }
   }, [restaurants]);
 

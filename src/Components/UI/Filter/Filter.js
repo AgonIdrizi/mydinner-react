@@ -9,7 +9,7 @@ const Filter = ({filterByCuisine, onCheckBoxClickHandler}) => {
   }
   return (
     <div className="Filters">
-      {filterByCuisine.map(elem => (
+      {Object.entries(filterByCuisine).map(elem => (
         <div className="Checkbox">
           <Checkbox onChange={() => onChange(elem[0])}>{elem[0]}</Checkbox>
           <span>{elem[1]}</span>
