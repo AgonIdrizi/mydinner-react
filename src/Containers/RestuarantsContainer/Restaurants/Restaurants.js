@@ -50,23 +50,11 @@ const Restaurants = ({ restaurants }) => {
       );
       const sortedData = sortByHandler(filteredData);
 
+      const countFilteredCuisines = countObjectOccurences(filteredData, "restaurantType");
 
       if (cuisineFilterChecboxes.length === 0) {
         setFilteredRestaurants([...sortedData]);
-
-        const countFilteredCuisines = countObjectOccurences(
-          sortedData,
-          "restaurantType"
-        );
-
-        Object.keys(filterByCuisine).map(key => {
-          if (Object.keys(countFilteredCuisines).includes(key)) {
-            console.log('key',Object.keys(countFilteredCuisines).includes(key) )
-            filterByCuisine[key] = countFilteredCuisines[key]
-          } else {
-            filterByCuisine[key] = 0
-          }
-        })
+        updateCuisineFilterCheckboxData(filterByCuisine, countFilteredCuisines);
         return;
       }
 
@@ -79,39 +67,24 @@ const Restaurants = ({ restaurants }) => {
           filteredByCuisine.push([...tempArray]);
         });
       }
-      
-      const countFilteredCuisines = countObjectOccurences(
-        filteredByCuisine.flat(),
-        "restaurantType"
-      );
+      updateCuisineFilterCheckboxData(filterByCuisine, countFilteredCuisines);
 
-      Object.keys(filterByCuisine).map(key => {
-        if (Object.keys(countFilteredCuisines).includes(key)) {
-          console.log('key',Object.keys(countFilteredCuisines).includes(key) )
-          filterByCuisine[key] = countFilteredCuisines[key]
-          console.log('filteredByCuisine', filteredByCuisine)
-        } else {
-          filterByCuisine[key] = 0
-        }
-      })
-      //setFilterByCuisine(filterByCuisine);
       setFilteredRestaurants(filteredByCuisine.flat());
     }
   }, [sortByClicked, cuisineFilterChecboxes, searchValue]);
 
   // useEffect to display Filter data
   useEffect(() => {
-    if (restaurants) {
-      const countCuisines = countObjectOccurences(
-        restaurants,
-        "restaurantType"
-      );
-      console.log('countCousines',countCuisines)
-      //const entries = Object.entries(countCuisines);
-      //const sortedObject = entries.sort((a, b) => b[1] - a[1]);
+    const countCuisines = countObjectOccurences(restaurants, "restaurantType");
+    //display filter data when restaurants data changes
+    if (restaurants && !isSearching) {
       setFilterByCuisine(countCuisines);
     }
-  }, [restaurants]);
+    // update filter data when search is
+    if (!isSearching) {
+      setFilterByCuisine(countCuisines);
+    }
+  }, [restaurants, searchValue]);
 
   const onSearchRestaurantHandler = event => {
     if (event.target.value === "") {
@@ -125,6 +98,17 @@ const Restaurants = ({ restaurants }) => {
     setSearching(true);
     console.log(event.target.value);
   };
+
+
+  const updateCuisineFilterCheckboxData = (filterByCuisine, countFilteredCuisines) => {
+    Object.keys(filterByCuisine).map(key => {
+      if (Object.keys(countFilteredCuisines).includes(key)) {
+        filterByCuisine[key] = countFilteredCuisines[key];
+      } else {
+        filterByCuisine[key] = 0;
+      }
+    });
+  }
 
   const sortByHandler = array => {
     switch (sortByClicked) {
