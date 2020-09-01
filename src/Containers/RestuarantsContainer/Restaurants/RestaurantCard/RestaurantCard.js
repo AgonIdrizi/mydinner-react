@@ -12,7 +12,7 @@ const RestaurantCard = ({id, name, type, imgUrl, history }) => {
     <div className="RestaurantCardContainer" onClick={() => clickHandler(id)}>
       <div className="ResLogoDiv"><img src={imgUrl} alt="Res Logo"/></div>
       <div className="ResInfoDiv">
-        <p className="ResName">{name}</p>
+        <h3 className="ResName">{name}</h3>
         <p className="ResType">{type}</p>
       </div>
     </div>

@@ -1,7 +1,8 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import RestaurantCard from "./RestaurantCard/RestaurantCard";
 import Filter from "../../../Components/UI/Filter/Filter";
 import { countObjectOccurences } from "../../../utils/helperFunctions";
+import { useScrollPosition } from "@n8tb1t/use-scroll-position";
 import "./Restaurants.scss";
 import "antd/es/input/style/index.css";
 import { Input, Button } from "antd";
@@ -23,6 +24,10 @@ const Restaurants = ({ restaurants }) => {
   const [sortByClicked, setSortByClicked] = useState("Newest");
   const [filterByCuisine, setFilterByCuisine] = useState([]);
   const [cuisineFilterChecboxes, setCuisineFilterCheckboxes] = useState([]);
+  const [filterDivStyle, setFilterDivStyle] = useState({})
+  const [restaurantCartDivStyle, setRestauranCarttDivStyle] = useState({})
+  const restaurantDivRef = useRef(null)
+  const filterDivRef = useRef(null);
 
   useEffect(() => {
     const allrestaurants = sortByHandler(restaurants);
@@ -85,6 +90,29 @@ const Restaurants = ({ restaurants }) => {
       setFilterByCuisine(countCuisines);
     }
   }, [restaurants, searchValue]);
+
+  useScrollPosition(({prevPos, currPos}) => {
+    console.log(currPos.x, currPos.y);
+    if (currPos.y < -150) {
+      setFilterDivStyle({
+        position: "fixed",
+        top: "20px",
+      })
+      setRestauranCarttDivStyle({
+        marginLeft: '25%'
+      })
+    } else {
+      setFilterDivStyle({
+        display: 'flex',
+        flexDirection: 'column',
+        width: '25%',
+      })
+      setRestauranCarttDivStyle({
+        
+      })
+    }
+    
+  })
 
   const onSearchRestaurantHandler = event => {
     if (event.target.value === "") {
@@ -184,7 +212,7 @@ const Restaurants = ({ restaurants }) => {
           ))}
         </div>
         <section className="ResInnerContainer">
-          <div className="SearchFilterContainer">
+          <div ref={filterDivRef} style={filterDivStyle} className="SearchFilterContainer">
             <div className="RestaurantSearchInput">
               <Search
                 placeholder="input search text"
@@ -199,7 +227,7 @@ const Restaurants = ({ restaurants }) => {
               />
             </div>
           </div>
-          <div className="AllRestaurants">
+          <div ref={restaurantDivRef} style={restaurantCartDivStyle} className="AllRestaurants">
             {!isSearching &&
               allRestaurants.map((elem, index) => (
                 <RestaurantCard

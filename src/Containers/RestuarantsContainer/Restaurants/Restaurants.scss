@@ -11,7 +11,7 @@
   margin-right: auto;
   margin-left: auto;
   .SortRestaurants {
-    margin-left: 40px;
+    margin-left: 25%;
     display: flex;
     align-items: baseline;
   }
@@ -89,12 +89,20 @@
   }
   
 }
-@media (max-width: 777px){
+@media (max-width: 1000px){
   .AllRestaurants {
     margin-right: 0px;;
+  }
+  .SortRestaurants {
+    margin-left: 0px!important;
+    display: flex;
+    align-items: baseline;
   }
   .RestaurantSearchInput{
     text-align:center;
     margin: 0px;
   } 
+  .SearchFilterContainer {
+    width: 35%!important;
+  }
 }
