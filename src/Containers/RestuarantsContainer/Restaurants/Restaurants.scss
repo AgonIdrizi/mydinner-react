@@ -21,12 +21,11 @@
     .SearchFilterContainer {
       display: flex;
       flex-direction: column;
-      width: 25%;
       .RestaurantSearchInput {
         text-align: right;
         span {
-          margin-right: 40px;
-          margin-right: 20px;
+          margin-right: 10px;
+          margin-left: 10px;
           margin-bottom: 30px;
           .ant-input-suffix{
             
@@ -101,6 +100,9 @@
   .RestaurantSearchInput{
     text-align:center;
     margin: 0px;
+    span {
+      margin-left: 0px;
+    }
   } 
   .SearchFilterContainer {
     width: 35%!important;

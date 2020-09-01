@@ -24,9 +24,9 @@ const Restaurants = ({ restaurants }) => {
   const [sortByClicked, setSortByClicked] = useState("Newest");
   const [filterByCuisine, setFilterByCuisine] = useState([]);
   const [cuisineFilterChecboxes, setCuisineFilterCheckboxes] = useState([]);
-  const [filterDivStyle, setFilterDivStyle] = useState({})
-  const [restaurantCartDivStyle, setRestauranCarttDivStyle] = useState({})
-  const restaurantDivRef = useRef(null)
+  const [filterDivStyle, setFilterDivStyle] = useState({});
+  const [restaurantCartDivStyle, setRestauranCarttDivStyle] = useState({});
+  const restaurantDivRef = useRef(null);
   const filterDivRef = useRef(null);
 
   useEffect(() => {
@@ -55,7 +55,10 @@ const Restaurants = ({ restaurants }) => {
       );
       const sortedData = sortByHandler(filteredData);
 
-      const countFilteredCuisines = countObjectOccurences(filteredData, "restaurantType");
+      const countFilteredCuisines = countObjectOccurences(
+        filteredData,
+        "restaurantType"
+      );
 
       if (cuisineFilterChecboxes.length === 0) {
         setFilteredRestaurants([...sortedData]);
@@ -91,28 +94,25 @@ const Restaurants = ({ restaurants }) => {
     }
   }, [restaurants, searchValue]);
 
-  useScrollPosition(({prevPos, currPos}) => {
+  useScrollPosition(({ prevPos, currPos }) => {
     console.log(currPos.x, currPos.y);
+    console.log("filterDivRef.current", filterDivRef.current.style.offsetLeft);
     if (currPos.y < -150) {
       setFilterDivStyle({
         position: "fixed",
-        top: "20px",
-      })
+        top: "20px"
+      });
       setRestauranCarttDivStyle({
-        marginLeft: '25%'
-      })
+        marginLeft: "24%"
+      });
     } else {
       setFilterDivStyle({
-        display: 'flex',
-        flexDirection: 'column',
-        width: '25%',
-      })
-      setRestauranCarttDivStyle({
-        
-      })
+        display: "flex",
+        flexDirection: "column"
+      });
+      setRestauranCarttDivStyle({});
     }
-    
-  })
+  });
 
   const onSearchRestaurantHandler = event => {
     if (event.target.value === "") {
@@ -127,8 +127,10 @@ const Restaurants = ({ restaurants }) => {
     console.log(event.target.value);
   };
 
-
-  const updateCuisineFilterCheckboxData = (filterByCuisine, countFilteredCuisines) => {
+  const updateCuisineFilterCheckboxData = (
+    filterByCuisine,
+    countFilteredCuisines
+  ) => {
     Object.keys(filterByCuisine).map(key => {
       if (Object.keys(countFilteredCuisines).includes(key)) {
         filterByCuisine[key] = countFilteredCuisines[key];
@@ -136,7 +138,7 @@ const Restaurants = ({ restaurants }) => {
         filterByCuisine[key] = 0;
       }
     });
-  }
+  };
 
   const sortByHandler = array => {
     switch (sortByClicked) {
@@ -212,7 +214,11 @@ const Restaurants = ({ restaurants }) => {
           ))}
         </div>
         <section className="ResInnerContainer">
-          <div ref={filterDivRef} style={filterDivStyle} className="SearchFilterContainer">
+          <div
+            ref={filterDivRef}
+            style={filterDivStyle}
+            className="SearchFilterContainer"
+          >
             <div className="RestaurantSearchInput">
               <Search
                 placeholder="input search text"
@@ -227,7 +233,11 @@ const Restaurants = ({ restaurants }) => {
               />
             </div>
           </div>
-          <div ref={restaurantDivRef} style={restaurantCartDivStyle} className="AllRestaurants">
+          <div
+            ref={restaurantDivRef}
+            style={restaurantCartDivStyle}
+            className="AllRestaurants"
+          >
             {!isSearching &&
               allRestaurants.map((elem, index) => (
                 <RestaurantCard
