@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from "react";
-import path from 'path';
+import {useDispatch} from 'react-redux'
 import LineBreak from "../../../../Components/UI/LineBreak/LineBreak";
 import "./CartCard.scss";
 import { CartContext } from "../../../../contexts/CartContext";
@@ -7,11 +7,14 @@ import { countObjectsWithEqualProperty } from "../../../../utils/helperFunctions
 import {Button} from "antd"
 
 import  emptyCartImg from "../../../../assets/empty-cart.svg"
+import {checkout} from '../../../../store/actions/index';
 
 const CartCard = ({ restaurantName }) => {
   const [displayItemsObj, setDisplayItemsObj] = useState({});
+  const dispatch = useDispatch();
   const context = useContext(CartContext);
   const { itemsInCart, totalAmount, onAddMenuHandler, onRemoveMenuHandler } = context;
+  
 
   useEffect(() => {
     if (itemsInCart.length === 0) {
@@ -25,6 +28,10 @@ const CartCard = ({ restaurantName }) => {
     const elem = itemsInCart.find(elem => elem.name === item);
     return elem !== undefined ? elem.price * displayItemsObj[item] : null;
   };
+
+  const handleCheckout = () => {
+    dispatch(checkout())
+  }
 
   return (
     <div className="CartCard">
@@ -64,7 +71,7 @@ const CartCard = ({ restaurantName }) => {
           <div><span>SubTotal</span><span>{totalAmount}</span></div>
           <div className="DeliveryFee"><span>Delivery Fee</span><span>Free</span></div>
           <div><span>Total Amount</span><span>{totalAmount}</span></div>
-          <Button style={{backgroundColor:"#00a53c", color: 'white'}}>PROCEED TO CHECKOUT</Button>
+          <Button onClick={() => handleCheckout()} style={{backgroundColor:"#00a53c", color: 'white'}}>PROCEED TO CHECKOUT</Button>
         </div>
       )}
     </div>

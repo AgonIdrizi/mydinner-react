@@ -2,6 +2,7 @@ import React, { useContext } from "react";
 import { Link } from "react-router-dom";
 import { UserContext } from "../../contexts/UserContext";
 import { Menu, Dropdown } from "antd";
+import CartIcon from "../UI/Icons/CartIcon/CartIcon";
 import "antd/es/menu/style/index";
 import "antd/es/dropdown/style/index";
 import "./Header.scss";
@@ -51,7 +52,8 @@ const Header = () => {
             </li>
           )}
           <li>
-            <Link to="/cart">Cart</Link>
+            <Link to="/cart"><CartIcon /></Link>
+            
           </li>
         </ul>
       </div>

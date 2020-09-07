@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext, useEffect } from "react";
 import useDataApi from "../../hooks/useDataApi";
 import Restaurant from "./Restaurant/Restaurant";
 import Spinner from "../../Components/UI/Spinner/Spinner";
@@ -8,6 +8,7 @@ const RestaurantContainer = () => {
   const [{ data, isLoading, isError }, doFetch] = useDataApi(
     TestApiUrls.restaurantGet
   );
+  
 
   return (
     <>{isLoading ? <Spinner /> : <Restaurant resData={data.restaurant} />} </>
