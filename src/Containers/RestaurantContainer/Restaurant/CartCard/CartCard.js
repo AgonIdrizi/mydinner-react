@@ -1,23 +1,18 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import {useDispatch, useSelector, useStore} from 'react-redux'
 import LineBreak from "../../../../Components/UI/LineBreak/LineBreak";
-import "./CartCard.scss";
-import { CartContext } from "../../../../contexts/CartContext";
 import { countObjectsWithEqualProperty } from "../../../../utils/helperFunctions";
 import {Button} from "antd"
 
+import {checkout, addToCart, removeFromCart} from '../../../../store/actions/index';
 import  emptyCartImg from "../../../../assets/empty-cart.svg"
-import {checkout, addToCart} from '../../../../store/actions/index';
+import "./CartCard.scss";
 
 const CartCard = ({ restaurantName }) => {
   const [displayItemsObj, setDisplayItemsObj] = useState({});
   const itemsInCart = useSelector(state => state.CardReducer.itemsInCart)
   const totalAmount = useSelector(state => state.CardReducer.totalAmount)
   const dispatch = useDispatch();
-  
-  const context = useContext(CartContext);
-  const { onAddMenuHandler, onRemoveMenuHandler } = context;
-  
 
 
   useEffect(() => {
@@ -39,10 +34,8 @@ const CartCard = ({ restaurantName }) => {
   };
 
   const handleCheckout = () => {
-    dispatch(checkout())
+    dispatch(checkout());
   }
-  console.log("If you see me second time, it means im rerendering")
-    console.log("itemsInCart", itemsInCart)
   return (
     <div className="CartCard">
       <div className="CartCardHeader">
@@ -64,9 +57,9 @@ const CartCard = ({ restaurantName }) => {
             {Object.keys(displayItemsObj).map(item => (
               <tr>
                 <td>
-                  <button onClick={() => onRemoveMenuHandler(item)}>-</button>
+                  <button onClick={() => dispatch(removeFromCart(item))}>-</button>
                   <span>{displayItemsObj[item]}</span>
-                  <button onClick={() => onAddMenuHandler(item)}>+</button>
+                  <button onClick={() => dispatch(addToCart(item))}>+</button>
                 </td>
                 <td>{item}</td>
                 <td>{countprice(item, displayItemsObj[item])}</td>

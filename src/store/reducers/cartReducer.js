@@ -24,11 +24,25 @@ const reducer = (state = initialState, action) => {
             totalAmount: updatedTotalAmount
           }
       }
-        return {
-          ...state,
-          itemsInCart: [...state.itemsInCart, action.payload],
-          totalAmount: state.totalAmount + action.payload.price
-        }
+      return {
+        ...state,
+        itemsInCart: [...state.itemsInCart, action.payload],
+        totalAmount: state.totalAmount + action.payload.price
+      }
+    case actionTypes.REMOVE_FROM_CART:
+      let indexOfObject = state.itemsInCart.findIndex(elem => elem.name === action.payload);
+      let itemToDelete = state.itemsInCart.find(elem => elem.name === action.payload);
+      state.itemsInCart.splice(indexOfObject, 1)
+      return {
+        ...state,
+        itemsInCart: [...state.itemsInCart],
+        totalAmount: state.totalAmount - itemToDelete.price
+      }
+    case actionTypes.CLEAR_CART:
+      return {
+        ...state,
+        itemsInCart: []
+      }  
   }
   return {...state};
 }
