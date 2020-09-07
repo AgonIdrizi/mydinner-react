@@ -5,3 +5,17 @@ export const checkout = () => {
     type: actionTypes.CHECKOUT
   }
 }
+
+export const addToCart = value => {
+  return {
+    type: actionTypes.ADD_TO_CART,
+    payload: value
+  }
+}
+
+export const removeFromCart = value => {
+  return {
+    type: actionTypes.REMOVE_FROM_CART,
+    payload: value
+  }
+}

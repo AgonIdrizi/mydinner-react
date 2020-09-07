@@ -4,7 +4,7 @@ import './index.css';
 import App from './App';
 import { BrowserRouter as Router } from "react-router-dom";
 import * as serviceWorker from './serviceWorker';
-import {createStore, compose, applyMiddleware} from 'redux';
+import { createStore, compose, applyMiddleware } from 'redux';
 import { Provider } from 'react-redux';
 import rootReducer from "./store/reducers/index";
 
@@ -12,7 +12,10 @@ import { logger } from './store/middleware/logger';
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
-const store = createStore(rootReducer, composeEnhancers( applyMiddleware(logger)))
+const store = createStore(
+  rootReducer,
+  composeEnhancers()
+);
 
 ReactDOM.render(
   <Provider store={store}>

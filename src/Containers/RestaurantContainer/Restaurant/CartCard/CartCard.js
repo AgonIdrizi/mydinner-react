@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from "react";
-import {useDispatch} from 'react-redux'
+import {useDispatch, useSelector, useStore} from 'react-redux'
 import LineBreak from "../../../../Components/UI/LineBreak/LineBreak";
 import "./CartCard.scss";
 import { CartContext } from "../../../../contexts/CartContext";
@@ -7,21 +7,30 @@ import { countObjectsWithEqualProperty } from "../../../../utils/helperFunctions
 import {Button} from "antd"
 
 import  emptyCartImg from "../../../../assets/empty-cart.svg"
-import {checkout} from '../../../../store/actions/index';
+import {checkout, addToCart} from '../../../../store/actions/index';
 
 const CartCard = ({ restaurantName }) => {
   const [displayItemsObj, setDisplayItemsObj] = useState({});
+  const itemsInCart = useSelector(state => state.CardReducer.itemsInCart)
+  const totalAmount = useSelector(state => state.CardReducer.totalAmount)
   const dispatch = useDispatch();
+  
   const context = useContext(CartContext);
-  const { itemsInCart, totalAmount, onAddMenuHandler, onRemoveMenuHandler } = context;
+  const { onAddMenuHandler, onRemoveMenuHandler } = context;
   
 
+
   useEffect(() => {
-    if (itemsInCart.length === 0) {
-      setDisplayItemsObj({});
-      return;
+    if (itemsInCart === undefined) {
+      dispatch({type:""})
     }
-    setDisplayItemsObj(countObjectsWithEqualProperty(itemsInCart));
+    if (itemsInCart) {
+      if (itemsInCart.length === 0) {
+        setDisplayItemsObj({});
+        return;
+      }
+      setDisplayItemsObj(countObjectsWithEqualProperty(itemsInCart));
+    }
   }, [itemsInCart]);
 
   const countprice = (item, count) => {
@@ -32,7 +41,8 @@ const CartCard = ({ restaurantName }) => {
   const handleCheckout = () => {
     dispatch(checkout())
   }
-
+  console.log("If you see me second time, it means im rerendering")
+    console.log("itemsInCart", itemsInCart)
   return (
     <div className="CartCard">
       <div className="CartCardHeader">

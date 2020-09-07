@@ -2,10 +2,13 @@ import React, { useContext } from "react";
 import { CartContext } from "../../../../contexts/CartContext";
 import imgUrl from "../../../../assets/dishes/dish1.jpg";
 import { Button } from "antd";
+import { useDispatch } from 'react-redux';
+import { addToCart} from '../../../../store/actions/index';
 import "antd/es/button/style/index.css";
 import "./ItemCard.scss";
 
 const ItemCard = ({ id, name, imgUrl, ingrdients, price }) => {
+  const dispatch = useDispatch()
   const context = useContext(CartContext)
   const { onAddMenuHandler } = context;
   const item = { id, name, imgUrl, ingrdients, price };
@@ -26,7 +29,7 @@ const ItemCard = ({ id, name, imgUrl, ingrdients, price }) => {
           <Button
             type="default"
             shape="round"
-            onClick={() => onAddMenuHandler(item)}
+            onClick={() => dispatch(addToCart(item))}
           >
             Add
           </Button>
