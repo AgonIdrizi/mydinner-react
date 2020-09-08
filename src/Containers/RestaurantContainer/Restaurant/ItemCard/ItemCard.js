@@ -1,5 +1,5 @@
-import React, { useContext } from "react";
-import { CartContext } from "../../../../contexts/CartContext";
+import React, { useEffect } from "react";
+import { useSelector } from "react-redux";
 import imgUrl from "../../../../assets/dishes/dish1.jpg";
 import { Button } from "antd";
 import { useDispatch } from 'react-redux';
@@ -8,9 +8,9 @@ import "antd/es/button/style/index.css";
 import "./ItemCard.scss";
 
 const ItemCard = ({ id, name, imgUrl, ingrdients, price }) => {
+  
   const dispatch = useDispatch()
-  const context = useContext(CartContext)
-  const { onAddMenuHandler } = context;
+
   const item = { id, name, imgUrl, ingrdients, price };
   
   return (

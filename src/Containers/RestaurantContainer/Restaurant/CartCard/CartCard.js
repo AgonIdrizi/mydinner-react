@@ -1,5 +1,6 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import {useDispatch, useSelector, useStore} from 'react-redux'
+import { OrderContext } from '../../../../contexts/OrderContext';
 import LineBreak from "../../../../Components/UI/LineBreak/LineBreak";
 import {withRouter} from "react-router-dom";
 import { countObjectsWithEqualProperty } from "../../../../utils/helperFunctions";
@@ -9,17 +10,16 @@ import {checkout, addToCart, removeFromCart} from '../../../../store/actions/ind
 import  emptyCartImg from "../../../../assets/empty-cart.svg"
 import "./CartCard.scss";
 
-const CartCard = ({ restaurantName, history }) => {
+const CartCard = ({ restaurantName, history, match }) => {
   const [displayItemsObj, setDisplayItemsObj] = useState({});
+  const context = useContext(OrderContext);
+  const { setRestaurantSelected } = context;
   const itemsInCart = useSelector(state => state.CardReducer.itemsInCart)
   const totalAmount = useSelector(state => state.CardReducer.totalAmount)
   const dispatch = useDispatch();
 
 
   useEffect(() => {
-    if (itemsInCart === undefined) {
-      dispatch({type:""})
-    }
     if (itemsInCart) {
       if (itemsInCart.length === 0) {
         setDisplayItemsObj({});
@@ -33,6 +33,18 @@ const CartCard = ({ restaurantName, history }) => {
     const elem = itemsInCart.find(elem => elem.name === item);
     return elem !== undefined ? elem.price * displayItemsObj[item] : null;
   };
+
+  const handleAddToCart = (item) => {
+    // if cartItems is empty, set restaurantSelected to match.params.id
+    if (itemsInCart.length == 0) setRestaurantSelected(match.params.id);
+    dispatch(addToCart(item))
+  }
+
+  const handleRemoveFromCart = (item) => {
+    // if cartItems.length is 1 set restaurantSelected to 0
+    if (itemsInCart.length == 1) setRestaurantSelected(0)
+    dispatch(removeFromCart(item))
+  }
 
   const handleCheckout = () => {
     dispatch(checkout());
@@ -59,9 +71,9 @@ const CartCard = ({ restaurantName, history }) => {
             {Object.keys(displayItemsObj).map(item => (
               <tr>
                 <td>
-                  <button onClick={() => dispatch(removeFromCart(item))}>-</button>
+                  <button onClick={() => handleRemoveFromCart(item)}>-</button>
                   <span>{displayItemsObj[item]}</span>
-                  <button onClick={() => dispatch(addToCart(item))}>+</button>
+                  <button onClick={() => handleAddToCart(item)}>+</button>
                 </td>
                 <td>{item}</td>
                 <td>{countprice(item, displayItemsObj[item])}</td>

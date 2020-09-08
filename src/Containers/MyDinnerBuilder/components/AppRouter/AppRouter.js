@@ -20,11 +20,7 @@ const AppRouter = () => {
   const { user } = context;
   return (
     <Switch>
-      <UnAuthedRoute
-        path={ROUTE_PATHS.RESTAURANTS_CITY()}
-        render={() => <AsyncRestaurants />}
-        exact={true}
-      />
+      
       <UnAuthedRoute
         path={ROUTE_PATHS.ALL_RESTAURANTS}
         render={() => <AsyncRestaurants />}
@@ -35,6 +31,11 @@ const AppRouter = () => {
         path={ROUTE_PATHS.RESTAURANT()}
         render={() => <AsyncRestaurant />}
         //isAuthed={true}
+        exact={true}
+      />
+      <UnAuthedRoute
+        path={ROUTE_PATHS.RESTAURANTS_CITY()}
+        render={() => <AsyncRestaurants />}
         exact={true}
       />
       <UnAuthedRoute
