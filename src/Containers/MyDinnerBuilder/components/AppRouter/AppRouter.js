@@ -4,6 +4,7 @@ import { AuthedRoute, UnAuthedRoute } from './AppRouterWrapper';
 import { ROUTE_PATHS } from "../../../../config/constants";
 import {
   AsyncRestaurants,
+  AsyncRestaurantsCity,
   AsyncLogin,
   AsyncSignUp,
   AsyncRestaurant,
@@ -20,10 +21,16 @@ const AppRouter = () => {
   return (
     <Switch>
       <UnAuthedRoute
+        path={ROUTE_PATHS.RESTAURANTS_CITY()}
+        render={() => <AsyncRestaurants />}
+        exact={true}
+      />
+      <UnAuthedRoute
         path={ROUTE_PATHS.ALL_RESTAURANTS}
         render={() => <AsyncRestaurants />}
         exact={true}
       />
+      
       <UnAuthedRoute
         path={ROUTE_PATHS.RESTAURANT()}
         render={() => <AsyncRestaurant />}

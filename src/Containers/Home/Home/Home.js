@@ -69,6 +69,7 @@ const Home = (props) => {
           console.log("deliveryAddress", res.data);
           setDeliveryAddress({
             addressName: res.data.display_name,
+            city: res.data.address.city,
             postalCode: res.data.address.postcode
           });
         })
@@ -120,7 +121,7 @@ const Home = (props) => {
     setTimeout(() => {
       setModalVisible(false);
       setOrderDeliveryAddress(deliveryAddress);
-      props.history.push("all-restaurants");
+      props.history.push(`restaurants/${deliveryAddress.city}`);
       setConfirmModalLoading(false);
     }, 300);
   };

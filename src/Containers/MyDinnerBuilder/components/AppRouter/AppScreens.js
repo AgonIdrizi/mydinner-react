@@ -4,6 +4,10 @@ export const AsyncRestaurants = React.lazy(() =>
   import("../../../RestuarantsContainer/RestaurantsContainer")
 );
 
+export const AsyncRestaurantsCity = React.lazy(() =>
+  import("../../../RestuarantsContainer/RestaurantsContainer")
+);
+
 export const AsyncLogin = React.lazy(() =>
   import("../../../LoginContainer/LoginContainer")
 );
