@@ -1,0 +1,22 @@
+.CartCheckoutContainer {
+  margin-right: auto;
+  margin-left: auto;
+  
+  background-color: #fff;
+  box-shadow: 0 0 5px 0 #aba9ab;
+}
+
+.CheckoutInfo {
+  height: 100%;
+  box-shadow: 0 0 5px 0 #aba9ab;
+  background-color: #fff;
+  margin-right: auto;
+  margin-left: auto;
+}
+
+@media (min-width: 1000px){
+  .CheckoutInfo {
+    width: 1000px;
+  }
+  
+}

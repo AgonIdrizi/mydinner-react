@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import {useDispatch, useSelector, useStore} from 'react-redux'
 import LineBreak from "../../../../Components/UI/LineBreak/LineBreak";
+import {withRouter} from "react-router-dom";
 import { countObjectsWithEqualProperty } from "../../../../utils/helperFunctions";
 import {Button} from "antd"
 
@@ -8,7 +9,7 @@ import {checkout, addToCart, removeFromCart} from '../../../../store/actions/ind
 import  emptyCartImg from "../../../../assets/empty-cart.svg"
 import "./CartCard.scss";
 
-const CartCard = ({ restaurantName }) => {
+const CartCard = ({ restaurantName, history }) => {
   const [displayItemsObj, setDisplayItemsObj] = useState({});
   const itemsInCart = useSelector(state => state.CardReducer.itemsInCart)
   const totalAmount = useSelector(state => state.CardReducer.totalAmount)
@@ -35,6 +36,7 @@ const CartCard = ({ restaurantName }) => {
 
   const handleCheckout = () => {
     dispatch(checkout());
+    history.push("/cart")
   }
   return (
     <div className="CartCard">
@@ -81,4 +83,4 @@ const CartCard = ({ restaurantName }) => {
   );
 };
 
-export default CartCard;
+export default withRouter(CartCard);
