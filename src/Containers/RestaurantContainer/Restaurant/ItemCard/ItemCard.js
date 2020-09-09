@@ -6,7 +6,7 @@ import imgUrl from "../../../../assets/dishes/dish1.jpg";
 import { OrderContext } from "../../../../contexts/OrderContext";
 import { Button } from "antd";
 import { useDispatch } from "react-redux";
-import { addToCart } from "../../../../store/actions/index";
+import { addToCart, clearCart } from "../../../../store/actions/index";
 import "antd/es/button/style/index.css";
 import "./ItemCard.scss";
 
@@ -21,6 +21,7 @@ const ItemCard = ({
   canAddItems
 }) => {
   const [showModal, setShowModal] = useState(false);
+  const [itemToBeAddedInCart, setItemToBeAddedInCart] = useState()
   const dispatch = useDispatch();
   const context = useContext(OrderContext);
   const { setRestaurantSelected } = context;
@@ -38,11 +39,17 @@ const ItemCard = ({
       dispatch(addToCart(item));
     } else {
       console.log("Display modal, cant add from different restaurant"); //do you wish to clear cart
+      setItemToBeAddedInCart(item)
       setShowModal(true);
     }
   };
 
-  const handleOkModal = () => {};
+  const handleOkModal = () => {
+    dispatch(clearCart());
+    dispatch(addToCart(itemToBeAddedInCart))
+    setItemToBeAddedInCart()
+    setShowModal(false);
+  } 
   const handleCancelModal = () => {
     setShowModal(false);
   };
