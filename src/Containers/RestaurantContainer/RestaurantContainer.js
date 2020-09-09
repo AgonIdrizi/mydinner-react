@@ -20,7 +20,9 @@ const RestaurantContainer = ({ match }) => {
     console.log("ItemCard use effect cartItemsRedux", cartItems)
     console.log("location", match)
     if (cartItems.length !== 0) {
-      Number(match.params.id) === restaurantSelected ? setCanAddItems(true) : setCanAddItems(false)
+     console.log(" Number(match.params.id) === restaurantSelected", Number(match.params.id) === restaurantSelected)
+      
+      Number(match.params.id) == restaurantSelected ? setCanAddItems(true) : setCanAddItems(false)
     }
     if (cartItems.length === 0) {
       setCanAddItems(true)
@@ -28,7 +30,7 @@ const RestaurantContainer = ({ match }) => {
   }, [cartItems])
 
   return (
-    <>{isLoading ? <Spinner /> : <Restaurant canAddItems={canAddItems} resData={data.restaurant} />} </>
+    <>{isLoading ? <Spinner /> : <Restaurant canAddItems={canAddItems} cartItems={cartItems} resData={data.restaurant} />} </>
   );
 };
 export default withRouter(RestaurantContainer);
