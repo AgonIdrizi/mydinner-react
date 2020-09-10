@@ -3,8 +3,8 @@ import { Link } from "react-router-dom";
 import { UserContext } from "../../contexts/UserContext";
 import { Menu, Dropdown } from "antd";
 import CartIcon from "../UI/Icons/CartIcon/CartIcon";
-import "antd/es/menu/style/index";
-import "antd/es/dropdown/style/index";
+import "antd/es/menu/style/index.css";
+import "antd/es/dropdown/style/index.css";
 import "./Header.scss";
 import Logo from "../../assets/logo.png";
 

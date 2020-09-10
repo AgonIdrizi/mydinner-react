@@ -10,7 +10,7 @@ import { addToCart, clearCart } from "../../../../store/actions/index";
 import "antd/es/button/style/index.css";
 import "./ItemCard.scss";
 
-const ItemCard = ({
+const ItemCard = React.memo ( ({
   id,
   name,
   imgUrl,
@@ -79,16 +79,23 @@ const ItemCard = ({
       </div>
       {showModal && (
         <Modal
-          title="Do you want to clear your cart"
+          title="Clear cart"
           visible={showModal}
           onOk={handleOkModal}
           onCancel={handleCancelModal}
           style={{ height: "500px" }}
           centered
-        ></Modal>
+        >
+          <h4>There are item in yoour cart from 'Restaurant', do you want to clear it?</h4>
+        </Modal>
       )}
     </>
   );
-};
+}, (prevProps, nextProps) => {
+  if (prevProps.cartItems !== nextProps.cartItems) {
+    return false
+  }
+  return false
+})
 
 export default withRouter(ItemCard);
