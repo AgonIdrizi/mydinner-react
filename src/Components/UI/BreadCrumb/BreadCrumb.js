@@ -8,9 +8,9 @@ const BreadCrumb = ({ items }) => {
     <Breadcrumb separator=">">
       {items.map((breadcrumb, idx) => (
         idx !== lastIndex ? 
-          <Breadcrumb.Item ><Link to={breadcrumb.path}>{breadcrumb.breadcrumbName}</Link></Breadcrumb.Item> 
+          <Breadcrumb.Item key={breadcrumb.breadcrumbName + idx}><Link to={breadcrumb.path}>{breadcrumb.breadcrumbName}</Link></Breadcrumb.Item> 
          : 
-          <Breadcrumb.Item>{breadcrumb.breadcrumbName}</Breadcrumb.Item>
+          <Breadcrumb.Item key={breadcrumb.breadcrumbName + idx}>{breadcrumb.breadcrumbName}</Breadcrumb.Item>
       ))}
     </Breadcrumb>
   );
