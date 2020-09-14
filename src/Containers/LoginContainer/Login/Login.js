@@ -17,7 +17,7 @@ const schema = yup.object({
     .string()
     .required("No password provided.")
     .min(8, "Password is too short - should be 8 chars minimum.")
-    .matches(/[a-zA-Z]/, "Password can only contain Latin letters.")
+    .matches(/[a-zA-Z]/, "Password must be alphanumeric.")
 });
 
 const Login = () => {
@@ -26,7 +26,7 @@ const Login = () => {
  
   return (
     <div className="Login">
-      <h2>Login</h2>
+      <h2 className="title">Login</h2>
       <Formik
         validationSchema={schema}
         initialValues={{ username: "", email: "" }}
@@ -35,13 +35,15 @@ const Login = () => {
         {(props) => (
           <Form>
             <Field
+              id="username"
               label="Username"
               name="username"
               placeholder="Username"
               component={TextFormField}
             />
-            <ErrorMessage name="username" />
+            <ErrorMessage data-testid="usernameError" name="username" />
             <Field
+              id="password"
               label="Password"
               name="password"
               placeholder="Password"
