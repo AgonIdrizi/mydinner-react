@@ -11,7 +11,6 @@ import { BrowserRouter } from "react-router-dom";
 import "@testing-library/jest-dom";
 import Login from "./Login";
 import { UserContext } from "../../../contexts/UserContext";
-import { ItalicOutlined } from "@ant-design/icons";
 
 afterEach(cleanup);
 

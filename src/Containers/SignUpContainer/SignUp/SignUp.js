@@ -17,7 +17,7 @@ const schema = Yup.object({
   password: Yup.string()
     .required("No password provided.")
     .min(8, "Password is too short - should be 8 chars minimum.")
-    .matches(/[a-zA-Z]/, "Password can only contain Latin letters."),
+    .matches(/[a-zA-Z]/, "Password must be alphanumeric."),
   password_confirmation: Yup.string()
     .min(8, "Password is too short - should be 8 chars minimum.")
     .oneOf([Yup.ref("password"), null], "Password must match")
