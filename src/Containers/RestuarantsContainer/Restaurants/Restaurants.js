@@ -3,6 +3,7 @@ import RestaurantCard from "./RestaurantCard/RestaurantCard";
 import Filter from "../../../Components/UI/Filter/Filter";
 import { countObjectOccurences } from "../../../utils/helperFunctions";
 import { useScrollPosition } from "@n8tb1t/use-scroll-position";
+import { flattenArray } from '../../../utils/helperFunctions';
 import "./Restaurants.scss";
 import "antd/es/input/style/index.css";
 import { Input, Button } from "antd";
@@ -28,6 +29,7 @@ const Restaurants = ({ restaurants }) => {
   const [restaurantCartDivStyle, setRestauranCarttDivStyle] = useState({});
   const restaurantDivRef = useRef(null);
   const filterDivRef = useRef(null);
+  
 
   useEffect(() => {
     const allrestaurants = sortByHandler(restaurants);
@@ -44,7 +46,7 @@ const Restaurants = ({ restaurants }) => {
         console.log(filteredByCheckbox);
         array.push([...filteredByCheckbox]);
       });
-      setAllRestaurants(array.flat());
+      setAllRestaurants(flattenArray(array));
     }
   }, [sortByClicked, cuisineFilterChecboxes, restaurants]);
 
@@ -77,7 +79,7 @@ const Restaurants = ({ restaurants }) => {
       }
       updateCuisineFilterCheckboxData(filterByCuisine, countFilteredCuisines);
 
-      setFilteredRestaurants(filteredByCuisine.flat());
+      setFilteredRestaurants(flattenArray(filteredByCuisine));
     }
   }, [sortByClicked, cuisineFilterChecboxes, searchValue]);
 
@@ -113,6 +115,8 @@ const Restaurants = ({ restaurants }) => {
       setRestauranCarttDivStyle({});
     }
   });
+
+  
 
   const onSearchRestaurantHandler = event => {
     if (event.target.value === "") {

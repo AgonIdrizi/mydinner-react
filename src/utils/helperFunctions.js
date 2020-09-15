@@ -6,7 +6,7 @@ export const countObjectsWithEqualProperty = arrayOfObjects => {
   }, {});
 };
 
-// returns tru if object is empty
+// returns true if object is empty
 export const isEmptyObject = obj => {
   return Object.keys(obj).length === 0;
 }
@@ -15,4 +15,10 @@ export const countObjectOccurences = (array, type) => {
   const obj = {}
   array.map(elem => (obj[elem[type]] === undefined) ? obj[elem[type]] = 1 : obj[elem[type]]++ );
   return obj;
+}
+
+
+// flatten array
+export const flattenArray = arr => {
+  return arr.reduce((flattened, element) => flattened.concat(element) ,[])
 }

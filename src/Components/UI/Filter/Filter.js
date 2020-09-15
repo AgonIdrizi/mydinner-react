@@ -11,7 +11,7 @@ const Filter = ({filterByCuisine, onCheckBoxClickHandler}) => {
     <div className="Filters">
       {Object.entries(filterByCuisine).map(elem => (
         <div className="Checkbox">
-          <Checkbox onChange={() => onChange(elem[0])}>{elem[0]}</Checkbox>
+          <Checkbox data-testid={elem[0]} onChange={() => onChange(elem[0])}>{elem[0]}</Checkbox>
           <span>{elem[1]}</span>
         </div>
       ))}
