@@ -78,7 +78,7 @@ it("searches restaurants", () => {
 
 
 it("filters restaurants by sandwich checkbox", () => {
-  const { container, getByTestId } = render(component);
+  const { container } = render(component);
   const sandwichesCheckbox = screen.getByTestId("Sandwiches");
 
   const restaurantsDiv = container.querySelector(".AllRestaurants");
@@ -91,7 +91,7 @@ it("filters restaurants by sandwich checkbox", () => {
 });
 
 it("updates restaurants when sandwiches checkbox is clicked and search input is given", () => {
-  const { container, getByTestId, getByPlaceholderText } = render(component);
+  const { container, getByPlaceholderText } = render(component);
   const sandwichesCheckbox = screen.getByTestId("Sandwiches");
   const searchInput = getByPlaceholderText("input search text");
   const restaurantsDiv = container.querySelector(".AllRestaurants");
@@ -106,7 +106,7 @@ it("updates restaurants when sandwiches checkbox is clicked and search input is 
 });
 
 it("filters restaurants by burger checkbox", () => {
-  const { container, getByTestId } = render(component);
+  const { container } = render(component);
   const burgerCheckbox = screen.getByTestId("Burgers");
 
   const restaurantsDiv = container.querySelector(".AllRestaurants");
@@ -119,7 +119,7 @@ it("filters restaurants by burger checkbox", () => {
 });
 
 it("updates restaurants when burger checkbox is clicked and search input is given", () => {
-  const { container, getByTestId, getByPlaceholderText } = render(component);
+  const { container, getByPlaceholderText } = render(component);
   const burgerCheckbox = screen.getByTestId("Burgers");
   const searchInput = getByPlaceholderText("input search text");
   const restaurantsDiv = container.querySelector(".AllRestaurants");
@@ -134,7 +134,7 @@ it("updates restaurants when burger checkbox is clicked and search input is give
 });
 
 it("filters restaurants by healthy checkbox", () => {
-  const { container, getByTestId } = render(component);
+  const { container } = render(component);
   const healthyCheckbox = screen.getByTestId("Healthy");
 
   const restaurantsDiv = container.querySelector(".AllRestaurants");
@@ -147,7 +147,7 @@ it("filters restaurants by healthy checkbox", () => {
 });
 
 it("updates restaurants when healthy checkbox is clicked and search input is given", () => {
-  const { container, getByTestId, getByPlaceholderText } = render(component);
+  const { container, getByPlaceholderText } = render(component);
   const healthyCheckbox = screen.getByTestId("Healthy");
   const searchInput = getByPlaceholderText("input search text");
   const restaurantsDiv = container.querySelector(".AllRestaurants");
@@ -162,7 +162,7 @@ it("updates restaurants when healthy checkbox is clicked and search input is giv
 });
 
 it("filters restaurants by dessert checkbox", () => {
-  const { container, getByTestId } = render(component);
+  const { container } = render(component);
   const dessertCheckbox = screen.getByTestId("Desserts");
 
   const restaurantsDiv = container.querySelector(".AllRestaurants");
@@ -172,4 +172,159 @@ it("filters restaurants by dessert checkbox", () => {
 
   expect(dessertCheckbox.checked).toEqual(true);
   expect(restaurantsDiv.children.length).toBe(2);
+});
+
+it("updates restaurants when dessert checkbox is clicked and search input is given", () => {
+  const { container, getByPlaceholderText } = render(component);
+  const dessertCheckbox = screen.getByTestId("Desserts");
+  const searchInput = getByPlaceholderText("input search text");
+  const restaurantsDiv = container.querySelector(".AllRestaurants");
+
+  expect(dessertCheckbox.checked).toEqual(false);
+  fireEvent.click(dessertCheckbox);
+
+  userEvent.type(searchInput, "t");
+
+  expect(dessertCheckbox.checked).toEqual(true);
+  expect(restaurantsDiv.children.length).toBe(1);
+});
+
+it("filters restaurants by oriental checkbox", () => {
+  const { container } = render(component);
+  const orientalCheckbox = screen.getByTestId("Oriental");
+
+  const restaurantsDiv = container.querySelector(".AllRestaurants");
+
+  expect(orientalCheckbox.checked).toEqual(false);
+  fireEvent.click(orientalCheckbox);
+
+  expect(orientalCheckbox.checked).toEqual(true);
+  expect(restaurantsDiv.children.length).toBe(2);
+});
+
+it("updates restaurants when oriental checkbox is clicked and search input is given", () => {
+  const { container, getByPlaceholderText } = render(component);
+  const orientalCheckbox = screen.getByTestId("Oriental");
+  const searchInput = getByPlaceholderText("input search text");
+  const restaurantsDiv = container.querySelector(".AllRestaurants");
+
+  expect(orientalCheckbox.checked).toEqual(false);
+  fireEvent.click(orientalCheckbox);
+
+  userEvent.type(searchInput, "t");
+
+  expect(orientalCheckbox.checked).toEqual(true);
+  expect(restaurantsDiv.children.length).toBe(1);
+});
+
+it("filters restaurants by oriental checkbox", () => {
+  const { container } = render(component);
+  const juicesAndSandwichesCheckbox = screen.getByTestId("Juices&Sandwiches");
+
+  const restaurantsDiv = container.querySelector(".AllRestaurants");
+
+  expect(juicesAndSandwichesCheckbox.checked).toEqual(false);
+  fireEvent.click(juicesAndSandwichesCheckbox);
+
+  expect(juicesAndSandwichesCheckbox.checked).toEqual(true);
+  expect(restaurantsDiv.children.length).toBe(2);
+});
+
+it("updates restaurants when oriental checkbox is clicked and search input is given", () => {
+  const { container, getByPlaceholderText } = render(component);
+  const juicesAndSandwichesCheckbox = screen.getByTestId("Juices&Sandwiches");
+  const searchInput = getByPlaceholderText("input search text");
+  const restaurantsDiv = container.querySelector(".AllRestaurants");
+
+  expect(juicesAndSandwichesCheckbox.checked).toEqual(false);
+  fireEvent.click(juicesAndSandwichesCheckbox);
+
+  userEvent.type(searchInput, "t");
+
+  expect(juicesAndSandwichesCheckbox.checked).toEqual(true);
+  expect(restaurantsDiv.children.length).toBe(1);
+});
+
+it("filters restaurants by oriental checkbox", () => {
+  const { container } = render(component);
+  const italianCheckbox = screen.getByTestId("Italian");
+
+  const restaurantsDiv = container.querySelector(".AllRestaurants");
+
+  expect(italianCheckbox.checked).toEqual(false);
+  fireEvent.click(italianCheckbox);
+
+  expect(italianCheckbox.checked).toEqual(true);
+  expect(restaurantsDiv.children.length).toBe(3);
+});
+
+it("updates restaurants when oriental checkbox is clicked and search input is given", () => {
+  const { container, getByPlaceholderText } = render(component);
+  const italianCheckbox = screen.getByTestId("Italian");
+  const searchInput = getByPlaceholderText("input search text");
+  const restaurantsDiv = container.querySelector(".AllRestaurants");
+
+  expect(italianCheckbox.checked).toEqual(false);
+  fireEvent.click(italianCheckbox);
+
+  userEvent.type(searchInput, "b");
+
+  expect(italianCheckbox.checked).toEqual(true);
+  expect(restaurantsDiv.children.length).toBe(1);
+});
+
+it("filters restaurants by oriental checkbox", () => {
+  const { container } = render(component);
+  const traditionalAlbanianCheckbox = screen.getByTestId("Traditional albanian");
+
+  const restaurantsDiv = container.querySelector(".AllRestaurants");
+
+  expect(traditionalAlbanianCheckbox.checked).toEqual(false);
+  fireEvent.click(traditionalAlbanianCheckbox);
+
+  expect(traditionalAlbanianCheckbox.checked).toEqual(true);
+  expect(restaurantsDiv.children.length).toBe(2);
+});
+
+it("updates restaurants when oriental checkbox is clicked and search input is given", () => {
+  const { container, getByPlaceholderText } = render(component);
+  const traditionalAlbanianCheckbox = screen.getByTestId("Traditional albanian");
+  const searchInput = getByPlaceholderText("input search text");
+  const restaurantsDiv = container.querySelector(".AllRestaurants");
+
+  expect(traditionalAlbanianCheckbox.checked).toEqual(false);
+  fireEvent.click(traditionalAlbanianCheckbox);
+
+  userEvent.type(searchInput, "d");
+
+  expect(traditionalAlbanianCheckbox.checked).toEqual(true);
+  expect(restaurantsDiv.children.length).toBe(1);
+});
+
+it("filters restaurants by traditional english checkbox", () => {
+  const { container } = render(component);
+  const traditionalEnglishCheckbox = screen.getByTestId("Traditional English");
+
+  const restaurantsDiv = container.querySelector(".AllRestaurants");
+
+  expect(traditionalEnglishCheckbox.checked).toEqual(false);
+  fireEvent.click(traditionalEnglishCheckbox);
+
+  expect(traditionalEnglishCheckbox.checked).toEqual(true);
+  expect(restaurantsDiv.children.length).toBe(1);
+});
+
+it("updates restaurants when traditional english checkbox is clicked and search input is given", () => {
+  const { container, getByPlaceholderText } = render(component);
+  const traditionalEnglishCheckbox = screen.getByTestId("Traditional English");
+  const searchInput = getByPlaceholderText("input search text");
+  const restaurantsDiv = container.querySelector(".AllRestaurants");
+
+  expect(traditionalEnglishCheckbox.checked).toEqual(false);
+  fireEvent.click(traditionalEnglishCheckbox);
+
+  userEvent.type(searchInput, "sd");
+
+  expect(traditionalEnglishCheckbox.checked).toEqual(true);
+  expect(restaurantsDiv.children.length).toBe(0);
 });
