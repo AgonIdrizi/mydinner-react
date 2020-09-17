@@ -17,8 +17,6 @@ const RestaurantContainer = ({ match }) => {
   );
   
   useEffect(() => {
-    console.log("ItemCard use effect cartItemsRedux", cartItems)
-    console.log("location", match)
     if (cartItems.length !== 0) {
      console.log(" Number(match.params.id) === restaurantSelected", Number(match.params.id) === restaurantSelected)
       

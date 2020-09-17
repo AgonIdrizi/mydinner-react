@@ -310,7 +310,7 @@ export const mockedJsons = {
       },
       {
         id: 2,
-        menuName: "Pizza",
+        menuName: "Pizza margarita",
         menuImgUrl: "...",
         category: "pizza",
         ingredients: "",
@@ -366,71 +366,81 @@ export const mockedJsons = {
       },
       {
         id: 9,
-        menuName: "Pizza",
+        menuName: "Pizza tuna",
         menuImgUrl: "...",
+        category: "pizza",
         ingredients: "",
         price: 190
       },
       {
         id: 10,
-        menuName: "Pizza",
+        menuName: "Pizza bb",
         menuImgUrl: "...",
+        category: "pizza",
         ingredients: "",
         price: 190
       },
       {
         id: 11,
-        menuName: "Pizza",
+        menuName: "Pizza chicken",
         menuImgUrl: "...",
+        category: "pizza",
         ingredients: "",
         price: 190
       },
       {
         id: 12,
-        menuName: "Pizza",
+        menuName: "Pizza big",
         menuImgUrl: "...",
+        category: "pizza",
         ingredients: "",
         price: 190
       },
       {
         id: 13,
-        menuName: "Pizza",
+        menuName: "Pizza test",
         menuImgUrl: "...",
+        category: "pizza",
         ingredients: "",
         price: 190
       },
       {
         id: 14,
-        menuName: "Pizza",
+        menuName: "Pizza vff ",
         menuImgUrl: "...",
+        category: "pizza",
         ingredients: "",
         price: 190
       },
       {
         id: 15,
-        menuName: "Pizza",
+        menuName: "Pizza sa",
         menuImgUrl: "...",
+        category: "pizza",
         ingredients: "",
         price: 190
       },
       {
         id: 16,
-        menuName: "Pizza",
+        menuName: "Pizza tt",
         menuImgUrl: "...",
+        category: "pizza",
         ingredients: "",
         price: 190
       },
       {
         id: 17,
-        menuName: "Pizza",
+        menuName: "Pizza hh",
         menuImgUrl: "...",
+        category: "pizza",
         ingredients: "",
         price: 190
       },
       {
         id: 18,
-        menuName: "Pizza",
+        menuName: "Pizza bbn",
         menuImgUrl: "...",
+        category: "pizza",
         ingredients: "",
         price: 190
       }

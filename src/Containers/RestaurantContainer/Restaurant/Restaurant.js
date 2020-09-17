@@ -99,7 +99,6 @@ const Restaurant = props => {
   
   return (
     <div className="RestaurantContainer">
-      { console.log("props Restaurant", props) }
       <div ref={restaurantRef} className="Restaurant">
         <div className="RestaurantHeader">
           <h2>{props.resData.restaurantName}</h2>
@@ -123,6 +122,7 @@ const Restaurant = props => {
               </Button>
               {props.resData.categories.map(category => (
                 <Button
+                  data-testid={category.catName}
                   type="link"
                   onClick={e => onCategoryClickHandler(category.catName)}
                 >
