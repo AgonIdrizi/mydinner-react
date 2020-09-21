@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext, useCallback } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import "./Home.scss";
 import { Input, AutoComplete, Modal } from "antd";
 import Button from "../../../Components/UI/Button/Button";
@@ -66,16 +66,13 @@ const Home = (props) => {
       axios
         .get(TestApiUrls.locationReverseGeocoding(deliveryAddressLongLang))
         .then(res => {
-          console.log("deliveryAddress", res.data);
           setDeliveryAddress({
             addressName: res.data.display_name,
             city: res.data.address.city,
             postalCode: res.data.address.postcode
           });
         })
-        .catch(err => {
-          console.log(err);
-        });
+        .catch(err => {});
     }
   }, [deliveryAddressLongLang]);
 

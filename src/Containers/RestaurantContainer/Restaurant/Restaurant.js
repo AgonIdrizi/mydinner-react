@@ -122,6 +122,7 @@ const Restaurant = props => {
               </Button>
               {props.resData.categories.map(category => (
                 <Button
+                  key={category.catName}
                   data-testid={category.catName}
                   type="link"
                   onClick={e => onCategoryClickHandler(category.catName)}

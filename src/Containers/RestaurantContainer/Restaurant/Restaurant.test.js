@@ -56,6 +56,10 @@ it('searches menus', () => {
 it('filters menus by categories', () => {
   const { container, getByTestId } = render(component);
   const burgersButton = getByTestId('burgers')
+  const pizzaButton = getByTestId('pizza');
+  const hotMeal = getByTestId('hot meal');
+  const salats = getByTestId('salats');
+  const seaFood = getByTestId('seafood')
   const menusDiv = document.querySelector('.Menus');
 
   userEvent.click(burgersButton);
