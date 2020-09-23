@@ -32,9 +32,14 @@
     transform: translate(-50%,-50%);
     z-index: 2;
     width: 100%;
+    min-width: 400px;
+    h1 {
+      min-width: 400px;
+    }
     .SearchActions {
       display: flex;
       justify-content: center;
+      min-width: 400px;
       button {
         height: 50px;
         width: 100px;
@@ -80,4 +85,36 @@
 
 .certain-category-search-dropdown .ant-select-dropdown-menu {
   max-height: 300px;
+}
+
+@media (max-width: 440px){
+  .HomeContainer {
+    width: 100%;
+    .HomeImage {
+      margin-top: 0px;
+      position: relative;
+      .ImgBanner1 {
+        position: absolute;
+        right: 0;
+        width: 150px;
+        height: 350px;
+      }
+      .ImgBanner2 {
+        position: absolute;
+        left: 290px;
+        width: 150px;
+        height: 471px;
+      }
+    }
+    .HomeSearchInput {
+      padding-bottom: 0px;
+      left: 55%;
+      .SearchActions{
+        .ant-select {
+
+        }
+      }
+    }
+  }
+  
 }
