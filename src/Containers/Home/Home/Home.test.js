@@ -1,10 +1,16 @@
 import React from "react";
 import { BrowserRouter } from "react-router-dom";
-import { render, screen, cleanup, fireEvent, waitFor } from "@testing-library/react";
+import {
+  render,
+  screen,
+  cleanup,
+  fireEvent,
+  waitFor
+} from "@testing-library/react";
 import "@testing-library/jest-dom";
 import { OrderContext } from "../../../contexts/OrderContext";
 import axiosMock from "axios";
-import userEvent from '@testing-library/user-event'
+import userEvent from "@testing-library/user-event";
 import Home from "./Home";
 
 jest.mock("axios");
@@ -39,14 +45,12 @@ describe("Home", () => {
   it("renders", () => {
     const { container } = render(component);
 
-    expect(container.firstChild).toHaveTextContent('Order Food online')
+    expect(container.firstChild).toHaveTextContent("Order Food online");
   });
 
   it("button is disabled", () => {
     const { container, getByText } = render(component);
-    const letsGoButton = getByText("Let's go")
+    const letsGoButton = getByText("Let's go");
     expect(letsGoButton).toBeDisabled();
   });
-
-
 });

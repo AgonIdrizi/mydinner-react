@@ -1,0 +1,9 @@
+{
+  "prettier": {
+    "printWidth": 90,
+    "bracketSpacing": false,
+    "singleQuote": true,
+    "tabWidth": 2,
+    "trailingComma": "es5"
+  }
+}

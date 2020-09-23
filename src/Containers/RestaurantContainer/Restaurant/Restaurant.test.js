@@ -1,7 +1,7 @@
 import React from 'react';
 import { render, screen, cleanup, fireEvent } from '@testing-library/react';
 import { BrowserRouter } from 'react-router-dom';
-import {Provider} from 'react-redux'
+import { Provider } from 'react-redux'
 import configureStore from 'redux-mock-store'
 import '@testing-library/jest-dom';
 import { OrderContext } from "../../../contexts/OrderContext";
@@ -19,8 +19,8 @@ const store = mockStore({
     totalAmount: 0
   }
 });
-const component = (
-  <Provider store={store}>
+const component = 
+(<Provider store={store}>
     <BrowserRouter>
       <OrderContext.Provider value={{ setRestaurantSelected: jest.fn() }}>
         <Restaurant
