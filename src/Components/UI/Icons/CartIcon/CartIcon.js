@@ -6,7 +6,6 @@ const CartIcon = () => {
   return (
     <div className="cartIcon">
       <ShoppingCartOutlined  />
-      <div style={{borderRadius: '50%', backgroundColor: 'black'}}>2</div>
     </div>
     
   );
