@@ -47,6 +47,7 @@ const ItemCard = React.memo ( ({
   const handleOkModal = () => {
     dispatch(clearCart());
     dispatch(addToCart(itemToBeAddedInCart))
+    setRestaurantSelected(Number(match.params.id));
     setItemToBeAddedInCart()
     setShowModal(false);
   } 
@@ -92,7 +93,7 @@ const ItemCard = React.memo ( ({
     </>
   );
 }, (prevProps, nextProps) => {
-  if (prevProps.cartItems !== nextProps.cartItems) {
+  if (prevProps.canAddItems !== nextProps.canAddItems) {
     return false
   }
   return false

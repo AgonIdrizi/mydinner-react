@@ -18,8 +18,6 @@ const RestaurantContainer = ({ match }) => {
   
   useEffect(() => {
     if (cartItems.length !== 0) {
-     console.log(" Number(match.params.id) === restaurantSelected", Number(match.params.id) === restaurantSelected)
-      
       Number(match.params.id) == restaurantSelected ? setCanAddItems(true) : setCanAddItems(false)
     }
     if (cartItems.length === 0) {
