@@ -6,11 +6,11 @@ import {withRouter} from "react-router-dom";
 import { countObjectsWithEqualProperty } from "../../../../utils/helperFunctions";
 import {Button} from "antd"
 
-import {checkout, addToCart, removeFromCart} from '../../../../store/actions/index';
+import {checkout, addToCart, removeFromCart, clearCart} from '../../../../store/actions/index';
 import  emptyCartImg from "../../../../assets/empty-cart.svg"
 import "./CartCard.scss";
 
-const CartCard = ({ restaurantName, history, match }) => {
+const CartCard = ({ restaurantName, showCheckoutButton, history, match }) => {
   const [displayItemsObj, setDisplayItemsObj] = useState({});
   const context = useContext(OrderContext);
   const { setRestaurantSelected } = context;
@@ -50,6 +50,11 @@ const CartCard = ({ restaurantName, history, match }) => {
     dispatch(checkout());
     history.push("/cart")
   }
+
+  const handleClearCart = () => {
+    dispatch(clearCart());
+  }
+
   return (
     <div className="CartCard">
       <div className="CartCardHeader">
@@ -88,7 +93,9 @@ const CartCard = ({ restaurantName, history, match }) => {
           <div><span>SubTotal</span><span>{totalAmount}</span></div>
           <div className="DeliveryFee"><span>Delivery Fee</span><span>Free</span></div>
           <div><span>Total Amount</span><span>{totalAmount}</span></div>
-          <Button onClick={() => handleCheckout()} style={{backgroundColor:"#00a53c", color: 'white'}}>PROCEED TO CHECKOUT</Button>
+          {showCheckoutButton 
+            ? <Button onClick={() => handleCheckout()} style={{backgroundColor:"#00a53c", color: 'white'}}>PROCEED TO CHECKOUT</Button>
+            : <Button onClick={() => handleClearCart()} style={{backgroundColor:"#00a53c", color: 'white'}}>CLEAR CART</Button>}
         </div>
       )}
     </div>

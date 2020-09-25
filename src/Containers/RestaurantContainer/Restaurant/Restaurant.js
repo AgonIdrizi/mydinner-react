@@ -186,7 +186,7 @@ const Restaurant = props => {
               ))}
           </section>
           <section ref={cartRef} style={cartStyle} className="ResCard">
-            <CartCard restaurantName={props.resData.restaurantName} />
+            <CartCard showCheckoutButton={true} restaurantName={props.resData.restaurantName} />
           </section>
         </div>
       </div>
