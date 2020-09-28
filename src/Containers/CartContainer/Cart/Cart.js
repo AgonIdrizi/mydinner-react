@@ -20,7 +20,7 @@ const Cart = ({ breadCrumbItems, resData }) => {
   const settings = {
     dots: true,
     infinite: true,
-    autoplay: false,
+    autoplay: true,
     pauseOnHover: true,
     speed: 500,
     slidesToShow: 4,
@@ -49,7 +49,7 @@ const Cart = ({ breadCrumbItems, resData }) => {
         </div>
         {showPayButton && (
           <StripeCheckout
-            stripeKey="pk_test_eHUHMgXo7utI4f7ino5rm9iK"
+            stripeKey={process.env.REACT_APP_STRIPE_KEY}
             token={handleToken}
             billingAddress
             shippingAddress
@@ -57,7 +57,7 @@ const Cart = ({ breadCrumbItems, resData }) => {
           />
         )}
         <div className="MenuRecommendations">
-          <h3>More from this restaurant:</h3>
+          <h3>Recommendations:</h3>
           <Slider {...settings}>
             {resData.restaurantMenus.map(elem => {
               return (
