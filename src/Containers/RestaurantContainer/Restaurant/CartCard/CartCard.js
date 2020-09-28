@@ -53,6 +53,7 @@ const CartCard = ({ restaurantName, showCheckoutButton, history, match }) => {
 
   const handleClearCart = () => {
     dispatch(clearCart());
+    setRestaurantSelected(0);
   }
 
   return (

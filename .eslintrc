@@ -19,6 +19,6 @@
   "rules": {
     "prettier/prettier": "error",
     "no-unused-vars": "error",
-    "quotes": ["single"]
+    "quotes": 0
   }
 }

@@ -11,6 +11,8 @@
     // Removed rule "disallow the use of console" from recommended eslint rules
     "no-console": "off",
 
+    "quotes": 0,
+
     // Removed rule "disallow multiple spaces in regular expressions" from recommended eslint rules
     "no-regex-spaces": "off",
 

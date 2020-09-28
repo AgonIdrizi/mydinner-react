@@ -6,16 +6,41 @@
   box-shadow: 0 0 5px 0 #aba9ab;
 }
 
-.CheckoutInfo {
+.CheckoutSection {
   height: 100%;
   box-shadow: 0 0 5px 0 #aba9ab;
   background-color: #fff;
   margin-right: auto;
   margin-left: auto;
+  .CheckoutInfo {
+    display: flex;
+    justify-content: space-between;
+    padding-top: 20px;
+    padding-left: 20px;
+    padding-right: 20px;
+    .CheckoutItems {
+      width: 40%;
+      border-radius: 5px;
+      border: solid lightgrey 1px;
+      box-shadow: 0 0 5px 0 #aba9ab;
+    }
+    .Address {
+      width: 50%;
+      display: flex;
+      flex-direction: column;
+      span {
+        text-overflow: ellipsis;
+      }
+    }
+  }
+}
+.StripeCheckout {
+  margin-top: 50px!important;
+  width: 200px!important;
 }
 
 @media (min-width: 1000px){
-  .CheckoutInfo {
+  .CheckoutSection {
     width: 1000px;
   }
   
