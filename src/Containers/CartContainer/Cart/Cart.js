@@ -3,17 +3,28 @@ import { useSelector } from "react-redux";
 import StripeCheckout from "react-stripe-checkout";
 import { OrderContext } from "../../../contexts/OrderContext";
 import BreadCrumb from "../../../Components/UI/BreadCrumb/BreadCrumb";
+import Slider from "react-slick";
 import { isEmptyObject } from "../../../utils/helperFunctions";
 import CartCard from "../../RestaurantContainer/Restaurant/CartCard/CartCard";
+import ItemCard from "../../RestaurantContainer/Restaurant/ItemCard/ItemCard";
 import "./Cart.scss";
 
-const Cart = ({ breadCrumbItems }) => {
+const Cart = ({ breadCrumbItems, resData }) => {
   const totalAmount = useSelector(state => state.CardReducer.totalAmount);
   const context = useContext(OrderContext);
   const { orderDeliveryAddress, restaurantSelected } = context;
   const showPayButton = totalAmount === 0 ? false : true;
   const handleToken = (token, addresses) => {
     console.log({ token, addresses });
+  };
+  const settings = {
+    dots: true,
+    infinite: true,
+    autoplay: false,
+    pauseOnHover: true,
+    speed: 500,
+    slidesToShow: 4,
+    slidesToScroll: 1
   };
 
   return (
@@ -45,6 +56,27 @@ const Cart = ({ breadCrumbItems }) => {
             amount={totalAmount * 100}
           />
         )}
+        <div className="MenuRecommendations">
+          <h3>More from this restaurant:</h3>
+          <Slider {...settings}>
+            {resData.restaurantMenus.map(elem => {
+              return (
+                <ItemCard
+                  id={elem.id}
+                  key={elem.id}
+                  name={elem.menuName}
+                  imgUrl={elem.menuImgUrl}
+                  price={elem.price}
+                  showIngredients={false}
+                  ingrdients={elem.ingredients}
+                  canAddItems={true}
+                  sliderClassName="sliderItem"
+                  cartItems={[1, 2]}
+                />
+              );
+            })}
+          </Slider>
+        </div>
       </section>
     </div>
   );

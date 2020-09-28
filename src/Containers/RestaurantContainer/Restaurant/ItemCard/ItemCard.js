@@ -18,7 +18,9 @@ const ItemCard = React.memo ( ({
   price,
   cartItems,
   match,
-  canAddItems
+  canAddItems,
+  showIngredients,
+  sliderClassName
 }) => {
   const [showModal, setShowModal] = useState(false);
   const [itemToBeAddedInCart, setItemToBeAddedInCart] = useState()
@@ -60,12 +62,13 @@ const ItemCard = React.memo ( ({
         <div className="DishLogoDiv">
           <img src={imgUrl} alt="Res Logo" />
         </div>
-        <div className="DishCardLeft">
+        <div className={`DishCardLeft ${sliderClassName}`}>
           <div className="DishInfo">
             <p className="DishName">{name}</p>
-            <span className="DishIngredients">
+              {showIngredients && 
+                <span className="DishIngredients">
               mushrooms, tomato sauce, cheese
-            </span>
+            </span>}
           </div>
           <div className="DishActions">
             <Button

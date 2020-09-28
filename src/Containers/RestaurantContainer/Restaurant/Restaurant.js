@@ -149,6 +149,7 @@ const Restaurant = props => {
                     imgUrl={elem.menuImgUrl}
                     price={elem.price}
                     ingrdients={elem.ingredients}
+                    showIngredients={true}
                     canAddItems={props.canAddItems}
                     cartItems={props.cartItems}
                   />
@@ -165,6 +166,7 @@ const Restaurant = props => {
                     imgUrl={elem.menuImgUrl}
                     price={elem.price}
                     ingrdients={elem.ingredients}
+                    showIngredients={true}
                     canAddItems={props.canAddItems}
                     cartItems={props.cartItems}
                   />
@@ -180,6 +182,7 @@ const Restaurant = props => {
                   imgUrl={elem.menuImgUrl}
                   price={elem.price}
                   ingrdients={elem.ingredients}
+                  showIngredients={true}
                   canAddItems={props.canAddItems}
                   cartItems={props.cartItems}
                 />
