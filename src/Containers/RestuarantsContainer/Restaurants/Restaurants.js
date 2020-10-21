@@ -3,6 +3,7 @@ import RestaurantCard from "./RestaurantCard/RestaurantCard";
 import Filter from "../../../Components/UI/Filter/Filter";
 import { countObjectOccurences } from "../../../utils/helperFunctions";
 import { useScrollPosition } from "@n8tb1t/use-scroll-position";
+import RestaurantCardSkeleton from '../../../Components/UI/Skeleton/RestaurantCardSkeleton'
 import { motion } from "framer-motion";
 import { divContainerVariant } from '../../../styles/animations/animationsVariants'
 import { flattenArray } from "../../../utils/helperFunctions";
@@ -20,7 +21,7 @@ const sortByArray = [
   "Fastest Delivery"
 ];
 
-const Restaurants = ({ restaurants }) => {
+const Restaurants = ({ isLoading, restaurants }) => {
   const [allRestaurants, setAllRestaurants] = useState([]);
   const [filteredRestaurants, setFilteredRestaurants] = useState([]);
   const [isSearching, setSearching] = useState(false);
@@ -289,7 +290,7 @@ const Restaurants = ({ restaurants }) => {
             style={restaurantCartDivStyle}
             className="AllRestaurants"
           >
-            {!isSearching &&
+            {!isLoading && !isSearching &&
               allRestaurants.map((elem, index) => (
                 <RestaurantCard
                   key={elem.id}
@@ -299,7 +300,7 @@ const Restaurants = ({ restaurants }) => {
                   type={elem.restaurantType}
                 />
               ))}
-            {isSearching &&
+            {!isLoading && isSearching &&
               filteredRestaurants.map((elem, index) => (
                 <RestaurantCard
                   key={elem.id}

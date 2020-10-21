@@ -29,9 +29,7 @@ const RestaurantsContainer = () => {
     }
   }, [isLoading]);
 
-  return (
-    <>{isLoading ? <Spinner /> : <Restaurants restaurants={restaurants} />}</>
-  );
+  return <Restaurants isLoading={isLoading} restaurants={restaurants} />;
 };
 
 export default RestaurantsContainer;
