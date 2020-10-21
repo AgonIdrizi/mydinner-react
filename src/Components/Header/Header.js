@@ -3,14 +3,13 @@ import { Link } from "react-router-dom";
 import { UserContext } from "../../contexts/UserContext";
 import { Menu, Dropdown } from "antd";
 import CartIcon from "../UI/Icons/CartIcon/CartIcon";
+import { motion } from "framer-motion";
 import "antd/es/menu/style/index.css";
 import "antd/es/dropdown/style/index.css";
 import "./Header.scss";
 import Logo from "../../assets/logo.png";
 
 import { DownOutlined } from "@ant-design/icons";
-
-
 
 const Header = () => {
   const context = useContext(UserContext);
@@ -22,15 +21,26 @@ const Header = () => {
         <Link to="/profile">Profile</Link>
       </Menu.Item>
       <Menu.Item key="1">
-        <a onClick={ e => onUserLogOutHandler(e)} type="link">Logout</a>
+        <a onClick={e => onUserLogOutHandler(e)} type="link">
+          Logout
+        </a>
       </Menu.Item>
     </Menu>
   );
 
   return (
     <header className="Header">
-      <div className="NavContent">
-      <h2><Link to="/"><img src={Logo} alt="Food In"></img></Link></h2>
+      <motion.div
+        className="NavContent"
+        initial={{ y: -250 }}
+        animate={{ y: 0 }}
+        transition={{ delay: 0.2, type: "spring", stiffness: 120 }}
+      >
+        <h2>
+          <Link to="/">
+            <img src={Logo} alt="Food In"></img>
+          </Link>
+        </h2>
         <ul>
           <li>
             <Link to="/all-restaurants">All Restaurants</Link>
@@ -52,11 +62,12 @@ const Header = () => {
             </li>
           )}
           <li>
-            <Link to="/cart"><CartIcon /></Link>
-            
+            <Link to="/cart">
+              <CartIcon />
+            </Link>
           </li>
         </ul>
-      </div>
+      </motion.div>
     </header>
   );
 };

@@ -13,6 +13,7 @@
     "axios": "^0.19.2",
     "child-process-promise": "^2.2.1",
     "formik": "^2.1.5",
+    "framer-motion": "^2.9.3",
     "leaflet": "^1.6.0",
     "lodash": "^4.17.20",
     "node-sass": "^4.14.1",

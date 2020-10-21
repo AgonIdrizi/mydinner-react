@@ -6,6 +6,7 @@ import { UserContext } from "../../../contexts/UserContext";
 import Button from "../../../Components/UI/Button/Button";
 import { TextFormField } from "../../../Components/UI/TextFormFields/TextFormField/TextFormField";
 import ErrorMessage from "../../../Components/UI/ErrorMessage/ErrorMessage";
+import { motion } from 'framer-motion';
 import "./Login.scss";
 
 const schema = yup.object({
@@ -20,12 +21,32 @@ const schema = yup.object({
     .matches(/[a-zA-Z]/, "Password must be alphanumeric.")
 });
 
+const divContainerVariant = {
+  initial: {
+    opacity: 0
+  },
+  animate: {
+    opacity: 1,
+    transition: { duration: 1,  ease: 'easeIn'} 
+  },
+  exit: {
+    opacity: 0,
+    transition:{ duration: 0.2}
+  }
+}
+
 const Login = () => {
   const context = useContext(UserContext);
   const { onUserLoginHandler } = context;
  
   return (
-    <div className="Login">
+    <motion.div 
+      className="Login"
+      variants={divContainerVariant}
+      initial="initial"
+      animate="animate"
+      exit="exit"
+    >
       <h2 className="title">Login</h2>
       <Formik
         validationSchema={schema}
@@ -58,7 +79,7 @@ const Login = () => {
         <span>Not registered?</span>
         <Link to="/sign-up">Sign Up</Link>
       </div>
-    </div>
+    </motion.div>
   );
 };
 export default Login;
