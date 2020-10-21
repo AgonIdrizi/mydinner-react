@@ -7,6 +7,7 @@ import Button from "../../../Components/UI/Button/Button";
 import { TextFormField } from "../../../Components/UI/TextFormFields/TextFormField/TextFormField";
 import ErrorMessage from "../../../Components/UI/ErrorMessage/ErrorMessage";
 import { motion } from 'framer-motion';
+import { divContainerVariant } from '../../../styles/animations/animationsVariants';
 import "./Login.scss";
 
 const schema = yup.object({
@@ -21,20 +22,6 @@ const schema = yup.object({
     .matches(/[a-zA-Z]/, "Password must be alphanumeric.")
 });
 
-const divContainerVariant = {
-  initial: {
-    opacity: 0
-  },
-  animate: {
-    opacity: 1,
-    transition: { duration: 1,  ease: 'easeIn'} 
-  },
-  exit: {
-    opacity: 0,
-    transition:{ duration: 0.2}
-  }
-}
-
 const Login = () => {
   const context = useContext(UserContext);
   const { onUserLoginHandler } = context;
@@ -43,7 +30,7 @@ const Login = () => {
     <motion.div 
       className="Login"
       variants={divContainerVariant}
-      initial="initial"
+      initial="hidden"
       animate="animate"
       exit="exit"
     >

@@ -3,11 +3,13 @@ import RestaurantCard from "./RestaurantCard/RestaurantCard";
 import Filter from "../../../Components/UI/Filter/Filter";
 import { countObjectOccurences } from "../../../utils/helperFunctions";
 import { useScrollPosition } from "@n8tb1t/use-scroll-position";
-import { flattenArray } from '../../../utils/helperFunctions';
+import { motion } from "framer-motion";
+import { divContainerVariant } from '../../../styles/animations/animationsVariants'
+import { flattenArray } from "../../../utils/helperFunctions";
 import "./Restaurants.scss";
 import "antd/es/input/style/index.css";
 import { Menu, Input, Button, Dropdown } from "antd";
-import { DownOutlined, UserOutlined } from '@ant-design/icons';
+import { DownOutlined, UserOutlined } from "@ant-design/icons";
 
 const { Search } = Input;
 
@@ -17,8 +19,6 @@ const sortByArray = [
   "Min. Order Amount",
   "Fastest Delivery"
 ];
-
-
 
 const Restaurants = ({ restaurants }) => {
   const [allRestaurants, setAllRestaurants] = useState([]);
@@ -31,9 +31,12 @@ const Restaurants = ({ restaurants }) => {
   const [filterDivStyle, setFilterDivStyle] = useState({});
   const [restaurantCartDivStyle, setRestauranCarttDivStyle] = useState({});
   const restaurantDivRef = useRef(null);
-  const restaurantsDivRef = useRef(null)
+  const restaurantsDivRef = useRef(null);
   const filterDivRef = useRef(null);
-  const restaurantsDivWidth = (restaurantsDivRef.current && restaurantsDivRef.current.offsetWidth  <  500) ? true : false
+  const restaurantsDivWidth =
+    restaurantsDivRef.current && restaurantsDivRef.current.offsetWidth < 500
+      ? true
+      : false;
 
   useEffect(() => {
     const allrestaurants = sortByHandler(restaurants);
@@ -101,21 +104,21 @@ const Restaurants = ({ restaurants }) => {
   }, [restaurants, searchValue]);
 
   useScrollPosition(({ prevPos, currPos }) => {
-      if (currPos.y < -150 && filterDivRef.current != null ) {
-        setFilterDivStyle({
-          position: "fixed",
-          top: "20px"
-        });
-        setRestauranCarttDivStyle({
-          marginLeft: "24%"
-        });
-      } else {
-        setFilterDivStyle({
-          display: "flex",
-          flexDirection: "column"
-        });
-        setRestauranCarttDivStyle({});
-      }
+    if (currPos.y < -150 && filterDivRef.current != null) {
+      setFilterDivStyle({
+        position: "fixed",
+        top: "20px"
+      });
+      setRestauranCarttDivStyle({
+        marginLeft: "24%"
+      });
+    } else {
+      setFilterDivStyle({
+        display: "flex",
+        flexDirection: "column"
+      });
+      setRestauranCarttDivStyle({});
+    }
   });
 
   const setSortButtonStyle = value => {
@@ -123,13 +126,14 @@ const Restaurants = ({ restaurants }) => {
   };
 
   const menu = (
-    <Menu onClick={() => console.log('asdds')}>
+    <Menu onClick={() => console.log("asdds")}>
       {sortByArray.map(elem => (
         <Menu.Item key={elem} icon={<UserOutlined />}>
-          <Button 
+          <Button
             type="link"
             style={{ color: `${setSortButtonStyle(elem)}` }}
-            onClick={() => onSortByClickHandler(elem)}>
+            onClick={() => onSortByClickHandler(elem)}
+          >
             {elem}
           </Button>
         </Menu.Item>
@@ -208,64 +212,78 @@ const Restaurants = ({ restaurants }) => {
     }
   };
 
-
   const onSortByClickHandler = value => {
     setSortByClicked(value);
   };
-  console.log('width', restaurantsDivRef.current ? restaurantsDivRef.current.offsetWidth : 0);
-  
+  console.log(
+    "width",
+    restaurantsDivRef.current ? restaurantsDivRef.current.offsetWidth : 0
+  );
+
   return (
-    <div className="RestaurantsContainer">
-      <section ref={restaurantsDivRef} className="Restaurants">
+    <motion.div
+      className="RestaurantsContainer"
+      variants={divContainerVariant}
+      initial="hidden"
+      animate="animate"
+      exit="exit"
+    >
+      <motion.section ref={restaurantsDivRef} className="Restaurants">
         <div className="RestaurantHeaderText">
-          {!restaurantsDivWidth &&<h2>Restaurants</h2>}
-          {restaurantsDivWidth && <div className="RestaurantSearchInput">
-            <Search
-              placeholder="input search text"
-              onChange={event => onSearchRestaurantHandler(event)}
-              style={{ width: 200 }}
-            />
-          </div>}
-         
-        </div>
-        <div className="SortRestaurants">
-          {!restaurantsDivWidth &&<h3>Sort By:</h3>}
-          {!restaurantsDivWidth && sortByArray.map(elem => (
-            <Button
-              key={elem}
-              style={{ color: `${setSortButtonStyle(elem)}` }}
-              onClick={() => onSortByClickHandler(elem)}
-              type="link"
-            >
-              {elem}
-            </Button>
-          ))}
-          {restaurantsDivWidth && <Dropdown overlay={menu}>
-            <Button>
-              Sort By <DownOutlined />
-            </Button>
-          </Dropdown>}
-        </div>
-        <section className="ResInnerContainer">
-        {!restaurantsDivWidth && <div
-            ref={filterDivRef}
-            style={filterDivStyle}
-            className="SearchFilterContainer"
-          >
-             <div className="RestaurantSearchInput">
+          {!restaurantsDivWidth && <h2>Restaurants</h2>}
+          {restaurantsDivWidth && (
+            <div className="RestaurantSearchInput">
               <Search
                 placeholder="input search text"
                 onChange={event => onSearchRestaurantHandler(event)}
                 style={{ width: 200 }}
               />
             </div>
-             <div className="FilterRestaurants">
-              <Filter
-                filterByCuisine={filterByCuisine}
-                onCheckBoxClickHandler={onCheckBoxClickHandler}
-              />
+          )}
+        </div>
+        <div className="SortRestaurants">
+          {!restaurantsDivWidth && <h3>Sort By:</h3>}
+          {!restaurantsDivWidth &&
+            sortByArray.map(elem => (
+              <Button
+                key={elem}
+                style={{ color: `${setSortButtonStyle(elem)}` }}
+                onClick={() => onSortByClickHandler(elem)}
+                type="link"
+              >
+                {elem}
+              </Button>
+            ))}
+          {restaurantsDivWidth && (
+            <Dropdown overlay={menu}>
+              <Button>
+                Sort By <DownOutlined />
+              </Button>
+            </Dropdown>
+          )}
+        </div>
+        <section className="ResInnerContainer">
+          {!restaurantsDivWidth && (
+            <div
+              ref={filterDivRef}
+              style={filterDivStyle}
+              className="SearchFilterContainer"
+            >
+              <div className="RestaurantSearchInput">
+                <Search
+                  placeholder="input search text"
+                  onChange={event => onSearchRestaurantHandler(event)}
+                  style={{ width: 200 }}
+                />
+              </div>
+              <div className="FilterRestaurants">
+                <Filter
+                  filterByCuisine={filterByCuisine}
+                  onCheckBoxClickHandler={onCheckBoxClickHandler}
+                />
+              </div>
             </div>
-          </div>}
+          )}
           <div
             ref={restaurantDivRef}
             style={restaurantCartDivStyle}
@@ -293,8 +311,8 @@ const Restaurants = ({ restaurants }) => {
               ))}
           </div>
         </section>
-      </section>
-    </div>
+      </motion.section>
+    </motion.div>
   );
 };
 

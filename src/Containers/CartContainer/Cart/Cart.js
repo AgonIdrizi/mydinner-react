@@ -4,6 +4,8 @@ import StripeCheckout from "react-stripe-checkout";
 import { OrderContext } from "../../../contexts/OrderContext";
 import BreadCrumb from "../../../Components/UI/BreadCrumb/BreadCrumb";
 import Slider from "react-slick";
+import { motion } from 'framer-motion';
+import { divContainerVariant } from '../../../styles/animations/animationsVariants'
 import { isEmptyObject } from "../../../utils/helperFunctions";
 import CartCard from "../../RestaurantContainer/Restaurant/CartCard/CartCard";
 import ItemCard from "../../RestaurantContainer/Restaurant/ItemCard/ItemCard";
@@ -28,7 +30,13 @@ const Cart = ({ breadCrumbItems, resData }) => {
   };
 
   return (
-    <div className="CartCheckoutContainer">
+    <motion.div 
+      className="CartCheckoutContainer"
+      variants={divContainerVariant}
+      initial="hidden"
+      animate="animate"
+      exit="exit"
+    >
       <div className="BreadCrumb">
         <BreadCrumb items={breadCrumbItems} />
       </div>
@@ -78,7 +86,7 @@ const Cart = ({ breadCrumbItems, resData }) => {
           </Slider>
         </div>
       </section>
-    </div>
+    </motion.div>
   );
 };
 

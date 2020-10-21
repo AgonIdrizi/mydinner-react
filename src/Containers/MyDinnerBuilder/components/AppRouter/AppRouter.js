@@ -22,7 +22,7 @@ const AppRouter = ({location}) => {
   const { user } = context;
   console.log('location',location)
   return (
-    <AnimatePresence exitBeforeEnter initial={false}>
+    <AnimatePresence exitBeforeEnter>
       <Switch location={location}  key={location.key}>
         <UnAuthedRoute
           path={ROUTE_PATHS.ALL_RESTAURANTS}
