@@ -10,6 +10,7 @@ import { isEmptyObject } from "../../../utils/helperFunctions"
 import { OrderContext } from "../../../contexts/OrderContext";
 import { withRouter } from "react-router-dom"
 import { motion } from 'framer-motion';
+import { divContainerVariant } from '../../../styles/animations/animationsVariants'
 
 import banner1 from "../../../assets/home-banners/marshmallow-banner-img-1.webp";
 import banner2 from "../../../assets/home-banners/marshamallow-banner-img-2.webp";
@@ -139,19 +140,6 @@ const Home = (props) => {
     setDeliveryAddressLongLang(langLong);
   };
 
-  const divContainerVariant = {
-    hidden: {
-      opacity: 0
-    },
-    animate: {
-      opacity: 1,
-      transition: { duration: 1,  ease: 'easeIn'} 
-    },
-    exit: {
-      opacity: 0,
-      transition:{ duration: 0.2}
-    }
-  }
 
   return (
     <motion.div className="HomeContainer"

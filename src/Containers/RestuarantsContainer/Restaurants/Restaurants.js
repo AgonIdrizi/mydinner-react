@@ -229,7 +229,7 @@ const Restaurants = ({ isLoading, restaurants }) => {
       animate="animate"
       exit="exit"
     >
-      <motion.section ref={restaurantsDivRef} className="Restaurants">
+      <section ref={restaurantsDivRef} className="Restaurants">
         <div className="RestaurantHeaderText">
           {!restaurantsDivWidth && <h2>Restaurants</h2>}
           {restaurantsDivWidth && (
@@ -312,7 +312,7 @@ const Restaurants = ({ isLoading, restaurants }) => {
               ))}
           </div>
         </section>
-      </motion.section>
+      </section>
     </motion.div>
   );
 };

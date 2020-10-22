@@ -2,6 +2,8 @@ import React, { useRef, useState } from "react";
 import ItemCard from "./ItemCard/ItemCard";
 import CartCard from "./CartCard/CartCard";
 import Card from "../../../Components/UI/Card/Card";
+import { motion } from 'framer-motion';
+import { divContainerVariant } from '../../../styles/animations/animationsVariants';
 import "antd/es/input/style/index.css";
 import { Input } from "antd";
 import { Button } from "antd";
@@ -98,7 +100,12 @@ const Restaurant = props => {
   };
   
   return (
-    <div className="RestaurantContainer">
+    <motion.div 
+      variants={divContainerVariant}
+      initial="hidden"
+      animate="animate"
+      exit="hidden"
+      className="RestaurantContainer">
       <div ref={restaurantRef} className="Restaurant">
         <div className="RestaurantHeader">
           <h2>{props.resData.restaurantName}</h2>
@@ -193,7 +200,7 @@ const Restaurant = props => {
           </section>
         </div>
       </div>
-    </div>
+    </motion.div>
   );
 };
 

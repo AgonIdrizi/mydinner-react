@@ -2,7 +2,8 @@ import React, { useEffect, useState, useContext } from "react";
 import {useDispatch, useSelector, useStore} from 'react-redux'
 import { OrderContext } from '../../../../contexts/OrderContext';
 import LineBreak from "../../../../Components/UI/LineBreak/LineBreak";
-import {withRouter} from "react-router-dom";
+import {withRouter, useHistory, useLocation, Link} from "react-router-dom";
+import { motion } from 'framer-motion'
 import { countObjectsWithEqualProperty } from "../../../../utils/helperFunctions";
 import {Button} from "antd"
 
@@ -10,7 +11,9 @@ import {checkout, addToCart, removeFromCart, clearCart} from '../../../../store/
 import  emptyCartImg from "../../../../assets/empty-cart.svg"
 import "./CartCard.scss";
 
-const CartCard = ({ restaurantName, showCheckoutButton, history, match }) => {
+const CartCard = ({ restaurantName, showCheckoutButton, match }) => {
+  const history = useHistory()
+  const location = useLocation()
   const [displayItemsObj, setDisplayItemsObj] = useState({});
   const context = useContext(OrderContext);
   const { setRestaurantSelected } = context;
@@ -48,7 +51,6 @@ const CartCard = ({ restaurantName, showCheckoutButton, history, match }) => {
 
   const handleCheckout = () => {
     dispatch(checkout());
-    history.push("/cart")
   }
 
   const handleClearCart = () => {
@@ -57,7 +59,7 @@ const CartCard = ({ restaurantName, showCheckoutButton, history, match }) => {
   }
 
   return (
-    <div className="CartCard">
+    <motion.div className="CartCard">
       <div className="CartCardHeader">
         <h2>Cart</h2>
       </div>
@@ -95,12 +97,12 @@ const CartCard = ({ restaurantName, showCheckoutButton, history, match }) => {
           <div className="DeliveryFee"><span>Delivery Fee</span><span>Free</span></div>
           <div><span>Total Amount</span><span>{totalAmount}</span></div>
           {showCheckoutButton 
-            ? <Button onClick={() => handleCheckout()} style={{backgroundColor:"#00a53c", color: 'white'}}>PROCEED TO CHECKOUT</Button>
+            ? <Button onClick={() => handleCheckout()} style={{backgroundColor:"#00a53c", color: 'white'}}><Link to="/cart">PROCEED TO CHECKOUT</Link></Button>
             : <Button onClick={() => handleClearCart()} style={{backgroundColor:"#00a53c", color: 'white'}}>CLEAR CART</Button>}
         </div>
       )}
-    </div>
+    </motion.div>
   );
 };
 
-export default withRouter(CartCard);
+export default CartCard;
