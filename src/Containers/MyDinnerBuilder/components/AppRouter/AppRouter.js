@@ -22,8 +22,8 @@ const AppRouter = ({location}) => {
   const { user } = context;
   console.log('location',location)
   return (
-    <AnimatePresence initial={false} exitBeforeEnter>
-      <Switch location={location}  key={location.key}>
+    <AnimatePresence exitBeforeEnter>
+      <Switch location={location} key={location.key}>
         <UnAuthedRoute
           path={ROUTE_PATHS.ALL_RESTAURANTS}
           render={() => <AsyncRestaurants />}

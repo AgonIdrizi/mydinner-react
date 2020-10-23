@@ -3,7 +3,8 @@ import * as actionTypes from '../actions/actionTypes';
 const initialState = {
   proceedToCheckout: false,
   itemsInCart: [],
-  totalAmount: 0
+  totalAmount: 0,
+  showClearCartModal: false
 }
 
 const reducer = (state = initialState, action) => {
@@ -43,7 +44,12 @@ const reducer = (state = initialState, action) => {
         ...state,
         itemsInCart: [],
         totalAmount: 0
-      }  
+      }
+    case actionTypes.SHOW_CLEAR_CART_MODAL:
+      return {
+        ...state,
+        showClearCartModal: action.payload
+      }
   }
   return {...state};
 }

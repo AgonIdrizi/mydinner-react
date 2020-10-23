@@ -1,1 +1,7 @@
-export { checkout, addToCart, removeFromCart, clearCart } from "./card";
+export {
+  checkout,
+  addToCart,
+  removeFromCart,
+  clearCart,
+  showClearCartModal
+} from "./card";

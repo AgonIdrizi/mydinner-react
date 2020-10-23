@@ -143,14 +143,26 @@ const Home = (props) => {
 
   return (
     <motion.div className="HomeContainer"
-    variants={divContainerVariant}
-    initial="hidden"
-    animate="animate"
-    exit="hidden"
+      variants={divContainerVariant}
+      initial="hidden"
+      animate="animate"
+      exit="hidden"
     >
       <div className="HomeImage">
-        <img className="ImgBanner1" src={banner1} alt="My dinner home page" />
-        <img className="ImgBanner2" src={banner2} alt="My dinner home page" />
+        <motion.img
+          initial={{ x: '-100vw'}}
+          animate={{x: 0}}
+          transition={{ duration: 1, type: 'tween'}}
+          className="ImgBanner1" 
+          src={banner1} 
+          alt="My dinner home page" />
+        <motion.img
+          initial={{x: '100vw'}}
+          animate={{x: 0}}
+          transition={{ duration: 1, type: 'tween'}}
+          className="ImgBanner2" 
+          src={banner2} 
+          alt="My dinner home page" />
       </div>
       <div className="HomeSearchInput">
         <h1>Order Food online</h1>

@@ -25,3 +25,10 @@ export const clearCart = () => {
     type: actionTypes.CLEAR_CART
   };
 };
+
+export const showClearCartModal = value => {
+  return {
+    type: actionTypes.SHOW_CLEAR_CART_MODAL,
+    payload: value
+  };
+};

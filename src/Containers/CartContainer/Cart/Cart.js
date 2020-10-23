@@ -1,11 +1,14 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import { useSelector } from "react-redux";
 import StripeCheckout from "react-stripe-checkout";
 import { OrderContext } from "../../../contexts/OrderContext";
+import Modal from '../../../Components/UI/Modal/Modal';
 import BreadCrumb from "../../../Components/UI/BreadCrumb/BreadCrumb";
 import Slider from "react-slick";
 import { motion } from 'framer-motion';
-import { divContainerVariant } from '../../../styles/animations/animationsVariants'
+import { divContainerVariant } from '../../../styles/animations/animationsVariants';
+import { useDispatch } from 'react-redux';
+import { clearCart, showClearCartModal} from '../../../store/actions'
 import { isEmptyObject } from "../../../utils/helperFunctions";
 import CartCard from "../../RestaurantContainer/Restaurant/CartCard/CartCard";
 import ItemCard from "../../RestaurantContainer/Restaurant/ItemCard/ItemCard";
@@ -13,8 +16,10 @@ import "./Cart.scss";
 
 const Cart = ({ breadCrumbItems, resData }) => {
   const totalAmount = useSelector(state => state.CardReducer.totalAmount);
+  const showModal = useSelector(state => state.CardReducer.showClearCartModal);
+  const dispatch = useDispatch()
   const context = useContext(OrderContext);
-  const { orderDeliveryAddress, restaurantSelected } = context;
+  const { orderDeliveryAddress, restaurantSelected, setRestaurantSelected } = context;
   const showPayButton = totalAmount === 0 ? false : true;
   const handleToken = (token, addresses) => {
     console.log({ token, addresses });
@@ -26,10 +31,21 @@ const Cart = ({ breadCrumbItems, resData }) => {
     pauseOnHover: true,
     speed: 500,
     slidesToShow: 4,
-    slidesToScroll: 1
+    swipeToSlide: true
   };
 
+  const handleOkModal = () => {
+    dispatch(clearCart());
+    dispatch(showClearCartModal(false));
+    setRestaurantSelected(0);
+  }
+
+  const handleCancelModal = () => {
+    dispatch(showClearCartModal(false));
+  }
+
   return (
+    <>
     <motion.div 
       className="CartCheckoutContainer"
       variants={divContainerVariant}
@@ -87,6 +103,19 @@ const Cart = ({ breadCrumbItems, resData }) => {
         </div>
       </section>
     </motion.div>
+    {showModal && (
+        <Modal
+          title="Clear cart"
+          visible={showModal}
+          onOk={handleOkModal}
+          onCancel={handleCancelModal}
+          style={{ height: "500px" }}
+          centered
+        >
+          <h4>There are item in your cart from 'Restaurant', do you want to clear it?</h4>
+        </Modal>
+      )}
+    </>
   );
 };
 

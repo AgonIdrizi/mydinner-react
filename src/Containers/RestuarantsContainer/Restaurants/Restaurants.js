@@ -3,9 +3,9 @@ import RestaurantCard from "./RestaurantCard/RestaurantCard";
 import Filter from "../../../Components/UI/Filter/Filter";
 import { countObjectOccurences } from "../../../utils/helperFunctions";
 import { useScrollPosition } from "@n8tb1t/use-scroll-position";
-import RestaurantCardSkeleton from '../../../Components/UI/Skeleton/RestaurantCardSkeleton'
-import { motion } from "framer-motion";
-import { divContainerVariant } from '../../../styles/animations/animationsVariants'
+import RestaurantCardSkeleton from "../../../Components/UI/Skeleton/RestaurantCardSkeleton";
+import { motion, AnimatePresence } from "framer-motion";
+import { divContainerVariant } from "../../../styles/animations/animationsVariants";
 import { flattenArray } from "../../../utils/helperFunctions";
 import "./Restaurants.scss";
 import "antd/es/input/style/index.css";
@@ -20,6 +20,22 @@ const sortByArray = [
   "Min. Order Amount",
   "Fastest Delivery"
 ];
+
+const restaurantsDivVariants = {
+  initial: {
+    opacity: 0
+  },
+  animate: {
+    opacity: 1,
+    transition: {
+      duration: 1,
+      delayChildren: 0.8,
+      staggerChildren: 0.3,
+      staggerDirection: 1
+    }
+  },
+  exit: {}
+};
 
 const Restaurants = ({ isLoading, restaurants }) => {
   const [allRestaurants, setAllRestaurants] = useState([]);
@@ -285,32 +301,41 @@ const Restaurants = ({ isLoading, restaurants }) => {
               </div>
             </div>
           )}
-          <div
+          <motion.div
+            variants={restaurantsDivVariants}
+            initial="initial"
+            animate="animate"
+            exit="exit"
             ref={restaurantDivRef}
             style={restaurantCartDivStyle}
             className="AllRestaurants"
           >
-            {!isLoading && !isSearching &&
-              allRestaurants.map((elem, index) => (
-                <RestaurantCard
-                  key={elem.id}
-                  id={elem.id}
-                  imgUrl={elem.imgUrl}
-                  name={elem.restaurantName}
-                  type={elem.restaurantType}
-                />
-              ))}
-            {!isLoading && isSearching &&
-              filteredRestaurants.map((elem, index) => (
-                <RestaurantCard
-                  key={elem.id}
-                  id={elem.id}
-                  imgUrl={elem.imgUrl}
-                  name={elem.restaurantName}
-                  type={elem.restaurantType}
-                />
-              ))}
-          </div>
+            <AnimatePresence>
+              {!isLoading &&
+                !isSearching &&
+                allRestaurants.map((elem, index) => (
+                  <RestaurantCard
+                    key={elem.id}
+                    id={elem.id}
+                    imgUrl={elem.imgUrl}
+                    name={elem.restaurantName}
+                    type={elem.restaurantType}
+                  />
+                ))}
+
+              {!isLoading &&
+                isSearching &&
+                filteredRestaurants.map((elem, index) => (
+                  <RestaurantCard
+                    key={elem.id}
+                    id={elem.id}
+                    imgUrl={elem.imgUrl}
+                    name={elem.restaurantName}
+                    type={elem.restaurantType}
+                  />
+                ))}
+            </AnimatePresence>
+          </motion.div>
         </section>
       </section>
     </motion.div>

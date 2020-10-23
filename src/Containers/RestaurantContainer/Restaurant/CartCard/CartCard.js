@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useContext } from "react";
-import {useDispatch, useSelector, useStore} from 'react-redux'
+import {useDispatch, useSelector} from 'react-redux'
 import { OrderContext } from '../../../../contexts/OrderContext';
 import LineBreak from "../../../../Components/UI/LineBreak/LineBreak";
 import {withRouter, useHistory, useLocation, Link} from "react-router-dom";
@@ -7,7 +7,7 @@ import { motion } from 'framer-motion'
 import { countObjectsWithEqualProperty } from "../../../../utils/helperFunctions";
 import {Button} from "antd"
 
-import {checkout, addToCart, removeFromCart, clearCart} from '../../../../store/actions/index';
+import {checkout, addToCart, removeFromCart, clearCart, showClearCartModal} from '../../../../store/actions/index';
 import  emptyCartImg from "../../../../assets/empty-cart.svg"
 import "./CartCard.scss";
 
@@ -15,8 +15,6 @@ const CartCard = ({ restaurantName, showCheckoutButton, match }) => {
   const history = useHistory()
   const location = useLocation()
   const [displayItemsObj, setDisplayItemsObj] = useState({});
-  const context = useContext(OrderContext);
-  const { setRestaurantSelected } = context;
   const itemsInCart = useSelector(state => state.CardReducer.itemsInCart)
   const totalAmount = useSelector(state => state.CardReducer.totalAmount)
   const dispatch = useDispatch();
@@ -53,22 +51,23 @@ const CartCard = ({ restaurantName, showCheckoutButton, match }) => {
     dispatch(checkout());
   }
 
-  const handleClearCart = () => {
-    dispatch(clearCart());
-    setRestaurantSelected(0);
+  const handleClearCartButtonClick = () => {
+    dispatch(showClearCartModal(true))
   }
+
+  const displayItemObjsLength = Object.keys(displayItemsObj).length;
 
   return (
     <motion.div className="CartCard">
       <div className="CartCardHeader">
         <h2>Cart</h2>
       </div>
-      {Object.keys(displayItemsObj).length === 0 ? null : (
+      {displayItemObjsLength === 0 ? null : (
           <div className="CartRestaurantName">
             <h3>{restaurantName}</h3>
           </div>)}
-      {Object.keys(displayItemsObj).length !== 0 ? <LineBreak /> : null}
-      {Object.keys(displayItemsObj).length === 0 ? (
+      {displayItemObjsLength !== 0 ? <LineBreak /> : null}
+      {displayItemObjsLength === 0 ? (
         <div className="CartNoItemsImage">
           <img src={emptyCartImg} style={{ height: "80px" }} alt="no-items" />
           <p>There are no items in cart</p>
@@ -90,15 +89,15 @@ const CartCard = ({ restaurantName, showCheckoutButton, match }) => {
           </tbody>
         </table>
       )}
-      {Object.keys(displayItemsObj).length !== 0 ? <LineBreak /> : null}
-      {Object.keys(displayItemsObj).length === 0 ? null : (
+      {displayItemObjsLength !== 0 ? <LineBreak /> : null}
+      {displayItemObjsLength === 0 ? null : (
         <div className="CardCheckout">
           <div><span>SubTotal</span><span>{totalAmount}</span></div>
           <div className="DeliveryFee"><span>Delivery Fee</span><span>Free</span></div>
           <div><span>Total Amount</span><span>{totalAmount}</span></div>
           {showCheckoutButton 
             ? <Button onClick={() => handleCheckout()} style={{backgroundColor:"#00a53c", color: 'white'}}><Link to="/cart">PROCEED TO CHECKOUT</Link></Button>
-            : <Button onClick={() => handleClearCart()} style={{backgroundColor:"#00a53c", color: 'white'}}>CLEAR CART</Button>}
+            : <Button onClick={() => handleClearCartButtonClick()} style={{backgroundColor:"#00a53c", color: 'white'}}>CLEAR CART</Button>}
         </div>
       )}
     </motion.div>

@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useContext } from "react";
-import { Modal } from "antd";
+import Modal from "../../../../Components/UI/Modal/Modal";
 import { useSelector } from "react-redux";
 import { withRouter } from "react-router-dom";
 import imgUrl from "../../../../assets/dishes/dish1.jpg";
@@ -90,7 +90,7 @@ const ItemCard = React.memo ( ({
           style={{ height: "500px" }}
           centered
         >
-          <h4>There are item in yoour cart from 'Restaurant', do you want to clear it?</h4>
+          <h4>There are item in your cart from 'Restaurant', do you want to clear it?</h4>
         </Modal>
       )}
     </>
