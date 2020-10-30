@@ -32,7 +32,7 @@ const Restaurant = props => {
 
   useScrollPosition(({ prevPos, currPos }) => {
     console.log(currPos.x, currPos.y);
-    if (currPos.y < -390) {
+    if (currPos.y < -318) {
       categoriesRef.current.style.backgroundColor = "";
       setCategoriesStyle({
         backgroundColor: "",

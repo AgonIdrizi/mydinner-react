@@ -1,32 +1,42 @@
 import React, { useState, useEffect, useContext } from "react";
-import { useSelector } from 'react-redux';
-import useDataApi from "../../hooks/useDataApi";
+import { useSelector } from "react-redux";
+import { useParams } from "react-router-dom";
+import useRestaurant from "../../hooks/useRestaurant";
 import Restaurant from "./Restaurant/Restaurant";
-import { withRouter } from "react-router-dom";
 import Spinner from "../../Components/UI/Spinner/Spinner";
-import { OrderContext }  from '../../contexts/OrderContext'
-import { TestApiUrls } from "../../config/testApiUrls";
+import { OrderContext } from "../../contexts/OrderContext";
 
-const RestaurantContainer = ({ match }) => {
+const RestaurantContainer = () => {
+  const { id } = useParams();
   const context = useContext(OrderContext);
   const { restaurantSelected } = context;
   const cartItems = useSelector(state => state.CardReducer.itemsInCart);
   const [canAddItems, setCanAddItems] = useState(false);
-  const [{ data, isLoading, isError }, doFetch] = useDataApi(
-    TestApiUrls.restaurantGet
-  );
-  
+  const postQuery = useRestaurant(id);
+
   useEffect(() => {
     if (cartItems.length !== 0) {
-      Number(match.params.id) == restaurantSelected ? setCanAddItems(true) : setCanAddItems(false)
+      Number(id) == restaurantSelected
+        ? setCanAddItems(true)
+        : setCanAddItems(false);
     }
     if (cartItems.length === 0) {
-      setCanAddItems(true)
+      setCanAddItems(true);
     }
-  }, [cartItems])
+  }, [cartItems]);
 
   return (
-    <>{isLoading ? <Spinner /> : <Restaurant canAddItems={canAddItems} cartItems={cartItems} resData={data.restaurant} />} </>
+    <>
+      {postQuery.isLoading ? (
+        <Spinner />
+      ) : (
+        <Restaurant
+          canAddItems={canAddItems}
+          cartItems={cartItems}
+          resData={postQuery.data.data.restaurant}
+        />
+      )}
+    </>
   );
 };
-export default withRouter(RestaurantContainer);
+export default RestaurantContainer;

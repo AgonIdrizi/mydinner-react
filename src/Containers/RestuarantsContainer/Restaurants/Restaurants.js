@@ -37,7 +37,7 @@ const restaurantsDivVariants = {
   exit: {}
 };
 
-const Restaurants = ({ isLoading, restaurants }) => {
+const Restaurants = ({ restaurants }) => {
   const [allRestaurants, setAllRestaurants] = useState([]);
   const [filteredRestaurants, setFilteredRestaurants] = useState([]);
   const [isSearching, setSearching] = useState(false);
@@ -311,8 +311,7 @@ const Restaurants = ({ isLoading, restaurants }) => {
             className="AllRestaurants"
           >
             <AnimatePresence>
-              {!isLoading &&
-                !isSearching &&
+              {!isSearching &&
                 allRestaurants.map((elem, index) => (
                   <RestaurantCard
                     key={elem.id}
@@ -323,8 +322,7 @@ const Restaurants = ({ isLoading, restaurants }) => {
                   />
                 ))}
 
-              {!isLoading &&
-                isSearching &&
+              {isSearching &&
                 filteredRestaurants.map((elem, index) => (
                   <RestaurantCard
                     key={elem.id}

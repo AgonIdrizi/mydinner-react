@@ -1,8 +1,10 @@
 import React, { useContext } from "react";
 import * as Yup from "yup";
+import { motion } from 'framer-motion'
 import Button from "../../../Components/UI/Button/Button";
 import { UserContext } from "../../../contexts/UserContext";
 import { Formik, Form, Field } from "formik";
+import { divContainerVariant } from '../../../styles/animations/animationsVariants'
 import { TextFormField } from "../../../Components/UI/TextFormFields/TextFormField/TextFormField";
 import ErrorMessage from "../../../Components/UI/ErrorMessage/ErrorMessage";
 import "./SignUp.scss";
@@ -29,7 +31,7 @@ const SignUp = () => {
   const { onUserSignUpHandler } = context;
 
   return (
-    <div className="SignUp">
+    <motion.div variants={divContainerVariant} initial="hidden" animate="animate" exit="exit" className="SignUp">
       <h2>Sign Up</h2>
       <Formik
         validationSchema={schema}
@@ -75,7 +77,7 @@ const SignUp = () => {
           </Form>
         )}
       </Formik>
-    </div>
+    </motion.div>
   );
 };
 
