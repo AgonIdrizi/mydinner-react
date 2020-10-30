@@ -45,7 +45,7 @@ const Restaurant = props => {
 
       setMenusStyle({
         position: "relative",
-        left: "180px",
+        left: "177px",
         right: "auto"
       });
       setCartStyle({
@@ -53,6 +53,7 @@ const Restaurant = props => {
         position: "fixed",
         top: "20px",
         bottom: "auto",
+        width: `${cartRef.current.style.width -4}` ,
         right: `${restaurantRef.current.offsetLeft +
           categoriesRef.current.style.width +
           menusRef.current.style.width}px`
