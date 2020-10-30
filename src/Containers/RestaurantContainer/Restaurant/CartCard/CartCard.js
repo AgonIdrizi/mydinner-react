@@ -99,11 +99,12 @@ const CartCard = ({ restaurantName, showCheckoutButton, match }) => {
       animate="animate"
       className="CartCard"
     >
-      <motion.div variants={childrenCartVariant} className="CartCardHeader">
+      <motion.div key="title" variants={childrenCartVariant} className="CartCardHeader">
         <h2>Cart</h2>
       </motion.div>
       {displayItemObjsLength === 0 ? null : (
         <motion.div
+          key="resName"
           variants={childrenCartVariant}
           initial="initial"
           animate="animate"
@@ -114,15 +115,15 @@ const CartCard = ({ restaurantName, showCheckoutButton, match }) => {
       )}
       {displayItemObjsLength !== 0 ? <LineBreak /> : null}
       {displayItemObjsLength === 0 ? (
-        <motion.div variants={childrenCartVariant} className="CartNoItemsImage">
+        <motion.div key="cartImage" variants={childrenCartVariant} className="CartNoItemsImage">
           <img src={emptyCartImg} style={{ height: "80px" }} alt="no-items" />
           <p>There are no items in cart</p>
         </motion.div>
       ) : (
-        <motion.table variants={childrenCartVariant}>
+        <motion.table key="table" variants={childrenCartVariant}>
           <tbody>
             {Object.keys(displayItemsObj).map(item => (
-              <tr>
+              <tr key={item}>
                 <td>
                   <button onClick={() => handleRemoveFromCart(item)}>-</button>
                   <span>{displayItemsObj[item]}</span>
@@ -135,9 +136,9 @@ const CartCard = ({ restaurantName, showCheckoutButton, match }) => {
           </tbody>
         </motion.table>
       )}
-      {displayItemObjsLength !== 0 ? <motion.LineBreak /> : null}
+      {displayItemObjsLength !== 0 ? <LineBreak /> : null}
       {displayItemObjsLength === 0 ? null : (
-        <motion.div variants={childrenCartVariant} className="CardCheckout">
+        <motion.div key="checkoutInfo" variants={childrenCartVariant} className="CardCheckout">
           <div>
             <span>SubTotal</span>
             <span>{totalAmount}</span>

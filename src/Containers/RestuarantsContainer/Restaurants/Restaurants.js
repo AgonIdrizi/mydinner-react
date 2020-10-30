@@ -28,13 +28,17 @@ const restaurantsDivVariants = {
   animate: {
     opacity: 1,
     transition: {
-      duration: 1,
+      duration: 0.4,
+      ease: "easeIn",
       delayChildren: 0.8,
       staggerChildren: 0.3,
       staggerDirection: 1
     }
   },
-  exit: {}
+  exit: {
+    opacity: 0,
+    transition: { duration: 0.2 }
+  }
 };
 
 const Restaurants = ({ restaurants }) => {
@@ -232,10 +236,6 @@ const Restaurants = ({ restaurants }) => {
   const onSortByClickHandler = value => {
     setSortByClicked(value);
   };
-  console.log(
-    "width",
-    restaurantsDivRef.current ? restaurantsDivRef.current.offsetWidth : 0
-  );
 
   return (
     <motion.div

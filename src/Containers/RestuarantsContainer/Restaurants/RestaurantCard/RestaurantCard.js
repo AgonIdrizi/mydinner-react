@@ -4,29 +4,22 @@ import Restaurants from "../Restaurants";
 import {motion} from 'framer-motion';
 import { withRouter } from 'react-router-dom';
 
-const transition = { duration: 1.4, ease: [0.6, 0.01, -0.05, 0.9] };
+const transition = { duration: 0.6, ease: [0.6, 0.01, -0.05, 0.9] };
 const restaurantCardVariant = {
   initial: {
-    scale: 0,
-    x: 0,
-    y: 0
+    opacity: 0
   },
   animate: {
-    scale: 1,
-    x: 0,
-    y: 0,
+    opacity: 1,
     transition: {
-      duration: 0.8,
+      duration: 0.4,
       ...transition
     }
   },
   exit: {
-    scale: 0,
-    x: 0,
-    y: 0,
+    opacity: 0,
     transition: {
-      duration: 0.3,
-      ...transition
+      duration: 0.4
     }
   }
 }

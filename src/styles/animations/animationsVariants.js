@@ -4,7 +4,7 @@ export const divContainerVariant = {
   },
   animate: {
     opacity: 1,
-    transition: { duration: 0.6, ease: "easeIn" }
+    transition: { duration: 0.4, ease: "easeIn" }
   },
   exit: {
     opacity: 0,
