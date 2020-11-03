@@ -1,0 +1,91 @@
+@import '../../../../styles/variables.scss';
+
+.HomeProductCard {
+  display: flex;
+  width: 50%;
+  padding-right: 50px;
+  padding-bottom: 30px;
+  max-width: 533px;
+  height: 220px;
+  cursor: pointer;
+  
+  border-radius: 8px;
+  .Restaurant {
+    background-color: #ff493d;
+  }
+  .Grocery {
+    background-color: #f4aa33;
+  }
+  .Flowers {
+    background-color: #e93c82;
+  }
+  .Pharmacy {
+    background-color: #3d76ed;
+  }
+  .ProductImage {
+    position: relative;
+    width: 100%;
+    max-width: 200px;
+    min-width: 159px;
+    position: relative;
+    
+    border-radius: 8px 0px 0px 8px;
+    img {
+      position: absolute;
+      top: 0;
+      right: 0;
+      width: 90%;
+      max-width: 164px;
+    }
+    
+  }
+}
+.ProductText {
+  padding: 15px 15px;
+
+  border: 1px solid #e5e5e5;
+  border-radius: 0px 8px 8px 0px;
+  overflow: hidden;
+  h2 {
+    font-size: 24px;
+    font-weight: 700;
+  }
+  div {
+    color: $font-color-black-light;
+    font-size: $font-normal; 
+    line-height: 20px;
+    margin-bottom: 21px;
+    text-overflow: ellipsis;
+  }
+}
+
+@media (max-width: 767px) {
+  .HomeProductCard {
+    flex-wrap: wrap;
+    min-width: 150px;
+    min-height: 232px;
+    padding-right: 15px;
+    padding-bottom: 10px;
+    .ProductImage {
+      min-height: 100px;;
+      img {
+        height: 95px;
+        width: 95px;
+        max-width: initial;
+      }
+    }
+    .ProductText {
+      padding: 15px 15px;
+    
+      border: none;
+      border-radius: 0px 8px 8px 0px;
+      overflow: hidden;
+      div {
+        font-size: 14px; 
+        line-height: 20px;
+        text-overflow: ellipsis;
+      }
+    }
+  }
+  
+}

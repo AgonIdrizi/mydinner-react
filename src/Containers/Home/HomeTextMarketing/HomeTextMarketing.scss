@@ -1,3 +1,14 @@
+@import '../../../styles//variables.scss';
+
 .HomeTextMarketing {
-  margin-top: 580px;
+  margin-top: 520px;
+  margin-bottom: 50px;
+  h2 {
+    font-weight: $font-bold;
+    font-size: $font-big;
+  }
+  p {
+    color: $font-color-black-light;
+    font-size: $font-normal;
+  }
 }
