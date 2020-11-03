@@ -1,0 +1,72 @@
+.HomeProductCards {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin: 0 auto;
+  float: none;
+  width: 75%;
+  .HomeProductCard {
+    display: flex;
+    width: 50%;
+    padding-right: 50px;
+    padding-bottom: 30px;
+    max-width: 485px;
+    height: 220px;
+    cursor: pointer;
+    
+    border-radius: 8px;
+    .ProductImage {
+      position: relative;
+      width: 70%;
+      max-width: 200px;
+      min-width: 159px;
+      position: relative;
+      background-color: red;
+      border-radius: 8px 0px 0px 8px;
+      img {
+        position: absolute;
+        top: 0;
+        right: 0;
+        width: 90%;
+        max-width: 164px;
+      }
+      
+    }
+  }
+  .ProductText {
+    padding: 15px 15px;
+
+    border: 1px solid #e5e5e5;
+    border-radius: 0px 8px 8px 0px;
+    overflow: hidden;
+    div {
+      font-size: 16px; 
+      line-height: 20px;
+      margin-bottom: 21px;
+      text-overflow: ellipsis;
+    }
+  }
+}
+
+@media (min-width: 1200px) {
+  .HomeProductCards {
+    width: 75%;
+  }
+}
+
+@media (max-width: 1000px) {
+  .HomeProductCards {
+    width: 90%;
+  }
+}
+
+@media (max-width: 767px) {
+  .HomeProductCards {
+    width: 100%;
+    flex-wrap: nowrap;
+    .HomeProductCard {
+      flex-wrap: wrap;
+      min-width: 150px;
+    }
+  }
+}

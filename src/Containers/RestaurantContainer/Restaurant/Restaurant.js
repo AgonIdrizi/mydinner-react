@@ -53,7 +53,6 @@ const Restaurant = props => {
         position: "fixed",
         top: "20px",
         bottom: "auto",
-        width: `${cartRef.current.style.width -4}` ,
         right: `${restaurantRef.current.offsetLeft +
           categoriesRef.current.style.width +
           menusRef.current.style.width}px`

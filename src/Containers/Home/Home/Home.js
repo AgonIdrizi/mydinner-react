@@ -213,6 +213,7 @@ const Home = (props) => {
         />
         <div>Delivery address: {deliveryAddress.addressName}</div>
       </Modal>
+      
     </motion.div>
   );
 };
