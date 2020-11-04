@@ -1,11 +1,11 @@
 import React from "react";
 import './ProductCard.scss'
 
-const ProductCard = ({ src, title, description }) => {
+const ProductCard = ({ src, className, title, description }) => {
   return (
-    <div className="HomeProductCard">
+    <div className={`HomeProductCard ${className}`}>
       <div className={`ProductImage ${title}`}>
-        <img src={src} alt={title} />
+        <img className={className} src={src} alt={title} />
       </div>
       <div className="ProductText">
         <h2>{title}</h2>

@@ -1,7 +1,7 @@
 @import '../../../styles//variables.scss';
 
 .HomeTextMarketing {
-  margin-top: 520px;
+  
   margin-bottom: 50px;
   h2 {
     font-weight: $font-bold;
@@ -11,4 +11,7 @@
     color: $font-color-black-light;
     font-size: $font-normal;
   }
+}
+.FirstText{
+  margin-top: 520px;
 }

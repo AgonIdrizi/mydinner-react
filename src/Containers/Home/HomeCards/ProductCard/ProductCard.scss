@@ -37,9 +37,25 @@
       width: 90%;
       max-width: 164px;
     }
-    
+    .joinCard {
+      max-width: unset;
+      width: 100%;
+    }
   }
 }
+.joinCard {
+  flex-wrap: nowrap;
+  
+  div {
+    img {
+      width: 100%;
+      height: 100%;
+      
+    }
+  }
+  
+}
+
 .ProductText {
   padding: 15px 15px;
 
@@ -73,7 +89,12 @@
         width: 95px;
         max-width: initial;
       }
+      .joinCard{
+        height: 100%;
+        width: 100%;
+      }
     }
+    
     .ProductText {
       padding: 15px 15px;
     
@@ -87,5 +108,8 @@
       }
     }
   }
-  
+  .joinCard {
+    flex-wrap: nowrap;
+    width: 100%;
+  }
 }

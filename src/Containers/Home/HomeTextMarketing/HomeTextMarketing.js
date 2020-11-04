@@ -1,11 +1,11 @@
 import React from 'react';
 import './HomeTextMarketing.scss'
 
-const HomeTextMarketing = () => {
+const HomeTextMarketing = ({heading, className, description}) => {
   return (
-    <div className="HomeTextMarketing">
-      <h2>Your everyday, right away</h2>
-      <p>Order food and grocery delivery online from hundreds of restaurants and shops nearby</p>
+    <div className={`HomeTextMarketing ${className}`}>
+      <h2>{heading}</h2>
+      <p>{description}</p>
     </div>
   );
 }

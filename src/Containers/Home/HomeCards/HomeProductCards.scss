@@ -5,25 +5,23 @@
   margin: 0 auto;
   margin-bottom: 70px;
   float: none;
-  width: 75%;
-  
+  max-width: 1100px;
 }
 
 @media (min-width: 1200px) {
   .HomeProductCards {
-    width: 75%;
+    
   }
 }
 
 @media (max-width: 1000px) {
   .HomeProductCards {
-    width: 90%;
+    
   }
 }
 
 @media (max-width: 767px) {
   .HomeProductCards {
-    width: 100%;
     flex-wrap: nowrap;
   }
 }
