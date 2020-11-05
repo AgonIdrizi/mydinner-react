@@ -1,7 +1,32 @@
+@import '../../styles//variables.scss';
 .Footer {
-  background-color: yellow;
+  height: 100px;
+  color: $font-color-footer;
+  background-color: $color-footer;
   
   h2 {
+    color: $font-color-footer;
     margin: 0px 0px;
+  }
+  h4 {
+    color: $font-color-footer;
+  }
+  .FooterInfos {
+    display: flex;
+    justify-content: space-around;
+    .ContactPages {
+      font-size: medium;
+      a {
+        margin-right: 25px;
+        color:$font-color-footer;
+      }
+    }
+    .SocialIcons {
+      display: flex;
+      span {
+        font-size: medium;
+        margin-right: 15px;
+      }
+    }
   }
 }
