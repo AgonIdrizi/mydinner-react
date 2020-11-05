@@ -1,7 +1,10 @@
-import React, { useRef, useState } from "react";
+import React, { useRef, useState, useEffect, useContext } from "react";
 import ItemCard from "./ItemCard/ItemCard";
 import CartCard from "./CartCard/CartCard";
 import Card from "../../../Components/UI/Card/Card";
+import { OrderContext } from "../../../contexts/OrderContext";
+import { useSelector } from "react-redux";
+import CategoryItems from "./CategoryItems/CategoryItems";
 import { motion } from 'framer-motion';
 import { divContainerVariant } from '../../../styles/animations/animationsVariants';
 import "antd/es/input/style/index.css";
@@ -19,16 +22,44 @@ const Restaurant = props => {
   const [menusStyle, setMenusStyle] = useState({});
   const [cartStyle, setCartStyle] = useState({});
   const [categoryClicked, setCategoryClicked] = useState(false);
-  const [filteredMenusByCategory, setfilteredMenusByCategory] = useState(
-    props.resData.restaurantMenus
-  );
+  const [categorySelected, setCategorySelected] = useState('all')
+  
+  const context = useContext(OrderContext);
+  const { restaurantSelected } = context;
+  const [canAddItems, setCanAddItems] = useState(false);
+  const cartItems = useSelector(state => state.CardReducer.itemsInCart);
+
+  const [menusByCategory, setMenusByCategory] = useState({});
   const [isSearching, setSearching] = useState(false);
-  const [filteredMenus, setFilteredMenus] = useState([]);
+  const [searchTerm, setSearchTerm] = useState('');
 
   const restaurantRef = useRef(null);
   const categoriesRef = useRef(null);
   const menusRef = useRef(null);
   const cartRef = useRef(null);
+
+  useEffect(() => {
+    const formatedMenus = props.resData.restaurantMenus.reduce((acc, elem) => {
+      if( acc[elem.category] == undefined) {
+        acc[elem.category] = [elem];
+      }
+      acc[elem.category] = [...acc[`${elem.category}`], elem];
+      return acc;
+    },{})
+    setMenusByCategory(formatedMenus)
+    console.log(formatedMenus)
+  }, [])
+
+  useEffect(() => {
+    if (cartItems.length !== 0) {
+      Number(props.id) == restaurantSelected
+        ? setCanAddItems(true)
+        : setCanAddItems(false);
+    }
+    if (cartItems.length === 0) {
+      setCanAddItems(true);
+    }
+  }, [cartItems]);
 
   useScrollPosition(({ prevPos, currPos }) => {
     console.log(currPos.x, currPos.y);
@@ -67,37 +98,23 @@ const Restaurant = props => {
   const onSearchRestaurantHandler = event => {
     if (event.target.value === "") {
       setSearching(false);
-      setFilteredMenus([]);
+      setSearchTerm('');
       return;
     }
     setSearching(true);
+    setSearchTerm(event.target.value)
     console.log(event.target.value);
-    if (categoryClicked) {
-      const filteredData = filteredMenusByCategory.filter(elem => {
-        return elem.menuName.toLowerCase().search(event.target.value) !== -1;
-      });
-      setFilteredMenus(filteredData);
-    } else {
-      const filteredData = props.resData.restaurantMenus.filter(
-        elem => elem.menuName.toLowerCase().search(event.target.value) !== -1
-      );
-      setFilteredMenus(filteredData);
-    }
   };
 
   const onCategoryClickHandler = catName => {
-    if (catName === "all") {
-      setCategoryClicked(false);
-      setfilteredMenusByCategory(props.resData.restaurantMenus);
+    if(catName === 'all') {
+      setCategorySelected(catName)
+      setCategoryClicked(false)
     } else {
+      setCategorySelected(catName)
       setCategoryClicked(true);
-      const filteredByCategory = props.resData.restaurantMenus.filter(
-        elem => elem.category === catName
-      );
-      setfilteredMenusByCategory(filteredByCategory);
-      console.log(catName);
     }
-  };
+  }
   
   return (
     <motion.div 
@@ -146,54 +163,18 @@ const Restaurant = props => {
                 onChange={event => onSearchRestaurantHandler(event)}
               />
             </div>
-            {!isSearching &&
-              filteredMenusByCategory.map(elem => {
-                return (
-                  <ItemCard
-                    id={elem.id}
-                    key={elem.id}
-                    name={elem.menuName}
-                    imgUrl={elem.menuImgUrl}
-                    price={elem.price}
-                    ingrdients={elem.ingredients}
-                    showIngredients={true}
-                    canAddItems={props.canAddItems}
-                    cartItems={props.cartItems}
-                  />
-                );
-              })}
-            {isSearching &&
-              categoryClicked &&
-              filteredMenus.map(elem => {
-                return (
-                  <ItemCard
-                    id={elem.id}
-                    key={elem.id}
-                    name={elem.menuName}
-                    imgUrl={elem.menuImgUrl}
-                    price={elem.price}
-                    ingrdients={elem.ingredients}
-                    showIngredients={true}
-                    canAddItems={props.canAddItems}
-                    cartItems={props.cartItems}
-                  />
-                );
-              })}
-            {isSearching &&
-              !categoryClicked &&
-              filteredMenus.map(elem => (
-                <ItemCard
-                  id={elem.id}
-                  key={elem.id}
-                  name={elem.menuName}
-                  imgUrl={elem.menuImgUrl}
-                  price={elem.price}
-                  ingrdients={elem.ingredients}
-                  showIngredients={true}
-                  canAddItems={props.canAddItems}
-                  cartItems={props.cartItems}
-                />
-              ))}
+            {Object.keys(menusByCategory).map(key =>(
+              <CategoryItems
+                key={key}
+                categoryTitle={key}
+                canAddItems={canAddItems}
+                cartItems={cartItems}
+                isSearching={isSearching}
+                searchTerm={searchTerm}
+                categorySelected={categorySelected}
+                itemMenus={menusByCategory[key]}
+              />
+            ))}
           </section>
           <section ref={cartRef} style={cartStyle} className="ResCard">
             <CartCard showCheckoutButton={true} restaurantName={props.resData.restaurantName} />
