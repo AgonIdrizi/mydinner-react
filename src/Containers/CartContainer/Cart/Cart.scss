@@ -1,3 +1,5 @@
+@import "../../../styles//variables.scss";
+
 .CartCheckoutContainer {
   margin-right: auto;
   margin-left: auto;
@@ -7,6 +9,8 @@
 }
 
 .CheckoutSection {
+  display: flex;
+  flex-direction: column;
   height: 100%;
   box-shadow: 0 0 5px 0 #aba9ab;
   background-color: #fff;
@@ -15,9 +19,11 @@
   .CheckoutInfo {
     display: flex;
     justify-content: space-between;
+    flex-wrap: wrap;
     padding-top: 20px;
     padding-left: 20px;
     padding-right: 20px;
+    margin-bottom: auto;
     .CheckoutItems {
       width: 40%;
       border-radius: 5px;
@@ -34,10 +40,14 @@
     }
   }
   .MenuRecommendations {
-    margin-top: 30px;
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 80px;
+    margin-top: auto;
   }
 }
 .StripeCheckout {
+  margin-left: 10%;
   margin-top: 50px!important;
   width: 200px!important;
 }
@@ -46,6 +56,13 @@
   margin-right: auto;
   margin-left: auto;
   margin-top: 30px
+}
+
+.span-card-title {
+  font-weight: $font-bold;
+}
+.ant-card-head-title {
+  padding: 0 0;
 }
 
 @media (min-width: 1000px){

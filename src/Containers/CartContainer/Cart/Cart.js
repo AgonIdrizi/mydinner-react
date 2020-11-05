@@ -1,14 +1,15 @@
 import React, { useContext, useState } from "react";
 import { useSelector } from "react-redux";
 import StripeCheckout from "react-stripe-checkout";
+import { Card } from "antd";
 import { OrderContext } from "../../../contexts/OrderContext";
-import Modal from '../../../Components/UI/Modal/Modal';
+import Modal from "../../../Components/UI/Modal/Modal";
 import BreadCrumb from "../../../Components/UI/BreadCrumb/BreadCrumb";
 import Slider from "react-slick";
-import { motion } from 'framer-motion';
-import { divContainerVariant } from '../../../styles/animations/animationsVariants';
-import { useDispatch } from 'react-redux';
-import { clearCart, showClearCartModal} from '../../../store/actions'
+import { motion } from "framer-motion";
+import { divContainerVariant } from "../../../styles/animations/animationsVariants";
+import { useDispatch } from "react-redux";
+import { clearCart, showClearCartModal } from "../../../store/actions";
 import { isEmptyObject } from "../../../utils/helperFunctions";
 import CartCard from "../../RestaurantContainer/Restaurant/CartCard/CartCard";
 import ItemCard from "../../RestaurantContainer/Restaurant/ItemCard/ItemCard";
@@ -17,9 +18,13 @@ import "./Cart.scss";
 const Cart = ({ breadCrumbItems, resData }) => {
   const totalAmount = useSelector(state => state.CardReducer.totalAmount);
   const showModal = useSelector(state => state.CardReducer.showClearCartModal);
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
   const context = useContext(OrderContext);
-  const { orderDeliveryAddress, restaurantSelected, setRestaurantSelected } = context;
+  const {
+    orderDeliveryAddress,
+    restaurantSelected,
+    setRestaurantSelected
+  } = context;
   const showPayButton = totalAmount === 0 ? false : true;
   const handleToken = (token, addresses) => {
     console.log({ token, addresses });
@@ -38,72 +43,84 @@ const Cart = ({ breadCrumbItems, resData }) => {
     dispatch(clearCart());
     dispatch(showClearCartModal(false));
     setRestaurantSelected(0);
-  }
+  };
 
   const handleCancelModal = () => {
     dispatch(showClearCartModal(false));
-  }
+  };
 
   return (
     <>
-    <motion.div 
-      className="CartCheckoutContainer"
-      variants={divContainerVariant}
-      initial="hidden"
-      animate="animate"
-      exit="exit"
-    >
-      <div className="BreadCrumb">
-        <BreadCrumb items={breadCrumbItems} />
-      </div>
-      <section className="CheckoutSection">
-        <div className="CheckoutInfo">
-          <div className="CheckoutItems">
-            <CartCard showCheckoutButton={false} restaurantName={""} />
-          </div>
-          <div className="Address">
-            {isEmptyObject(orderDeliveryAddress) ? null : (
-              <>
-                <span>Full Address: {orderDeliveryAddress.addressName}</span>
-                <span>City: {orderDeliveryAddress.city}</span>
-                <span>Postal code: {orderDeliveryAddress.postalCode}</span>
-              </>
+      <motion.div
+        className="CartCheckoutContainer"
+        variants={divContainerVariant}
+        initial="hidden"
+        animate="animate"
+        exit="exit"
+      >
+        <div className="BreadCrumb">
+          <BreadCrumb items={breadCrumbItems} />
+        </div>
+        <section className="CheckoutSection">
+          <div className="CheckoutInfo">
+            <div className="CheckoutItems">
+              <CartCard showCheckoutButton={false} restaurantName={""} />
+            </div>
+            <div className="Address">
+              {isEmptyObject(orderDeliveryAddress) ? null : (
+                <div className="site-card-border-less-wrapper">
+                  <Card title={<h2>Address</h2>} bordered={false} style={{ width: 500 }}>
+                    <p>
+                      <span className="span-card-title">Full Address:</span>{" "}
+                      {orderDeliveryAddress.addressName}
+                    </p>
+                    <p>
+                      <span className="span-card-title">City:</span>{" "}
+                      {orderDeliveryAddress.city}
+                    </p>
+                    <p>
+                      <span className="span-card-title">Postal Code:</span>{" "}
+                      {orderDeliveryAddress.postalCode}
+                    </p>
+                  </Card>
+                </div>
+              )}
+            </div>
+            {showPayButton && (
+              <StripeCheckout
+                stripeKey={process.env.REACT_APP_STRIPE_KEY}
+                token={handleToken}
+                billingAddress
+                shippingAddress
+                amount={totalAmount * 100}
+              />
             )}
           </div>
-        </div>
-        {showPayButton && (
-          <StripeCheckout
-            stripeKey={process.env.REACT_APP_STRIPE_KEY}
-            token={handleToken}
-            billingAddress
-            shippingAddress
-            amount={totalAmount * 100}
-          />
-        )}
-        <div className="MenuRecommendations">
-          <h3>Recommendations:</h3>
-          <Slider {...settings}>
-            {resData.restaurantMenus.map(elem => {
-              return (
-                <ItemCard
-                  id={elem.id}
-                  key={elem.id}
-                  name={elem.menuName}
-                  imgUrl={elem.menuImgUrl}
-                  price={elem.price}
-                  showIngredients={false}
-                  ingrdients={elem.ingredients}
-                  canAddItems={true}
-                  sliderClassName="sliderItem"
-                  cartItems={[1, 2]}
-                />
-              );
-            })}
-          </Slider>
-        </div>
-      </section>
-    </motion.div>
-    {showModal && (
+
+          <div className="MenuRecommendations">
+            <h3>Recommendations:</h3>
+            <Slider {...settings}>
+              {resData.restaurantMenus.map(elem => {
+                return (
+                  <ItemCard
+                    id={elem.id}
+                    key={elem.id}
+                    name={elem.menuName}
+                    imgUrl={elem.menuImgUrl}
+                    price={elem.price}
+                    showIngredients={false}
+                    ingrdients={elem.ingredients}
+                    canAddItems={true}
+                    sliderClassName="sliderItem"
+                    cartItems={[1, 2]}
+                  />
+                );
+              })}
+            </Slider>
+          </div>
+        </section>
+      </motion.div>
+      {showModal && (
         <Modal
           title="Clear cart"
           visible={showModal}
@@ -112,7 +129,10 @@ const Cart = ({ breadCrumbItems, resData }) => {
           style={{ height: "500px" }}
           centered
         >
-          <h4>There are item in your cart from 'Restaurant', do you want to clear it?</h4>
+          <h4>
+            There are item in your cart from 'Restaurant', do you want to clear
+            it?
+          </h4>
         </Modal>
       )}
     </>
