@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import ItemCard from "../ItemCard/ItemCard";
+import { v4 as uuidv4 } from 'uuid';
 
 import { DownOutlined, UpOutlined } from "@ant-design/icons";
 import "./CategoryItems.scss";
@@ -9,15 +10,28 @@ const CategoryItems = ({
   categorySelected,
   itemMenus,
   canAddItems,
-  cartItems
+  cartItems,
+  searchTerm,
+  isSearching
 }) => {
   const [categorySectionOpen, setCategorySectionOpen] = useState(true);
+  const [filteredData, setFilteredData] = useState([])
 
   useEffect(() => {
     if (categoryTitle == categorySelected) {
       setCategorySectionOpen(true);
     }
   }, [categorySelected]);
+
+  useEffect(() => {
+    console.log('searchTerm useEffect', searchTerm)
+    const filteredData = itemMenus.filter(elem => {
+      return elem.menuName.toLowerCase().search(searchTerm) !== -1;
+    });
+    setFilteredData(filteredData);
+  }, []);
+
+  console.log('CategoryItems rendered')
 
   return (
     <>
@@ -33,20 +47,7 @@ const CategoryItems = ({
           </span>
         </div>
       </div>
-      {categorySectionOpen &&
-        itemMenus.map(elem => (
-          <ItemCard
-            id={elem.id}
-            key={elem.id}
-            name={elem.menuName}
-            imgUrl={elem.menuImgUrl}
-            price={elem.price}
-            ingrdients={elem.ingredients}
-            showIngredients={true}
-            canAddItems={canAddItems}
-            cartItems={cartItems}
-          />
-        ))}
+      
     </>
   );
 };

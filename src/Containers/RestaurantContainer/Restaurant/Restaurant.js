@@ -6,21 +6,20 @@ import { OrderContext } from "../../../contexts/OrderContext";
 import { useSelector } from "react-redux";
 import CategoryItems from "./CategoryItems/CategoryItems";
 import { motion } from 'framer-motion';
+import { v4 as uuidv4 } from 'uuid';
 import { divContainerVariant } from '../../../styles/animations/animationsVariants';
 import "antd/es/input/style/index.css";
 import { Input } from "antd";
 import { Button } from "antd";
 import "antd/es/button/style/index.css";
-import { useScrollPosition } from "@n8tb1t/use-scroll-position";
+import useScroll from '../../../hooks/useScroll';
 import "./Restaurant.scss";
 import RestaurantImage from "../../../assets/restaurant/restaurantImage.jpeg";
 
 const { Search } = Input;
 
 const Restaurant = props => {
-  const [categoriesStyle, setCategoriesStyle] = useState({});
-  const [menusStyle, setMenusStyle] = useState({});
-  const [cartStyle, setCartStyle] = useState({});
+  const [menusStyle, categoriesStyle, cartStyle] = useScroll()
   const [categoryClicked, setCategoryClicked] = useState(false);
   const [categorySelected, setCategorySelected] = useState('all')
   
@@ -61,39 +60,6 @@ const Restaurant = props => {
     }
   }, [cartItems]);
 
-  useScrollPosition(({ prevPos, currPos }) => {
-    console.log(currPos.x, currPos.y);
-    if (currPos.y < -318) {
-      categoriesRef.current.style.backgroundColor = "";
-      setCategoriesStyle({
-        backgroundColor: "",
-        position: "fixed",
-        top: "20px",
-        bottom: "auto",
-        left: `${restaurantRef.current.offsetLeft}px`,
-        right: "auto"
-      });
-
-      setMenusStyle({
-        position: "relative",
-        left: "177px",
-        right: "auto"
-      });
-      setCartStyle({
-        backgroundColor: "",
-        position: "fixed",
-        top: "20px",
-        bottom: "auto",
-        right: `${restaurantRef.current.offsetLeft +
-          categoriesRef.current.style.width +
-          menusRef.current.style.width}px`
-      });
-    } else {
-      setCategoriesStyle({});
-      setMenusStyle({});
-      setCartStyle({});
-    }
-  });
 
   const onSearchRestaurantHandler = event => {
     if (event.target.value === "") {
@@ -115,7 +81,7 @@ const Restaurant = props => {
       setCategoryClicked(true);
     }
   }
-  
+  console.log('restaurant rendered')
   return (
     <motion.div 
       variants={divContainerVariant}
@@ -163,9 +129,9 @@ const Restaurant = props => {
                 onChange={event => onSearchRestaurantHandler(event)}
               />
             </div>
-            {Object.keys(menusByCategory).map(key =>(
+            {Object.keys(menusByCategory).map((key,id) =>(
               <CategoryItems
-                key={key}
+                key={uuidv4()}
                 categoryTitle={key}
                 canAddItems={canAddItems}
                 cartItems={cartItems}
