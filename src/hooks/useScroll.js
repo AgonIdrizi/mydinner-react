@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import { useScrollPosition } from "@n8tb1t/use-scroll-position";
-const useScroll = () => {
+const useScroll = (menusRef,categoriesRef,cartRef) => {
   const [categoriesStyle, setCategoriesStyle] = useState({});
   const [menusStyle, setMenusStyle] = useState({});
   const [cartStyle, setCartStyle] = useState({});
@@ -37,7 +37,7 @@ const useScroll = () => {
       setMenusStyle({});
       setCartStyle({});
     }
-  });
+  },[], null, false, 300);
 
   return [menusStyle, categoriesStyle, cartStyle]
 }
