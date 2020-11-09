@@ -113,12 +113,7 @@ const ItemCard = React.memo(
       </>
     );
   },
-  (prevProps, nextProps) => {
-    if (prevProps.canAddItems !== nextProps.canAddItems) {
-      return false;
-    }
-    return false;
-  }
+  (prevProps, nextProps) => {}
 );
 
 export default withRouter(ItemCard);

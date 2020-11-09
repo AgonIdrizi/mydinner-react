@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, { Fragment, useState } from "react";
 import { useScrollPosition } from "@n8tb1t/use-scroll-position";
 import { Button } from "antd";
 import Card from "../../../../Components/UI/Card/Card";
@@ -8,12 +8,10 @@ const CategoriesCard = ({
   categoriesRef,
   restaurantRef,
   setCategorySelected
-
 }) => {
   const [categoriesStyle, setCategoriesStyle] = useState({});
 
   useScrollPosition(({ prevPos, currPos }) => {
-    console.log(currPos.x, currPos.y);
     if (currPos.y < -318) {
       categoriesRef.current.style.backgroundColor = "";
       setCategoriesStyle({
@@ -24,45 +22,21 @@ const CategoriesCard = ({
         left: `${restaurantRef.current.offsetLeft}px`,
         right: "auto"
       });
-
-      // setMenusStyle({
-      //   position: "relative",
-      //   left: "177px",
-      //   right: "auto"
-      // });
-      // setCartStyle({
-      //   backgroundColor: "",
-      //   position: "fixed",
-      //   top: "20px",
-      //   bottom: "auto",
-      //   right: `${restaurantRef.current.offsetLeft +
-      //     categoriesRef.current.style.width +
-      //     menusRef.current.style.width}px`
-      // });
     } else {
       setCategoriesStyle({});
-      // setMenusStyle({});
-      // setCartStyle({});
     }
   });
 
   const onCategoryClickHandler = catName => {
-    if(catName === 'all') {
-      setCategorySelected(catName)
-   
+    if (catName === "all") {
+      setCategorySelected(catName);
     } else {
-      setCategorySelected(catName)
-
+      setCategorySelected(catName);
     }
-  }
-
-  return (
-    <Card>
-      <section
-        ref={categoriesRef}
-        style={categoriesStyle}
-        className="Categories"
-      >
+  };
+  const displayButtons = React.useMemo(
+    () => (
+      <Fragment>
         <Button type="link" onClick={e => onCategoryClickHandler("all")}>
           All
         </Button>
@@ -76,6 +50,19 @@ const CategoriesCard = ({
             {category.catName}
           </Button>
         ))}
+      </Fragment>
+    ),
+    [categoriesData]
+  );
+
+  return (
+    <Card>
+      <section
+        ref={categoriesRef}
+        style={categoriesStyle}
+        className="Categories"
+      >
+        {displayButtons}
       </section>
     </Card>
   );

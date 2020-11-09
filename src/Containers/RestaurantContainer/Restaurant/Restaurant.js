@@ -1,13 +1,14 @@
 import React, { useRef, useState, useEffect } from "react";
 
 import CartCard from "./CartCard/CartCard";
+import CartCardWrapper from '../Restaurant/CartCard/CartCardWrapper';
 
 
 import CategoryItems from "./CategoryItems/CategoryItems";
 import { motion } from "framer-motion";
 
 import { divContainerVariant } from "../../../styles/animations/animationsVariants";
-
+import { useScrollPosition } from "@n8tb1t/use-scroll-position"; 
 import { Input } from "antd";
 
 import CategoriesCard from "./CategoriesCard/CategoriesCard";
@@ -24,7 +25,7 @@ const Restaurant = props => {
   const categoriesRef = useRef(null);
   const menusRef = useRef(null);
   const cartRef = useRef(null);
-
+  const [menusStyle, setMenusStyle] = useState({});
   const [cartStyle, setCartStyle] = useState({});
 
   const [categorySelected, setCategorySelected] = useState("all");
@@ -77,8 +78,10 @@ const Restaurant = props => {
             categorySelected={categorySelected}
           />
           <section ref={cartRef} style={cartStyle} className="ResCard">
-            <CartCard
-              showCheckoutButton={true}
+            <CartCardWrapper
+              restaurantRef={restaurantRef}
+              menusRef={menusRef}
+              categoriesRef={categoriesRef}
               restaurantName={props.resData.restaurantName}
             />
           </section>

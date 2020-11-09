@@ -1,9 +1,14 @@
-import React, { useState, useEffect } from "react";
+import React, {Fragment, useState, useEffect, useMemo } from "react";
 import ItemCard from "../ItemCard/ItemCard";
 import { v4 as uuidv4 } from "uuid";
 
 import { DownOutlined, UpOutlined } from "@ant-design/icons";
 import "./CategoryItems.scss";
+
+
+function categoriesSectionPropsAreEqual(prevProps, nextProps) {
+  return prevPorps.categorySelected === nextProps.categorySelected
+}
 
 const CategoryItems = React.memo(
   ({
@@ -18,11 +23,14 @@ const CategoryItems = React.memo(
     const [categorySectionOpen, setCategorySectionOpen] = useState(true);
     const [filteredData, setFilteredData] = useState([]);
 
+
     useEffect(() => {
       if (categoryTitle == categorySelected) {
         setCategorySectionOpen(true);
       }
     }, [categorySelected]);
+
+   
 
     useEffect(() => {
       console.log("searchTerm useEffect", searchTerm);
@@ -35,7 +43,7 @@ const CategoryItems = React.memo(
     console.log("CategoryItems rendered");
 
     return (
-      <>
+      <Fragment>
         <div className="CategoryItems">
           <div className="CategoryHeader">
             <span>{categoryTitle}</span>
@@ -62,11 +70,11 @@ const CategoryItems = React.memo(
               cartItems={cartItems}
             />
           ))}
-      </>
-    );
+      </Fragment>
+      )
   },
   (prevProps, nextProps) => {
-    return prevProps.isSearching === nextProps.isSearching;
+    return prevProps.searchTerm !== nextProps.searchTerm
   }
 );
 
