@@ -1,13 +1,12 @@
 import React, { useRef, useState, useEffect } from "react";
 
-import CartCardWrapper from '../Restaurant/CartCard/CartCardWrapper';
-
+import CartCardWrapper from "../Restaurant/CartCard/CartCardWrapper";
 
 import CategoryItems from "./CategoryItems/CategoryItems";
 import { motion } from "framer-motion";
 
 import { divContainerVariant } from "../../../styles/animations/animationsVariants";
-
+import RestaurantContextProvider from "../../../contexts/RestaurantContext";
 
 import CategoriesCard from "./CategoriesCard/CategoriesCard";
 import CategoryItemsWrapper from "./CategoryItems/CategoryItemsWrapper";
@@ -15,7 +14,6 @@ import "antd/es/button/style/index.css";
 import "antd/es/input/style/index.css";
 import "./Restaurant.scss";
 import RestaurantImage from "../../../assets/restaurant/restaurantImage.jpeg";
-
 
 const Restaurant = props => {
   const restaurantRef = useRef(null);
@@ -59,18 +57,21 @@ const Restaurant = props => {
         </div>
 
         <div className="RestaurantMenu">
-          <CategoriesCard
-            categoriesRef={categoriesRef}
-            restaurantRef={restaurantRef}
-            categoriesData={props.resData.categories}
-            setCategorySelected={setCategorySelected}
-          />
-          <CategoryItemsWrapper
-            id={props.id}
-            menusRef={menusRef}
-            menusByCategory={menusByCategory}
-            categorySelected={categorySelected}
-          />
+          <RestaurantContextProvider>
+            <CategoriesCard
+              categoriesRef={categoriesRef}
+              restaurantRef={restaurantRef}
+              categoriesData={props.resData.categories}
+              setCategorySelected={setCategorySelected}
+            />
+            <CategoryItemsWrapper
+              id={props.id}
+              menusRef={menusRef}
+              menusByCategory={menusByCategory}
+              categorySelected={categorySelected}
+            />
+          </RestaurantContextProvider>
+
           <section ref={cartRef} className="ResCard">
             <CartCardWrapper
               restaurantRef={restaurantRef}

@@ -2,12 +2,10 @@ import React, { useState, useContext, useEffect } from "react";
 import CategoryItems from "./CategoryItems";
 import { useSelector } from "react-redux";
 import { OrderContext } from "../../../../contexts/OrderContext";
+import SearchComponent from "../SearchComponent/SearchComponent";
 import { useScrollPosition } from "@n8tb1t/use-scroll-position";
-import useDebounce from '../../../../hooks/useDebounce';
-import { v4 as uuidv4 } from "uuid";
-import { Input } from "antd";
 
-const { Search } = Input;
+import { v4 as uuidv4 } from "uuid";
 
 const CategoryItemsWrapper = React.memo(
   ({ menusByCategory, menusRef, categorySelected, id }) => {
@@ -16,10 +14,6 @@ const CategoryItemsWrapper = React.memo(
     const [canAddItems, setCanAddItems] = useState(false);
     const cartItems = useSelector(state => state.CardReducer.itemsInCart);
     const [menusStyle, setMenusStyle] = useState({});
-    const [isSearching, setSearching] = useState(false);
-    const [searchValue, setSearchValue] = useState("")
-    const [searchTerm, setSearchTerm] = useDebounce(searchValue, 400);
- 
 
     useEffect(() => {
       if (cartItems.length !== 0) {
@@ -67,23 +61,17 @@ const CategoryItemsWrapper = React.memo(
             categoryTitle={key}
             canAddItems={canAddItems}
             cartItems={cartItems}
-            isSearching={isSearching}
-            searchTerm={searchTerm}
             categorySelected={categorySelected}
             itemMenus={menusByCategory[key]}
           />
         )),
-      [searchTerm, menusByCategory]
+      [canAddItems, menusByCategory]
     );
 
     return (
       <section ref={menusRef} style={menusStyle} className="Menus">
         <div className="RestaurantSearchInput">
-          <Search
-            placeholder="input search text"
-            value={searchValue}
-            onChange={event => onSearchRestaurantHandler(event)}
-          />
+          <SearchComponent />
         </div>
         {arrayOfCategoryItems}
       </section>

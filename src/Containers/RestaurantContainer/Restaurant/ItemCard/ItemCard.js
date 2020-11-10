@@ -20,6 +20,19 @@ const buttonVariants = {
     }
   }
 };
+const divItemVariant = {
+  hidden: {
+    opacity: 0
+  },
+  animate: {
+    opacity: 1,
+    transition: { duration: 0.4, ease: "easeIn" }
+  },
+  exit: {
+    opacity: 0,
+    transition: { duration: 0.4 }
+  }
+}
 
 const ItemCard = React.memo(
   ({
@@ -70,7 +83,7 @@ const ItemCard = React.memo(
     };
     return (
       <>
-        <div className="ItemCard">
+        <motion.div variants={divItemVariant} initial="hidden" animate="animate" exit="exit" className="ItemCard">
           <div className="DishLogoDiv">
             <img src={imgUrl} alt="Res Logo" />
           </div>
@@ -93,7 +106,7 @@ const ItemCard = React.memo(
               </Button>
             </div>
           </div>
-        </div>
+        </motion.div>
         {showModal && (
           <Modal
             title="Clear cart"
