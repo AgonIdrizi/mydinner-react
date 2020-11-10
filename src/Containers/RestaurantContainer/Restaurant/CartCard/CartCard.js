@@ -92,6 +92,7 @@ const CartCard = ({ restaurantName, showCheckoutButton, match }) => {
     }
   };
 
+    console.log('CartCard renders')
   return (
     <motion.div
       variants={cartContainerVariant}

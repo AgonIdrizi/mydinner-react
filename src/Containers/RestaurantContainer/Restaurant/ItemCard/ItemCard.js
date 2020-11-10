@@ -5,7 +5,7 @@ import { withRouter } from "react-router-dom";
 import imgUrl from "../../../../assets/dishes/dish1.jpg";
 import { OrderContext } from "../../../../contexts/OrderContext";
 import { Button } from "antd";
-import { motion } from 'framer-motion';
+import { motion } from "framer-motion";
 import { useDispatch } from "react-redux";
 import { addToCart, clearCart } from "../../../../store/actions/index";
 import "antd/es/button/style/index.css";
@@ -14,7 +14,7 @@ import "./ItemCard.scss";
 const buttonVariants = {
   hover: {
     scale: 1.1,
-    
+
     transition: {
       duration: 0.3
     }
@@ -85,7 +85,6 @@ const ItemCard = React.memo(
             </div>
             <div className="DishActions">
               <Button
-                
                 type="default"
                 shape="round"
                 onClick={() => addToCartHandler(item)}

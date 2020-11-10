@@ -3,6 +3,7 @@ import CategoryItems from "./CategoryItems";
 import { useSelector } from "react-redux";
 import { OrderContext } from "../../../../contexts/OrderContext";
 import { useScrollPosition } from "@n8tb1t/use-scroll-position";
+import useDebounce from '../../../../hooks/useDebounce';
 import { v4 as uuidv4 } from "uuid";
 import { Input } from "antd";
 
@@ -15,9 +16,10 @@ const CategoryItemsWrapper = React.memo(
     const [canAddItems, setCanAddItems] = useState(false);
     const cartItems = useSelector(state => state.CardReducer.itemsInCart);
     const [menusStyle, setMenusStyle] = useState({});
-    const [stickMenu, setStickMenu] = useState(false);
     const [isSearching, setSearching] = useState(false);
-    const [searchTerm, setSearchTerm] = useState("");
+    const [searchValue, setSearchValue] = useState("")
+    const [searchTerm, setSearchTerm] = useDebounce(searchValue, 400);
+ 
 
     useEffect(() => {
       if (cartItems.length !== 0) {
@@ -33,14 +35,12 @@ const CategoryItemsWrapper = React.memo(
     useScrollPosition(
       ({ prevPos, currPos }) => {
         if (currPos.y < -318) {
-          
           setMenusStyle({
             position: "relative",
             left: "177px",
             right: "auto"
           });
         } else {
-          
           setMenusStyle({});
         }
       },
@@ -52,12 +52,11 @@ const CategoryItemsWrapper = React.memo(
     const onSearchRestaurantHandler = event => {
       if (event.target.value === "") {
         setSearching(false);
-        setSearchTerm("");
+        setSearchValue("");
         return;
       }
       setSearching(true);
-      setSearchTerm(event.target.value);
-      console.log(event.target.value);
+      setSearchValue(event.target.value);
     };
 
     const arrayOfCategoryItems = React.useMemo(
@@ -82,6 +81,7 @@ const CategoryItemsWrapper = React.memo(
         <div className="RestaurantSearchInput">
           <Search
             placeholder="input search text"
+            value={searchValue}
             onChange={event => onSearchRestaurantHandler(event)}
           />
         </div>

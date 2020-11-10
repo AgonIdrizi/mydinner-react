@@ -5,13 +5,13 @@ import CartCard from "../CartCard/CartCard";
 const CartCardWrapper = ({
   restaurantName,
   categoriesRef,
+  cartRef,
   restaurantRef,
   menusRef
 }) => {
   const [cartStyle, setCartStyle] = useState();
 
   useScrollPosition(({ prevPos, currPos }) => {
-    console.log(currPos.x, currPos.y);
     if (currPos.y < -318) {
       setCartStyle({
         backgroundColor: "",
@@ -30,7 +30,7 @@ const CartCardWrapper = ({
   });
 
   return (
-    <div ref={categoriesRef} className="ResCard" style={cartStyle}>
+    <div ref={cartRef} className="ResCard" style={cartStyle}>
       {React.useMemo(
         () => (
           <CartCard showCheckoutButton={true} restaurantName={restaurantName} />

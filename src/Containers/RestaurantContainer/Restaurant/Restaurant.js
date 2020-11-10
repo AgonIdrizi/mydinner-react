@@ -1,6 +1,5 @@
 import React, { useRef, useState, useEffect } from "react";
 
-import CartCard from "./CartCard/CartCard";
 import CartCardWrapper from '../Restaurant/CartCard/CartCardWrapper';
 
 
@@ -8,8 +7,7 @@ import CategoryItems from "./CategoryItems/CategoryItems";
 import { motion } from "framer-motion";
 
 import { divContainerVariant } from "../../../styles/animations/animationsVariants";
-import { useScrollPosition } from "@n8tb1t/use-scroll-position"; 
-import { Input } from "antd";
+
 
 import CategoriesCard from "./CategoriesCard/CategoriesCard";
 import CategoryItemsWrapper from "./CategoryItems/CategoryItemsWrapper";
@@ -18,15 +16,12 @@ import "antd/es/input/style/index.css";
 import "./Restaurant.scss";
 import RestaurantImage from "../../../assets/restaurant/restaurantImage.jpeg";
 
-const { Search } = Input;
 
 const Restaurant = props => {
   const restaurantRef = useRef(null);
   const categoriesRef = useRef(null);
   const menusRef = useRef(null);
   const cartRef = useRef(null);
-  const [menusStyle, setMenusStyle] = useState({});
-  const [cartStyle, setCartStyle] = useState({});
 
   const [categorySelected, setCategorySelected] = useState("all");
 
@@ -44,7 +39,6 @@ const Restaurant = props => {
     console.log(formatedMenus);
   }, []);
 
-  console.log("restaurant rendered");
   return (
     <motion.div
       variants={divContainerVariant}
@@ -77,10 +71,11 @@ const Restaurant = props => {
             menusByCategory={menusByCategory}
             categorySelected={categorySelected}
           />
-          <section ref={cartRef} style={cartStyle} className="ResCard">
+          <section ref={cartRef} className="ResCard">
             <CartCardWrapper
               restaurantRef={restaurantRef}
               menusRef={menusRef}
+              cartRef={cartRef}
               categoriesRef={categoriesRef}
               restaurantName={props.resData.restaurantName}
             />
