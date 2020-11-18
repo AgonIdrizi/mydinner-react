@@ -3,6 +3,7 @@
 .CartCard {
   display: flex;
   flex-direction: column;
+  height: 100%;
   .CartCardHeader {
     h2 {
       color: white;
@@ -18,8 +19,11 @@
     display: flex;
   }
   .CartNoItemsImage {
-    height: 200px;
+    height: 100%;
     background-color: #fdf8f8;
+    img {
+      margin-top: 50px;
+    }
   }
   table {
     background-color: #fdf8f8;
