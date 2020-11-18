@@ -2,7 +2,6 @@ import React from "react";
 import { Input } from "antd";
 import "antd/es/input/style/index.css";
 import "./TextFormField.scss";
-import { ConsoleSqlOutlined } from "@ant-design/icons";
 
 export const TextFormField = ({ field, ...props }) => {
   const { name } = field;

@@ -38,7 +38,7 @@ const CategoryItems = React.memo(
       <Fragment>
         { showCategoryTitle && (
           <div className="CategoryItems">
-            <div className="CategoryHeader">
+            <div className={`CategoryHeader ${categoryTitle}`}>
               <span>{categoryTitle}</span>
               <span
                 onClick={() => setCategorySectionOpen(!categorySectionOpen)}

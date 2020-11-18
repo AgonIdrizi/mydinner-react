@@ -51,6 +51,7 @@ const CategoryItemsWrapper = React.memo(
       }
       setSearching(true);
       setSearchValue(event.target.value);
+      
     };
 
     const arrayOfCategoryItems = React.useMemo(
@@ -67,7 +68,7 @@ const CategoryItemsWrapper = React.memo(
         )),
       [canAddItems, menusByCategory]
     );
-
+    //console.log(menusRef.current && menusRef.current.getBoundingClientRect())
     return (
       <section ref={menusRef} style={menusStyle} className="Menus">
         <div className="RestaurantSearchInput">

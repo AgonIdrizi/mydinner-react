@@ -25,6 +25,10 @@ const Restaurant = props => {
 
   const [menusByCategory, setMenusByCategory] = useState({});
 
+
+  /**
+   * format restaurant menus data, create refs for each menu section
+   */
   useEffect(() => {
     const formatedMenus = props.resData.restaurantMenus.reduce((acc, elem) => {
       if (acc[elem.category] == undefined) {
@@ -36,6 +40,14 @@ const Restaurant = props => {
     setMenusByCategory(formatedMenus);
     console.log(formatedMenus);
   }, []);
+
+  // useEffect(() => {
+  //   if (categorySelected !== 'all') {
+  //     const divElement = document.querySelector(`.${categorySelected}`)
+  //     console.log(divElement.offsetTop)
+  //     window.scrollTo(0, divElement.offsetTop + )
+  //   }
+  // }, [categorySelected])
 
   return (
     <motion.div

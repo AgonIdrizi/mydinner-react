@@ -1,7 +1,7 @@
 import React, { useContext, useState } from "react";
 import { useSelector } from "react-redux";
 import StripeCheckout from "react-stripe-checkout";
-import { Card } from "antd";
+
 import { OrderContext } from "../../../contexts/OrderContext";
 import Modal from "../../../Components/UI/Modal/Modal";
 import BreadCrumb from "../../../Components/UI/BreadCrumb/BreadCrumb";
@@ -10,7 +10,8 @@ import { motion } from "framer-motion";
 import { divContainerVariant } from "../../../styles/animations/animationsVariants";
 import { useDispatch } from "react-redux";
 import { clearCart, showClearCartModal } from "../../../store/actions";
-import { isEmptyObject } from "../../../utils/helperFunctions";
+
+import Address from './Address/Address';
 import CartCard from "../../RestaurantContainer/Restaurant/CartCard/CartCard";
 import ItemCard from "../../RestaurantContainer/Restaurant/ItemCard/ItemCard";
 import "./Cart.scss";
@@ -22,6 +23,7 @@ const Cart = ({ breadCrumbItems, resData }) => {
   const context = useContext(OrderContext);
   const {
     orderDeliveryAddress,
+    setOrderDeliveryAddress,
     restaurantSelected,
     setRestaurantSelected
   } = context;
@@ -66,26 +68,10 @@ const Cart = ({ breadCrumbItems, resData }) => {
             <div className="CheckoutItems">
               <CartCard showCheckoutButton={false} restaurantName={""} />
             </div>
-            <div className="Address">
-              {isEmptyObject(orderDeliveryAddress) ? null : (
-                <div className="site-card-border-less-wrapper">
-                  <Card title={<h2>Address</h2>} bordered={false} style={{ width: 500 }}>
-                    <p>
-                      <span className="span-card-title">Full Address:</span>{" "}
-                      {orderDeliveryAddress.addressName}
-                    </p>
-                    <p>
-                      <span className="span-card-title">City:</span>{" "}
-                      {orderDeliveryAddress.city}
-                    </p>
-                    <p>
-                      <span className="span-card-title">Postal Code:</span>{" "}
-                      {orderDeliveryAddress.postalCode}
-                    </p>
-                  </Card>
-                </div>
-              )}
-            </div>
+            <Address
+              orderDeliveryAddress={orderDeliveryAddress} 
+              setOrderDeliveryAddress={setOrderDeliveryAddress} 
+            />
             {showPayButton && (
               <StripeCheckout
                 stripeKey={process.env.REACT_APP_STRIPE_KEY}

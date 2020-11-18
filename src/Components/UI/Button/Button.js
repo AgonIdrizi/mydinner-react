@@ -3,7 +3,12 @@ import { Button as AntButton } from "antd";
 import "antd/es/button/style/index.css";
 import "./Button.scss";
 
-const Button = ({ text, type, size }) => {
+export const BUTTON_TYPES ={
+  primary: { background: "#f56a00", borderColor: '#d75000' },
+  confirm: { backgroundColor: "#00a53c", color: "white" }
+}
+
+const Button = ({ style, text, type, size }) => {
   return (
     <div class="button">
       <AntButton style={{background: "#f56a00", borderColor: '#d75000'}} type={type} size={size}>
