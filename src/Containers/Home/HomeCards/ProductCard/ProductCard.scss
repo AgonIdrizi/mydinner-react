@@ -2,7 +2,7 @@
 
 .HomeProductCard {
   display: flex;
-  width: 50%;
+  width: 100%;
   padding-right: 50px;
   padding-bottom: 30px;
   max-width: 533px;
@@ -10,7 +10,7 @@
   cursor: pointer;
   
   border-radius: 8px;
-  .Restaurant {
+  .Restaurants {
     background-color: #ff493d;
   }
   .Grocery {

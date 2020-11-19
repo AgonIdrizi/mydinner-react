@@ -1,17 +1,20 @@
 import React from "react";
-import './ProductCard.scss'
+import { Link } from "react-router-dom";
+import "./ProductCard.scss";
 
-const ProductCard = ({ src, className, title, description }) => {
+const ProductCard = ({ src, className, title, url, description }) => {
   return (
-    <div className={`HomeProductCard ${className}`}>
-      <div className={`ProductImage ${title}`}>
-        <img className={className} src={src} alt={title} />
+    <Link to={url}>
+      <div className={`HomeProductCard ${className}`}>
+        <div className={`ProductImage ${title}`}>
+          <img className={className} src={src} alt={title} />
+        </div>
+        <div className="ProductText">
+          <h2>{title}</h2>
+          <div>{description}</div>
+        </div>
       </div>
-      <div className="ProductText">
-        <h2>{title}</h2>
-        <div>{description}</div>
-      </div>
-    </div>
+    </Link>
   );
 };
 

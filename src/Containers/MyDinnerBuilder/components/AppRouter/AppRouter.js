@@ -42,6 +42,54 @@ const AppRouter = ({location}) => {
           exact={true}
         />
         <UnAuthedRoute
+          path={ROUTE_PATHS.ALL_GROCERIES}
+          render={() => <AsyncRestaurants />}
+          exact={true}
+        />
+        <UnAuthedRoute
+          path={ROUTE_PATHS.RESTAURANTS_CITY()}
+          render={() => <AsyncRestaurants />}
+          exact={true}
+        />
+        <UnAuthedRoute
+          path={ROUTE_PATHS.GROCERY()}
+          render={() => <AsyncRestaurant />}
+          //isAuthed={true}
+          exact={true}
+        />
+        <UnAuthedRoute
+          path={ROUTE_PATHS.ALL_FLOWERS}
+          render={() => <AsyncRestaurants />}
+          exact={true}
+        />
+        <UnAuthedRoute
+          path={ROUTE_PATHS.FLOWERS_CITY()}
+          render={() => <AsyncRestaurants />}
+          exact={true}
+        />
+        <UnAuthedRoute
+          path={ROUTE_PATHS.FLOWER()}
+          render={() => <AsyncRestaurant />}
+          //isAuthed={true}
+          exact={true}
+        />
+        <UnAuthedRoute
+          path={ROUTE_PATHS.ALL_PHARMACIES}
+          render={() => <AsyncRestaurants />}
+          exact={true}
+        />
+        <UnAuthedRoute
+          path={ROUTE_PATHS.PHARMACIES_CITY()}
+          render={() => <AsyncRestaurants />}
+          exact={true}
+        />
+        <UnAuthedRoute
+          path={ROUTE_PATHS.PHARMACY()}
+          render={() => <AsyncRestaurant />}
+          //isAuthed={true}
+          exact={true}
+        />
+        <UnAuthedRoute
           path={ROUTE_PATHS.LOGIN}
           render={() => <AsyncLogin />}
           exact={true}

@@ -13,7 +13,12 @@ const schema = yup.object({
   postal_code: yup.string().required()
 });
 
-const AddressForm = ({state, setState, orderDeliveryAddress, setOrderDeliveryAddress }) => {
+const AddressForm = ({
+  state,
+  setState,
+  orderDeliveryAddress,
+  setOrderDeliveryAddress
+}) => {
   const { addToast } = useToasts();
 
   const onSaveButtonClickHandler = values => {
@@ -37,6 +42,11 @@ const AddressForm = ({state, setState, orderDeliveryAddress, setOrderDeliveryAdd
       return data;
     };
     updateAddress(values);
+  };
+
+  const onCancelButtonHandler = e => {
+    e.preventDefault();
+    setState({ ...state, isEditMode: false });
   };
 
   const buttonLoadingProp = state.isLoadingOnSave ? { loading: "Loading" } : {};
@@ -87,6 +97,13 @@ const AddressForm = ({state, setState, orderDeliveryAddress, setOrderDeliveryAdd
             {...buttonLoadingProp}
           >
             Save
+          </Button>
+          <Button
+            style={BUTTON_TYPES.confirm}
+            type="submit"
+            onClick={e => onCancelButtonHandler(e)}
+          >
+            Cancel
           </Button>
         </Form>
       )}
