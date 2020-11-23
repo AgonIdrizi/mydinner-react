@@ -41,7 +41,7 @@ const restaurantsDivVariants = {
   }
 };
 
-const Restaurants = ({ restaurants }) => {
+const Restaurants = ({ restaurants, resource }) => {
   const [allRestaurants, setAllRestaurants] = useState([]);
   const [filteredRestaurants, setFilteredRestaurants] = useState([]);
   const [isSearching, setSearching] = useState(false);
@@ -316,6 +316,7 @@ const Restaurants = ({ restaurants }) => {
                   <RestaurantCard
                     key={elem.id}
                     id={elem.id}
+                    resource={resource}
                     imgUrl={elem.imgUrl}
                     name={elem.restaurantName}
                     type={elem.restaurantType}
@@ -327,6 +328,7 @@ const Restaurants = ({ restaurants }) => {
                   <RestaurantCard
                     key={elem.id}
                     id={elem.id}
+                    resource={resource}
                     imgUrl={elem.imgUrl}
                     name={elem.restaurantName}
                     type={elem.restaurantType}

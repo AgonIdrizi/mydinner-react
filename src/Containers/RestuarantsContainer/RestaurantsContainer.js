@@ -4,14 +4,18 @@ import Spinner from "../../Components/UI/Spinner/Spinner";
 import { OrderContext } from "../../contexts/OrderContext";
 import useRestaurants from "../../hooks/useRestaurants";
 import { isEmptyObject } from "../../utils/helperFunctions";
+import {useLocation} from 'react-router-dom';
 
 const RestaurantsContainer = () => {
-  const restaurantsQuery = useRestaurants();
+  const location = useLocation();
+  const resource = location.pathname.slice(1);
+  const restaurantsQuery = useRestaurants(resource);
   const orderContext = useContext(OrderContext);
   const { orderDeliveryAddress } = orderContext;
   const [restaurants, setRestaurants] = useState([]);
 
   useEffect(() => {
+    //console.log(location)
     if (!restaurantsQuery.isLoading) {
       /**
        * if delivery-address is empty display all-restaurants, else filter based on address-postalCode
@@ -19,6 +23,7 @@ const RestaurantsContainer = () => {
       if (isEmptyObject(orderDeliveryAddress)) {
         setRestaurants(restaurantsQuery.data.data.restaurants);
       } else {
+        console.log(restaurantsQuery)
         const filteredRestaurants = restaurantsQuery.data.data.restaurants.filter(
           elem => elem.postalCode === parseInt(orderDeliveryAddress.postalCode)
         );
@@ -30,7 +35,7 @@ const RestaurantsContainer = () => {
   return restaurantsQuery.isLoading ? (
     <Spinner />
   ) : (
-    <Restaurants restaurants={restaurants} />
+    <Restaurants restaurants={restaurants} resource={resource} />
   );
 };
 

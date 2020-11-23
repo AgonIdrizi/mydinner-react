@@ -7,7 +7,7 @@ import BuildYourCareer from "../assets/home-banners/career-with-us.webp";
 
 export const ROUTE_PATHS = {
   DEFAULT: "/",
-  ALL_RESTAURANTS: "/all-restaurants",
+  ALL_RESTAURANTS: "/restaurants",
   RESTAURANTS_CITY: (city = "city") => `/restaurants/:${city}`,
   LOGIN: "/login",
   SIGN_UP: "/sign-up",

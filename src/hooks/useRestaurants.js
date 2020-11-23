@@ -3,9 +3,9 @@ import axios from "axios";
 import { useQuery, queryCache } from "react-query";
 import { TestApiUrls } from "../config/testApiUrls";
 
-const fetchRestaurants = () =>
-  axios.get(TestApiUrls.restaurantsGet).then(res =>  res);
+const fetchRestaurants = resource =>
+  axios.get(TestApiUrls[resource]).then(res => res);
 
-export default function useRestaurants() {
-  return useQuery("restaurants", fetchRestaurants);
+export default function useRestaurants(resource) {
+  return useQuery(resource, resource => fetchRestaurants(resource));
 }
