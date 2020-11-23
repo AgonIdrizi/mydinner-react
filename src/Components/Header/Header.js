@@ -1,6 +1,6 @@
 import React, { useContext } from "react";
 import { Link } from "react-router-dom";
-import { UserContext } from "../../contexts/UserContext";
+import { useUser, logoutUser } from "../../contexts/UserContext";
 import { Menu, Dropdown } from "antd";
 import CartIcon from "../UI/Icons/CartIcon/CartIcon";
 import { motion } from "framer-motion";
@@ -12,8 +12,12 @@ import Logo from "../../assets/logo.png";
 import { DownOutlined } from "@ant-design/icons";
 
 const Header = () => {
-  const context = useContext(UserContext);
-  const { user, onUserLogOutHandler } = context;
+  const [{ user }, userDispatch] = useUser();
+
+  const onLogoutHandler = e => {
+    e.preventDefault();
+    logoutUser(userDispatch);
+  };
 
   const menu = (
     <Menu>
@@ -21,7 +25,7 @@ const Header = () => {
         <Link to="/profile">Profile</Link>
       </Menu.Item>
       <Menu.Item key="1">
-        <a onClick={e => onUserLogOutHandler(e)} type="link">
+        <a onClick={e => onLogoutHandler(e)} type="link">
           Logout
         </a>
       </Menu.Item>
@@ -45,7 +49,7 @@ const Header = () => {
           <li>
             <Link to="/all-restaurants">All Restaurants</Link>
           </li>
-          {user == null ? (
+          {user === null ? (
             <li>
               <Link to="/login">Login</Link>
             </li>

@@ -1,40 +1,67 @@
 import React, { createContext, useState } from "react";
 import { withRouter } from "react-router-dom";
 
+const actionTypes = {
+  login: 'login',
+  signup: 'signup',
+  logout: 'logout'
+}
+
 export const UserContext = createContext();
+UserContext.displayName = "UserContext";
+
+function userReducer(state, action) {
+  switch (action.type) {
+    case actionTypes.login: {
+      return {
+        user: action.payload
+      };
+    }
+    case actionTypes.signup: {
+      return {
+        user: action.payload
+      };
+    }
+    case actionTypes.logout: {
+      return {
+        user: null
+      };
+    }
+    default: {
+      throw new Error(`Unhandled action type: ${action.type}`);
+    }
+  }
+}
 
 const UserContextProvider = props => {
-  const [user, setUser] = useState(null);
+  const [state, dispatch] = React.useReducer(userReducer, {
+    user: null
+  });
 
-  const onUserLoginHandler = user => {
-    console.log("onUserLoginHadler", user)
-    // async call to backend
-    setUser(user);
-    // redirect to homepage
-    props.history.push('/')
-  }
-  const onUserSignUpHandler = user => {
-    console.log("onUserLoginHadler", user)
-    // async call to backend
-    setUser(user);
-
-    //redirect to homepage
-    props.history.push('/')
-  }
-
-  const onUserLogOutHandler = (e) => {
-    e.preventDefault();
-    setUser(null);
-    // go to homepage
-    props.history.push('/')
-  }
+  const value = [state, dispatch];
 
   return (
-    <UserContext.Provider
-    value={{user, onUserLoginHandler, onUserSignUpHandler, onUserLogOutHandler}}>
-      {props.children}
-    </UserContext.Provider>
+    <UserContext.Provider value={value}>{props.children}</UserContext.Provider>
   );
 };
 
-export default withRouter(UserContextProvider);
+function useUser() {
+  const context = React.useContext(UserContext);
+  if (context === undefined) {
+    throw new Error(`useUser must be used within a UserProvider`);
+  }
+  return context;
+}
+
+function loginUser(dispatch, user) {
+  dispatch({ type: actionTypes.login, payload: user });
+}
+
+function singupUser(dispatch, user) {
+  dispatch({ type: actionTypes.signup, payload: user });
+}
+function logoutUser(dispatch) {
+  dispatch({ type: actionTypes.logout });
+}
+
+export { UserContextProvider, useUser, loginUser, singupUser, logoutUser };

@@ -1,10 +1,11 @@
 import React, { useContext } from "react";
 import * as Yup from "yup";
-import { motion } from 'framer-motion'
+import { motion } from "framer-motion";
 import Button from "../../../Components/UI/Button/Button";
-import { UserContext } from "../../../contexts/UserContext";
+import { Link, useHistory } from "react-router-dom";
+import { useUser, singupUser } from "../../../contexts/UserContext";
 import { Formik, Form, Field } from "formik";
-import { divContainerVariant } from '../../../styles/animations/animationsVariants'
+import { divContainerVariant } from "../../../styles/animations/animationsVariants";
 import { TextFormField } from "../../../Components/UI/TextFormFields/TextFormField/TextFormField";
 import ErrorMessage from "../../../Components/UI/ErrorMessage/ErrorMessage";
 import "./SignUp.scss";
@@ -27,11 +28,22 @@ const schema = Yup.object({
 });
 
 const SignUp = () => {
-  const context = useContext(UserContext);
-  const { onUserSignUpHandler } = context;
+  const history = useHistory();
+  const [{user}, userDispatch] = useUser();
+
+  const onSignUpHandler = values => {
+    singupUser(userDispatch, values);
+    history.push("/");
+  };
 
   return (
-    <motion.div variants={divContainerVariant} initial="hidden" animate="animate" exit="exit" className="SignUp">
+    <motion.div
+      variants={divContainerVariant}
+      initial="hidden"
+      animate="animate"
+      exit="exit"
+      className="SignUp"
+    >
       <h2>Sign Up</h2>
       <Formik
         validationSchema={schema}
@@ -41,7 +53,7 @@ const SignUp = () => {
           password: "",
           password_confirmation: ""
         }}
-        onSubmit={(values) => onUserSignUpHandler(values)}
+        onSubmit={values => onSignUpHandler(values)}
       >
         {({ values, isValid, touched, errors }) => (
           <Form>
@@ -73,7 +85,13 @@ const SignUp = () => {
               component={TextFormField}
             />
             <ErrorMessage name="password_confirmation" />
-            <button className={["ant-btn ant-btn-primary"]} disabled={!isValid} type="submit">Sign Up</button>
+            <button
+              className={["ant-btn ant-btn-primary"]}
+              disabled={!isValid}
+              type="submit"
+            >
+              Sign Up
+            </button>
           </Form>
         )}
       </Formik>

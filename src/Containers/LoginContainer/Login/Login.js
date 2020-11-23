@@ -1,8 +1,8 @@
 import React, { useContext } from "react";
 import * as yup from "yup";
 import { Formik, Form, Field } from "formik";
-import { Link } from "react-router-dom";
-import { UserContext } from "../../../contexts/UserContext";
+import { Link, useHistory } from "react-router-dom";
+import {useUser, loginUser } from "../../../contexts/UserContext";
 import Button from "../../../Components/UI/Button/Button";
 import { TextFormField } from "../../../Components/UI/TextFormFields/TextFormField/TextFormField";
 import ErrorMessage from "../../../Components/UI/ErrorMessage/ErrorMessage";
@@ -23,9 +23,14 @@ const schema = yup.object({
 });
 
 const Login = () => {
-  const context = useContext(UserContext);
-  const { onUserLoginHandler } = context;
+  const history = useHistory();
+  const [{user}, userDispatch ] = useUser();
  
+  const onLoginSubmitHandler = (values) => {
+    loginUser(userDispatch, values)
+    history.push('/');
+  };
+
   return (
     <motion.div 
       className="Login"
@@ -38,7 +43,7 @@ const Login = () => {
       <Formik
         validationSchema={schema}
         initialValues={{ username: "", email: "" }}
-        onSubmit={(values) => onUserLoginHandler(values)}
+        onSubmit={(values) => onLoginSubmitHandler(values)}
       >
         {(props) => (
           <Form>

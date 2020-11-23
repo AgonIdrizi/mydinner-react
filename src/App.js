@@ -5,7 +5,7 @@ import "./App.css";
 import { QueryCache, ReactQueryCacheProvider } from "react-query";
 import { ReactQueryDevtools } from "react-query-devtools";
 import CartContextProvider from "./contexts/CartContext";
-import UserContextProvider from "./contexts/UserContext";
+import {UserContextProvider} from "./contexts/UserContext";
 import OrderContextProvider from "./contexts/OrderContext";
 
 const queryCache = new QueryCache();
