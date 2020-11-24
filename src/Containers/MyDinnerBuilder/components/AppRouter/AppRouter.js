@@ -24,18 +24,20 @@ const AppRouter = ({location}) => {
   return (
     <AnimatePresence exitBeforeEnter>
       <Switch location={location} key={location.key}>
+      <UnAuthedRoute
+          path={ROUTE_PATHS.RESTAURANT()}
+          render={() => <AsyncRestaurant />}
+          //isAuthed={true}
+          exact={true}
+        />
+
         <UnAuthedRoute
           path={ROUTE_PATHS.ALL_RESTAURANTS}
           render={() => <AsyncRestaurants />}
           exact={true}
         />
 
-        <UnAuthedRoute
-          path={ROUTE_PATHS.RESTAURANT()}
-          render={() => <AsyncRestaurant />}
-          //isAuthed={true}
-          exact={true}
-        />
+        
         <UnAuthedRoute
           path={ROUTE_PATHS.RESTAURANTS_CITY()}
           render={() => <AsyncRestaurants />}

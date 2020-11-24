@@ -445,5 +445,321 @@ export const mockedJsons = {
         price: 190
       }
     ]
+  },
+  grocery : {
+    "grocery":{
+      "restaurantName":"Tivoli",
+      "restaurantAddress":"Tetovo",
+      "restaurantContact":"070333444",
+      "resImage":"imageIrl",
+      "categories":[
+        {
+          "id":1,
+          "catName":"sauces"
+        },
+        {
+          "id":2,
+          "catName":"new items"
+        },
+        {
+          "id":3,
+          "catName":"pasta"
+        },
+        {
+          "id":4,
+          "catName":"spices"
+        },
+        {
+          "id":5,
+          "catName":"cheese items"
+        },
+        {
+          "id":6,
+          "catName":"oil and vinegar"
+        },
+        {
+          "id":7,
+          "catName":"jar items"
+        },
+        {
+          "id":8,
+          "catName":"coffe items"
+        }
+      ],
+      "restaurantMenus":[
+        {
+          "id":1,
+          "menuName":"Bolognese Sauce",
+          "menuImgUrl":"...",
+          "category":"sauces",
+          "ingredients":"Two servings of our signature sauces freshly frozen for your convenience.",
+          "price":150
+        },
+        {
+          "id":2,
+          "menuName":"Creamy Chicken Sauce",
+          "menuImgUrl":"...",
+          "category":"sauces",
+          "ingredients":"Two servings of our signature sauces freshly frozen for your convenience.",
+          "price":190
+        },
+        {
+          "id":3,
+          "menuName":"Cremosa Sauce",
+          "menuImgUrl":"...",
+          "category":"sauces",
+          "ingredients":"Two servings of our signature sauces freshly frozen for your convenience.",
+          "price":190
+        },
+        {
+          "id":4,
+          "menuName":"Pomodoro Sauce",
+          "menuImgUrl":"...",
+          "category":"sauces",
+          "ingredients":"Two servings of our signature sauces freshly frozen for your convenience.",
+          "price":190
+        },
+        {
+          "id":5,
+          "menuName":"Gorgonzola Sauce",
+          "menuImgUrl":"...",
+          "category":"sauces",
+          "ingredients":"Two servings of our signature sauces freshly frozen for your convenience.",
+          "price":190
+        },
+        {
+          "id":6,
+          "menuName":"Romana Sauce",
+          "menuImgUrl":"...",
+          "category":"sauces",
+          "ingredients":"Two servings of our signature sauces freshly frozen for your convenience.",
+          "price":190
+        },
+        {
+          "id":7,
+          "menuName":"Turkey Slice 100 G",
+          "menuImgUrl":"...",
+          "category":"new items",
+          "ingredients":"",
+          "price":190
+        },
+        {
+          "id":8,
+          "menuName":"Kids Pasta 300 G",
+          "menuImgUrl":"...",
+          "category":"new items",
+          "ingredients":"",
+          "price":190
+        },
+        {
+          "id":9,
+          "menuName":"Mulino Bianco Macine Con Panna Fresca 350 gm",
+          "menuImgUrl":"...",
+          "category":"new items",
+          "ingredients":"",
+          "price":190
+        },
+        {
+          "id":10,
+          "menuName":"Mulino Bianco Galletti 350 gm",
+          "menuImgUrl":"...",
+          "category":"new items",
+          "ingredients":"",
+          "price":190
+        },
+        {
+          "id":11,
+          "menuName":"Mulino Bianco Galletti 350 gm",
+          "menuImgUrl":"...",
+          "category":"new items",
+          "ingredients":"",
+          "price":190
+        },
+        {
+          "id":12,
+          "menuName":"De Cecco Spaghetti No. 12 - 500 Gm",
+          "menuImgUrl":"...",
+          "category":"pasta",
+          "ingredients":"",
+          "price":120
+        },
+        {
+          "id":13,
+          "menuName":"De Cecco Penne Rigate No. 14 - 1 Kg",
+          "menuImgUrl":"...",
+          "category":"pasta",
+          "ingredients":"",
+          "price":220
+        },
+        {
+          "id":14,
+          "menuName":"De Cecco Fusilli No. 34 - 1 Kg",
+          "menuImgUrl":"...",
+          "category":"pasta",
+          "ingredients":"",
+          "price":190
+        },
+        {
+          "id":15,
+          "menuName":"Organic Gluten Free Brown Rice Spaghetti - 454 Gm",
+          "menuImgUrl":"...",
+          "category":"pasta",
+          "ingredients":"",
+          "price":190
+        },
+        {
+          "id":16,
+          "menuName":"Organic Gluten Free Fusilli Brown Rice Pasta - 454 Gm",
+          "menuImgUrl":"...",
+          "category":"pasta",
+          "ingredients":"",
+          "price":190
+        },
+        {
+          "id":17,
+          "menuName":"Organic Dinosaur Shaped Pasta - 300 Gm",
+          "menuImgUrl":"...",
+          "category":"pasta",
+          "ingredients":"",
+          "price":190
+        },
+        {
+          "id":18,
+          "menuName":"De Cecco Egg Tagliatelle No. 304 - 500 Gm",
+          "menuImgUrl":"...",
+          "category":"pasta",
+          "ingredients":"",
+          "price":190
+        },
+        {
+          "id":19,
+          "menuName":"Chili Flakes - 50 Gm",
+          "menuImgUrl":"...",
+          "category":"spices",
+          "ingredients":"",
+          "price":190
+        },
+        {
+          "id":20,
+          "menuName":"Dried Oregano - 50 Gm",
+          "menuImgUrl":"...",
+          "category":"spices",
+          "ingredients":"",
+          "price":190
+        },
+        {
+          "id":21,
+          "menuName":"Salt - 200 Gm",
+          "menuImgUrl":"...",
+          "category":"spices",
+          "ingredients":"",
+          "price":190
+        },
+        {
+          "id":22,
+          "menuName":"Red Onion - 2 Pieces 300 Gm",
+          "menuImgUrl":"...",
+          "category":"spices",
+          "ingredients":"",
+          "price":190
+        },
+        {
+          "id":23,
+          "menuName":"Fresh Peeled Garlic - 200 Gm",
+          "menuImgUrl":"...",
+          "category":"spices",
+          "ingredients":"",
+          "price":230
+        },
+        {
+          "id":24,
+          "menuName":"Gorgonzola Cheese Chunks - 100 Gm",
+          "menuImgUrl":"...",
+          "category":"cheese items",
+          "ingredients":"",
+          "price":190
+        },
+        {
+          "id":25,
+          "menuName":"Shredded Parmesan Cheese 18 Months Old - 100 Gm",
+          "menuImgUrl":"...",
+          "category":"cheese items",
+          "ingredients":"",
+          "price":190
+        },
+        {
+          "id":26,
+          "menuName":"Shredded Pecorino Cheese - 100 Gm",
+          "menuImgUrl":"...",
+          "category":"cheese items",
+          "ingredients":"",
+          "price":190
+        },
+        {
+          "id":27,
+          "menuName":"Shredded Mozzarella - 200 Gm",
+          "menuImgUrl":"...",
+          "category":"cheese items",
+          "ingredients":"",
+          "price":190
+        },
+        {
+          "id":28,
+          "menuName":"De Cecco Egg Tagliatelle No. 304 - 500 Gm",
+          "menuImgUrl":"...",
+          "category":"pasta",
+          "ingredients":"",
+          "price":190
+        },
+        {
+          "id":29,
+          "menuName":"Balsamic Vinegar - 250 ML",
+          "menuImgUrl":"...",
+          "category":"oil and vinegar",
+          "ingredients":"",
+          "price":190
+        },
+        {
+          "id":30,
+          "menuName":"White Truffle Oil Italian Touch - 250 ML",
+          "menuImgUrl":"...",
+          "category":"oil and vinegar",
+          "ingredients":"",
+          "price":190
+        },
+        {
+          "id":31,
+          "menuName":"Italian Extra Virgin Olive Oil - 500 ML",
+          "menuImgUrl":"...",
+          "category":"oil and vinegar",
+          "ingredients":"",
+          "price":190
+        },
+        {
+          "id":32,
+          "menuName":"Italian Chili Oil - 250 ML",
+          "menuImgUrl":"...",
+          "category":"oil and vinegar",
+          "ingredients":"",
+          "price":190
+        },
+        {
+          "id":33,
+          "menuName":"8Pizza Peeled Tomato - 400 Gm",
+          "menuImgUrl":"...",
+          "category":"jar items",
+          "ingredients":"",
+          "price":190
+        },
+        {
+          "id":34,
+          "menuName":"Caffé Borbone Capsules - 50 Pieces",
+          "menuImgUrl":"...",
+          "category":"coffe items",
+          "ingredients":"",
+          "price":190
+        }
+      ]
+    }
   }
 }

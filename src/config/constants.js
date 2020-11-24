@@ -12,7 +12,7 @@ export const ROUTE_PATHS = {
   LOGIN: "/login",
   SIGN_UP: "/sign-up",
   PROFILE: "/profile",
-  RESTAURANT: (id = "id") => `/restaurant/:${id}`,
+  RESTAURANT: (id = "id") => `/restaurants/:${id}`,
   ALL_GROCERIES: "/groceries",
   GROCERIES_CITY: (city = "city") => `/groceries/:${city}`,
   GROCERY: (id = "id") => `/groceries/:${id}`,
