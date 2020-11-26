@@ -89,11 +89,11 @@ const ItemCard = React.memo(
           </div>
           <div className={`DishCardLeft ${sliderClassName}`}>
             <div className="DishInfo">
-              <p className="DishName">{name}</p>
+              <div className="DishName">{name}</div>
               {showIngredients && (
-                <span className="DishIngredients">
+                <div className="DishIngredients">
                   mushrooms, tomato sauce, cheese
-                </span>
+                </div>
               )}
             </div>
             <div className="DishActions">

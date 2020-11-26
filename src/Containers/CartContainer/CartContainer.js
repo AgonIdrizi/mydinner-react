@@ -9,7 +9,7 @@ const CartContainer = () => {
   const { restaurantSelected, orderDeliveryAddress } = useContext(OrderContext);
   //here we request menus of restaurantSelected
   const [{ data, isLoading, isError }, doFetch] = useDataApi(
-    TestApiUrls.restaurantGet
+    TestApiUrls.restaurant
   );
   const breadCrumbItems = [
     { breadcrumbName: "Home", path: "/" },

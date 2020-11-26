@@ -19,12 +19,13 @@
       a {
         margin-right: 25px;
         color:$font-color-footer;
+        font-size: $font-medium;
       }
     }
     .SocialIcons {
       display: flex;
       span {
-        font-size: medium;
+        font-size: $font-medium;
         margin-right: 15px;
       }
     }

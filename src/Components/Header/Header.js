@@ -47,7 +47,7 @@ const Header = () => {
         </h2>
         <ul>
           <li>
-            <Link to="/all-restaurants">All Restaurants</Link>
+            <Link to="/restaurants">All Restaurants</Link>
           </li>
           {user === null ? (
             <li>

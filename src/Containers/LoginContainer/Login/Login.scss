@@ -6,8 +6,9 @@
   align-items: center;
   flex-direction: column;
   form {
-    width: 40%;
+    width: 50%;
     min-width: 400px;
+    max-width: 500px;
     .input-row {
       min-width: 300px;
     }
