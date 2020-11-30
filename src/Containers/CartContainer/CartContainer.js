@@ -4,13 +4,13 @@ import { OrderContext } from "../../contexts/OrderContext";
 import Spinner from "../../Components/UI/Spinner/Spinner";
 import useDataApi from "../../hooks/useDataApi";
 import { TestApiUrls } from "../../config/testApiUrls";
+import useRestaurant from "../../hooks/useRestaurant";
 
 const CartContainer = () => {
   const { restaurantSelected, orderDeliveryAddress } = useContext(OrderContext);
   //here we request menus of restaurantSelected
-  const [{ data, isLoading, isError }, doFetch] = useDataApi(
-    TestApiUrls.restaurant
-  );
+  const restaurantQuery = useRestaurant(restaurantSelected, "restaurant");
+
   const breadCrumbItems = [
     { breadcrumbName: "Home", path: "/" },
     {
@@ -25,15 +25,21 @@ const CartContainer = () => {
           : "all-restaurants"
       }`
     },
-    { breadcrumbName: "Restaurant", path: `/restaurant/${restaurantSelected}` },
+    {
+      breadcrumbName: "Restaurant",
+      path: `/restaurants/${restaurantSelected}`
+    },
     { breadcrumbName: "Checkout" }
   ];
   return (
     <>
-      {isLoading ? (
+      {restaurantQuery.isLoading ? (
         <Spinner />
       ) : (
-        <Cart breadCrumbItems={breadCrumbItems} resData={data.restaurant} />
+        <Cart
+          breadCrumbItems={breadCrumbItems}
+          resData={restaurantQuery.data.data.restaurant}
+        />
       )}
     </>
   );
