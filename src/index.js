@@ -8,7 +8,10 @@ import { createStore, compose, applyMiddleware } from 'redux';
 import { Provider } from 'react-redux';
 import rootReducer from "./store/reducers/index";
 
+
 import { logger } from './store/middleware/logger';
+
+
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
@@ -19,7 +22,7 @@ const store = createStore(
 
 ReactDOM.render(
   <Provider store={store}>
-    <Router>
+    <Router >
       <App />
     </Router>
   </Provider>,

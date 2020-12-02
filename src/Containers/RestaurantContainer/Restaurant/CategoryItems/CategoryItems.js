@@ -1,6 +1,7 @@
 import React, { Fragment, useState, useEffect, useMemo } from "react";
 import ItemCard from "../ItemCard/ItemCard";
 import { v4 as uuidv4 } from "uuid";
+import { AnimatePresence, motion } from "framer-motion";
 
 import { RestaurantContext } from "../../../../contexts/RestaurantContext";
 
@@ -10,6 +11,19 @@ import "./CategoryItems.scss";
 function categoriesSectionPropsAreEqual(prevProps, nextProps) {
   return prevPorps.categorySelected === nextProps.categorySelected;
 }
+
+const containerVariants = {
+  initial: { opacity: 0},
+  animate: {
+    opacity: 1,
+    transition: {
+      duration: 0.2,
+      when: "beforeChildren",
+      staggerChildren: 1
+    }
+  },
+  exit: { opacity: 0 }
+};
 
 const CategoryItems = React.memo(
   ({ categoryTitle, categorySelected, itemMenus, canAddItems, cartItems }) => {
@@ -32,11 +46,12 @@ const CategoryItems = React.memo(
       setFilteredData(filteredData);
     }, [searchTerm]);
 
-    const showCategoryTitle = (isSearching && filteredData.length !== 0) || (!isSearching )
+    const showCategoryTitle =
+      (isSearching && filteredData.length !== 0) || !isSearching;
 
     return (
       <Fragment>
-        { showCategoryTitle && (
+        {showCategoryTitle && (
           <div className="CategoryItems">
             <div className={`CategoryHeader ${categoryTitle}`}>
               <span>{categoryTitle}</span>
@@ -52,21 +67,24 @@ const CategoryItems = React.memo(
             </div>
           </div>
         )}
-        {!isSearching &&
-          categorySectionOpen &&
-          itemMenus.map(elem => (
-            <ItemCard
-              id={elem.id}
-              key={uuidv4()}
-              name={elem.menuName}
-              imgUrl={elem.menuImgUrl}
-              price={elem.price}
-              ingrdients={elem.ingredients}
-              showIngredients={true}
-              canAddItems={canAddItems}
-              cartItems={cartItems}
-            />
-          ))}
+
+        <motion.div variants={containerVariants} initial="initial" animate="animate" exit="exit">
+          {!isSearching &&
+            categorySectionOpen &&
+            itemMenus.map(elem => (
+              <ItemCard
+                id={elem.id}
+                key={uuidv4()}
+                name={elem.menuName}
+                imgUrl={elem.menuImgUrl}
+                price={elem.price}
+                ingrdients={elem.ingredients}
+                showIngredients={true}
+                canAddItems={canAddItems}
+                cartItems={cartItems}
+              />
+            ))}
+        </motion.div>
         {isSearching &&
           categorySectionOpen &&
           filteredData.map(elem => (

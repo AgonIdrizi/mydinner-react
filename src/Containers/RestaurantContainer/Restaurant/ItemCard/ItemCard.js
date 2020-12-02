@@ -5,38 +5,17 @@ import { withRouter } from "react-router-dom";
 import imgUrl from "../../../../assets/dishes/dish1.jpg";
 import { OrderContext } from "../../../../contexts/OrderContext";
 import { Button } from "antd";
+import { BUTTON_TYPES } from '../../../../Components/UI/Button/Button';
 import { motion } from "framer-motion";
 import { useDispatch } from "react-redux";
 import { addToCart, clearCart } from "../../../../store/actions/index";
 import "antd/es/button/style/index.css";
 import "./ItemCard.scss";
 
-const buttonVariants = {
-  hover: {
-    scale: 1.1,
-
-    transition: {
-      duration: 0.3
-    }
-  }
-};
-const divItemVariant = {
-  hidden: {
-    opacity: 0
-  },
-  animate: {
-    opacity: 1,
-    transition: { duration: 0.4, ease: "easeIn" }
-  },
-  exit: {
-    opacity: 0,
-    transition: { duration: 0.4 }
-  }
-}
-
 const ItemCard = React.memo(
   ({
     id,
+    key,
     name,
     imgUrl,
     ingrdients,
@@ -83,7 +62,7 @@ const ItemCard = React.memo(
     };
     return (
       <>
-        <motion.div variants={divItemVariant} initial="hidden" animate="animate" exit="exit" className="ItemCard">
+        <div className="ItemCard">
           <div className="DishLogoDiv">
             <img src={imgUrl} alt="Res Logo" />
           </div>
@@ -98,6 +77,7 @@ const ItemCard = React.memo(
             </div>
             <div className="DishActions">
               <Button
+                style={BUTTON_TYPES.confirm}
                 type="default"
                 shape="round"
                 onClick={() => addToCartHandler(item)}
@@ -106,7 +86,7 @@ const ItemCard = React.memo(
               </Button>
             </div>
           </div>
-        </motion.div>
+        </div>
         {showModal && (
           <Modal
             title="Clear cart"

@@ -1,5 +1,5 @@
 import React, { useContext } from "react";
-import { Switch, Route, withRouter } from "react-router-dom";
+import { Switch, Route, withRouter, useLocation } from "react-router-dom";
 import { AuthedRoute, UnAuthedRoute } from "./AppRouterWrapper";
 import { ROUTE_PATHS } from "../../../../config/constants";
 import {
@@ -8,16 +8,16 @@ import {
   AsyncLogin,
   AsyncSignUp,
   AsyncRestaurant,
-  AsyncRouteNotExists,
   AsyncProfile,
   AsyncHome,
   AsyncCart
 } from "./AppScreens";
+import RouteNotExist from '../../../RouteNotExist/RouteNotExist'
 import { UserContext } from "../../../../contexts/UserContext";
 import { AnimatePresence } from "framer-motion";
 
-const AppRouter = ({location}) => {
-  //const location = useLocation()
+const AppRouter = () => {
+  const location = useLocation()
   const context = useContext(UserContext);
   const { user } = context;
   console.log('location',location)
@@ -116,10 +116,10 @@ const AppRouter = ({location}) => {
         />
 
         <Route path="/" render={() => <AsyncHome />} exact={true} />
-        <Route component={AsyncRouteNotExists} />
+        <Route path="*" render={() => <RouteNotExist  />} />
       </Switch>
     </AnimatePresence>
   );
 };
 
-export default withRouter(AppRouter);
+export default AppRouter;

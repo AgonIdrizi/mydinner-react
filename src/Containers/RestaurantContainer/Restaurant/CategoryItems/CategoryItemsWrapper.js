@@ -68,7 +68,6 @@ const CategoryItemsWrapper = React.memo(
         )),
       [canAddItems, menusByCategory]
     );
-    //console.log(menusRef.current && menusRef.current.getBoundingClientRect())
     return (
       <section ref={menusRef} style={menusStyle} className="Menus">
         <div className="RestaurantSearchInput">

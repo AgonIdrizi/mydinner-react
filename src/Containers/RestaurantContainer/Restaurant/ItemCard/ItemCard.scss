@@ -1,7 +1,12 @@
 
 .ItemCard {
   display: flex;
-  width: 400px;
+  max-width: 400px;
+  box-shadow: 0 1px 0 0 #aba9ab;
+  padding: 10px;
+  &:hover {
+    background-color: #f9f9f9;
+  }
   .DishLogoDiv {
     width: 70px;
     margin-right: 25px;
@@ -41,6 +46,7 @@
     }
     .DishActions {
       width: 25%;
+      align-self: center;
     }
   }
   
