@@ -12,19 +12,19 @@ import {
   AsyncHome,
   AsyncCart
 } from "./AppScreens";
-import RouteNotExist from '../../../RouteNotExist/RouteNotExist'
+import RouteNotExist from "../../../RouteNotExist/RouteNotExist";
 import { UserContext } from "../../../../contexts/UserContext";
 import { AnimatePresence } from "framer-motion";
 
 const AppRouter = () => {
-  const location = useLocation()
+  const location = useLocation();
   const context = useContext(UserContext);
   const { user } = context;
-  console.log('location',location)
+  console.log("location", location);
   return (
-    <AnimatePresence exitBeforeEnter>
-      <Switch location={location} key={location.key}>
-      <UnAuthedRoute
+    <AnimatePresence >
+      <Switch >
+        <UnAuthedRoute
           path={ROUTE_PATHS.RESTAURANT()}
           render={() => <AsyncRestaurant />}
           //isAuthed={true}
@@ -37,7 +37,6 @@ const AppRouter = () => {
           exact={true}
         />
 
-        
         <UnAuthedRoute
           path={ROUTE_PATHS.RESTAURANTS_CITY()}
           render={() => <AsyncRestaurants />}
@@ -116,7 +115,7 @@ const AppRouter = () => {
         />
 
         <Route path="/" render={() => <AsyncHome />} exact={true} />
-        <Route path="*" render={() => <RouteNotExist  />} />
+        <Route path="*" render={() => <RouteNotExist />} />
       </Switch>
     </AnimatePresence>
   );

@@ -8,7 +8,7 @@ import { useScrollPosition } from "@n8tb1t/use-scroll-position";
 import { v4 as uuidv4 } from "uuid";
 
 const CategoryItemsWrapper = React.memo(
-  ({ menusByCategory, menusRef, categorySelected, id }) => {
+  ({ menusByCategory, isLoading, menusRef, categorySelected, id }) => {
     const context = useContext(OrderContext);
     const { restaurantSelected } = context;
     const [canAddItems, setCanAddItems] = useState(false);
@@ -54,20 +54,18 @@ const CategoryItemsWrapper = React.memo(
       
     };
 
-    const arrayOfCategoryItems = React.useMemo(
-      () =>
+    const arrayOfCategoryItems = 
         Object.keys(menusByCategory).map((key, id) => (
           <CategoryItems
-            key={uuidv4()}
+            key={key+ id}
             categoryTitle={key}
             canAddItems={canAddItems}
             cartItems={cartItems}
             categorySelected={categorySelected}
             itemMenus={menusByCategory[key]}
           />
-        )),
-      [canAddItems, menusByCategory]
-    );
+        ))
+        console.log('prevPorps.isLoading !== nextProps.isLoading', isLoading)
     return (
       <section ref={menusRef} style={menusStyle} className="Menus">
         <div className="RestaurantSearchInput">
@@ -77,7 +75,13 @@ const CategoryItemsWrapper = React.memo(
       </section>
     );
   },
-  (prevPorps, nextProps) => {}
+  (prevPorps, nextProps) => {
+    if(prevPorps.categorySelected !== nextProps.categorySelected) return false
+    if(prevPorps.id !== nextProps.id) return false
+    if(prevPorps.isLoading !== nextProps.isLoading) return true
+    return false
+    }
+   
 );
 
 export default CategoryItemsWrapper;

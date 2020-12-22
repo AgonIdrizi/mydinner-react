@@ -6,18 +6,18 @@ import axios from "axios";
 import { TestApiUrls } from "../../../config/testApiUrls";
 import LeafletMap from "../LeafletMap/LeafletMap";
 import useDebounce from "../../../hooks/useDebounce";
-import { isEmptyObject } from "../../../utils/helperFunctions"
+import { isEmptyObject } from "../../../utils/helperFunctions";
 import { OrderContext } from "../../../contexts/OrderContext";
-import { withRouter } from "react-router-dom"
-import { motion } from 'framer-motion';
-import { divContainerVariant } from '../../../styles/animations/animationsVariants'
+import { withRouter } from "react-router-dom";
+import { motion } from "framer-motion";
+import { divContainerVariant } from "../../../styles/animations/animationsVariants";
 
 import banner1 from "../../../assets/home-banners/marshmallow-banner-img-1.webp";
 import banner2 from "../../../assets/home-banners/marshamallow-banner-img-2.webp";
 
 const { Option } = AutoComplete;
 
-const Home = (props) => {
+const Home = props => {
   const [result, setResult] = useState([]); // {boundingbox: array, display_name: string, importance: number, lat: string, licence: string, lon}
   const [inputValue, setInputValue] = useState("");
   const [selected, setSelected] = useState({}); // {boundingbox: array, display_name: string, importance: number, lat: string, licence: string, lon}
@@ -61,7 +61,7 @@ const Home = (props) => {
     if (debouncedInputValue) {
       fetchData();
     }
-  }, [debouncedInputValue])
+  }, [debouncedInputValue]);
 
   useEffect(() => {
     if (deliveryAddressLongLang) {
@@ -120,7 +120,7 @@ const Home = (props) => {
     setTimeout(() => {
       setModalVisible(false);
       setOrderDeliveryAddress(deliveryAddress);
-      props.history.push(`restaurants/${deliveryAddress.city}`);
+      props.history.push(`restaurants/city/${deliveryAddress.city}`);
       setConfirmModalLoading(false);
     }, 300);
   };
@@ -140,9 +140,9 @@ const Home = (props) => {
     setDeliveryAddressLongLang(langLong);
   };
 
-
   return (
-    <motion.div className="HomeContainer"
+    <motion.div
+      className="HomeContainer"
       variants={divContainerVariant}
       initial="hidden"
       animate="animate"
@@ -150,19 +150,21 @@ const Home = (props) => {
     >
       <div className="HomeImage">
         <motion.img
-          initial={{ x: '-100vw'}}
-          animate={{x: 0}}
-          transition={{ duration: 1, type: 'tween'}}
-          className="ImgBanner1" 
-          src={banner1} 
-          alt="My dinner home page" />
+          initial={{ x: "-100vw" }}
+          animate={{ x: 0 }}
+          transition={{ duration: 1, type: "tween" }}
+          className="ImgBanner1"
+          src={banner1}
+          alt="My dinner home page"
+        />
         <motion.img
-          initial={{x: '100vw'}}
-          animate={{x: 0}}
-          transition={{ duration: 1, type: 'tween'}}
-          className="ImgBanner2" 
-          src={banner2} 
-          alt="My dinner home page" />
+          initial={{ x: "100vw" }}
+          animate={{ x: 0 }}
+          transition={{ duration: 1, type: "tween" }}
+          className="ImgBanner2"
+          src={banner2}
+          alt="My dinner home page"
+        />
       </div>
       <div className="HomeSearchInput">
         <h1>Order Food online</h1>
@@ -213,7 +215,6 @@ const Home = (props) => {
         />
         <div>Delivery address: {deliveryAddress.addressName}</div>
       </Modal>
-      
     </motion.div>
   );
 };

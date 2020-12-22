@@ -26,6 +26,7 @@ const RestaurantContainer = () => {
       ) : (
         <Restaurant
           id={id}
+          isLoading={postQuery.isLoading}
           resData={postQuery.data.data.restaurant}
         />
       )}

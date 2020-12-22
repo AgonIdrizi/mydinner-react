@@ -103,7 +103,9 @@ const CategoryItems = React.memo(
       </Fragment>
     );
   },
-  (prevProps, nextProps) => {}
+  (prevProps, nextProps) => {
+    return true
+  }
 );
 
 export default CategoryItems;

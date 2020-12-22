@@ -105,7 +105,9 @@ const ItemCard = React.memo(
       </>
     );
   },
-  (prevProps, nextProps) => {}
+  (prevProps, nextProps) => {
+    return true
+  }
 );
 
 export default withRouter(ItemCard);
