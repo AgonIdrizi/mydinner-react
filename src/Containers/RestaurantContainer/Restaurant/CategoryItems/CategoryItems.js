@@ -1,4 +1,4 @@
-import React, { Fragment, useState, useEffect, useMemo } from "react";
+import React, { Fragment, useState, useEffect, useContext } from "react";
 import ItemCard from "../ItemCard/ItemCard";
 import { v4 as uuidv4 } from "uuid";
 import { AnimatePresence, motion } from "framer-motion";
@@ -8,12 +8,8 @@ import { RestaurantContext } from "../../../../contexts/RestaurantContext";
 import { DownOutlined, UpOutlined } from "@ant-design/icons";
 import "./CategoryItems.scss";
 
-function categoriesSectionPropsAreEqual(prevProps, nextProps) {
-  return prevPorps.categorySelected === nextProps.categorySelected;
-}
-
 const containerVariants = {
-  initial: { opacity: 0},
+  initial: { opacity: 0 },
   animate: {
     opacity: 1,
     transition: {
@@ -26,15 +22,14 @@ const containerVariants = {
 };
 
 const CategoryItems = React.memo(
-  ({ categoryTitle, categorySelected, itemMenus, canAddItems, cartItems }) => {
+  ({ categoryTitle, itemMenus, canAddItems, cartItems, searchTerm }) => {
     const [categorySectionOpen, setCategorySectionOpen] = useState(true);
     const [filteredData, setFilteredData] = useState([]);
-    const restaurantContext = React.useContext(RestaurantContext);
-    const { searchTerm } = restaurantContext;
+    const { categorySelected } = useContext(RestaurantContext);
     const isSearching = searchTerm.length === 0 ? false : true;
 
     useEffect(() => {
-      if (categoryTitle == categorySelected) {
+      if (categoryTitle === categorySelected) {
         setCategorySectionOpen(true);
       }
     }, [categorySelected]);
@@ -48,7 +43,6 @@ const CategoryItems = React.memo(
 
     const showCategoryTitle =
       (isSearching && filteredData.length !== 0) || !isSearching;
-
     return (
       <Fragment>
         {showCategoryTitle && (
@@ -71,10 +65,10 @@ const CategoryItems = React.memo(
         <motion.div variants={containerVariants} initial="initial" animate="animate" exit="exit">
           {!isSearching &&
             categorySectionOpen &&
-            itemMenus.map(elem => (
+            itemMenus.map((elem, idx) => (
               <ItemCard
                 id={elem.id}
-                key={uuidv4()}
+                key={elem.id + categoryTitle + idx}
                 name={elem.menuName}
                 imgUrl={elem.menuImgUrl}
                 price={elem.price}
@@ -87,10 +81,10 @@ const CategoryItems = React.memo(
         </motion.div>
         {isSearching &&
           categorySectionOpen &&
-          filteredData.map(elem => (
+          filteredData.map((elem, idx) => (
             <ItemCard
               id={elem.id}
-              key={uuidv4()}
+              key={elem.id + categoryTitle + idx}
               name={elem.menuName}
               imgUrl={elem.menuImgUrl}
               price={elem.price}
@@ -104,7 +98,8 @@ const CategoryItems = React.memo(
     );
   },
   (prevProps, nextProps) => {
-    return true
+    if (prevProps.searchTerm !== nextProps.searchTerm) return false;
+    return true;
   }
 );
 

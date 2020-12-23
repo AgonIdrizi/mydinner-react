@@ -4,9 +4,7 @@ import { RestaurantContext } from "../../../../contexts/RestaurantContext";
 import useDebounce from "../../../../hooks/useDebounce";
 const { Search } = Input;
 
-const SearchComponent = React.memo(() => {
-  const context = React.useContext(RestaurantContext);
-  const { setSearchTerm } = context;
+const SearchComponent = React.memo(({setSearchTerm}) => {
 
   const [searchValue, setSearchValue] = useState("");
   const [debouncedSearchValue, setdebouncedSearchValue] = useDebounce(

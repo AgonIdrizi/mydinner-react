@@ -8,9 +8,10 @@ import { useScrollPosition } from "@n8tb1t/use-scroll-position";
 import { v4 as uuidv4 } from "uuid";
 
 const CategoryItemsWrapper = React.memo(
-  ({ menusByCategory, isLoading, menusRef, categorySelected, id }) => {
+  ({ menusByCategory, isLoading, menusRef, id }) => {
     const context = useContext(OrderContext);
     const { restaurantSelected } = context;
+    const [searchTerm, setSearchTerm] = useState("");
     const [canAddItems, setCanAddItems] = useState(false);
     const cartItems = useSelector(state => state.CardReducer.itemsInCart);
     const [menusStyle, setMenusStyle] = useState({});
@@ -61,15 +62,15 @@ const CategoryItemsWrapper = React.memo(
             categoryTitle={key}
             canAddItems={canAddItems}
             cartItems={cartItems}
-            categorySelected={categorySelected}
             itemMenus={menusByCategory[key]}
+            searchTerm={searchTerm}
           />
         ))
         console.log('prevPorps.isLoading !== nextProps.isLoading', isLoading)
     return (
       <section ref={menusRef} style={menusStyle} className="Menus">
         <div className="RestaurantSearchInput">
-          <SearchComponent />
+          <SearchComponent setSearchTerm={setSearchTerm} />
         </div>
         {arrayOfCategoryItems}
       </section>

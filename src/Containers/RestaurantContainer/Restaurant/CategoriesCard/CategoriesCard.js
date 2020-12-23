@@ -1,15 +1,17 @@
-import React, { Fragment, useState } from "react";
+import React, { Fragment, useState, useContext } from "react";
 import { useScrollPosition } from "@n8tb1t/use-scroll-position";
 import { Button } from "antd";
 import Card from "../../../../Components/UI/Card/Card";
+import { RestaurantContext } from "../../../../contexts/RestaurantContext";
 
 const CategoriesCard = ({
   categoriesData,
   categoriesRef,
   restaurantRef,
-  setCategorySelected
+  
 }) => {
   const [categoriesStyle, setCategoriesStyle] = useState({});
+  const { setCategorySelected } = useContext(RestaurantContext);
 
   useScrollPosition(({ prevPos, currPos }) => {
     if (currPos.y < -318) {

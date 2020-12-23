@@ -21,7 +21,7 @@ const Restaurant = props => {
   const menusRef = useRef(null);
   const cartRef = useRef(null);
 
-  const [categorySelected, setCategorySelected] = useState("all");
+  
 
   const [menusByCategory, setMenusByCategory] = useState({});
 
@@ -74,14 +74,12 @@ const Restaurant = props => {
               categoriesRef={categoriesRef}
               restaurantRef={restaurantRef}
               categoriesData={props.resData.categories}
-              setCategorySelected={setCategorySelected}
             />
             <CategoryItemsWrapper
               id={props.id}
               isLoading={props.isLoading}
               menusRef={menusRef}
               menusByCategory={menusByCategory}
-              categorySelected={categorySelected}
             />
           </RestaurantContextProvider>
 

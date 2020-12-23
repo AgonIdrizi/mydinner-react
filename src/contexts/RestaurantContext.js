@@ -1,13 +1,16 @@
 import React, { createContext, useState } from "react";
 
 export const RestaurantContext = createContext();
+RestaurantContext.displayName = "ReastaurantContext";
 
 const RestaurantContextProvider = props => {
-  const [searchTerm, setSearchTerm] = useState('')
+  const [categorySelected, setCategorySelected] = useState("all");
 
-
+  const value = React.useMemo(() => {
+    return { categorySelected, setCategorySelected };
+  }, [categorySelected, setCategorySelected]);
   return (
-    <RestaurantContext.Provider value={{searchTerm,setSearchTerm}}>
+    <RestaurantContext.Provider value={value}>
       {props.children}
     </RestaurantContext.Provider>
   );
