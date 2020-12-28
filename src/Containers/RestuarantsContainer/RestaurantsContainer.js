@@ -1,18 +1,20 @@
 import React, { useContext, useEffect, useState } from "react";
 import Restaurants from "./Restaurants/Restaurants";
 import Spinner from "../../Components/UI/Spinner/Spinner";
-import { OrderContext } from "../../contexts/OrderContext";
+import { useOrderContext } from "../../contexts/OrderContext";
 import useRestaurants from "../../hooks/useRestaurants";
+import useResource from '../../hooks/useResource';
 import { isEmptyObject } from "../../utils/helperFunctions";
 import { useLocation } from "react-router-dom";
 import { useErrorHandler } from "react-error-boundary";
 
 const RestaurantsContainer = () => {
-  const location = useLocation();
-  const resource = location.pathname.slice(1);
-  const restaurantsQuery = useRestaurants(resource);
-  const orderContext = useContext(OrderContext);
-  const { orderDeliveryAddress } = orderContext;
+
+  // const resource = location.pathname.slice(1);
+  // console.log('resource', location.pathname.split('/'))
+  const { resource, city } = useResource();
+  const restaurantsQuery = useRestaurants(resource, city);
+  const { orderDeliveryAddress } = useOrderContext();
   const [restaurants, setRestaurants] = useState([]);
   useErrorHandler(restaurantsQuery.error);
 
