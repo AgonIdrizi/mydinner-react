@@ -8,7 +8,7 @@ const RestaurantContextProvider = props => {
 
   const value = React.useMemo(() => {
     return { categorySelected, setCategorySelected };
-  }, [categorySelected, setCategorySelected]);
+  }, [categorySelected]);
   return (
     <RestaurantContext.Provider value={value}>
       {props.children}

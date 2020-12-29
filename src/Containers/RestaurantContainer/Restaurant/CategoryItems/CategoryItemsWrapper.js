@@ -15,6 +15,7 @@ const CategoryItemsWrapper = React.memo(
     const [canAddItems, setCanAddItems] = useState(false);
     const cartItems = useSelector(state => state.CardReducer.itemsInCart);
     const [menusStyle, setMenusStyle] = useState({});
+    const [filteredMenus, setFilteredMenus] = useState([]);
 
     useEffect(() => {
       if (cartItems.length !== 0) {
@@ -26,6 +27,15 @@ const CategoryItemsWrapper = React.memo(
         setCanAddItems(true);
       }
     }, [cartItems]);
+
+    useEffect(() => {
+      const filtered = Object.keys(menusByCategory).map((key, id) => {
+        return menusByCategory[key].filter(elem => {
+          return elem.menuName.toLowerCase().search(searchTerm) !== -1;
+        });
+      });
+      setFilteredMenus(filtered);
+    }, [searchTerm]);
 
     useScrollPosition(
       ({ prevPos, currPos }) => {
@@ -43,30 +53,18 @@ const CategoryItemsWrapper = React.memo(
       null,
       false
     );
+    const items = filteredMenus.length === 0 ? menusByCategory : filteredMenus;
+    const arrayOfCategoryItems = Object.keys(items).map((key, id) => (
+      <CategoryItems
+        key={key + id}
+        categoryTitle={key}
+        canAddItems={canAddItems}
+        cartItems={cartItems}
+        itemMenus={items[key]}
+        searchTerm={searchTerm}
+      />
+    ));
 
-    const onSearchRestaurantHandler = event => {
-      if (event.target.value === "") {
-        setSearching(false);
-        setSearchValue("");
-        return;
-      }
-      setSearching(true);
-      setSearchValue(event.target.value);
-      
-    };
-
-    const arrayOfCategoryItems = 
-        Object.keys(menusByCategory).map((key, id) => (
-          <CategoryItems
-            key={key+ id}
-            categoryTitle={key}
-            canAddItems={canAddItems}
-            cartItems={cartItems}
-            itemMenus={menusByCategory[key]}
-            searchTerm={searchTerm}
-          />
-        ))
-        console.log('prevPorps.isLoading !== nextProps.isLoading', isLoading)
     return (
       <section ref={menusRef} style={menusStyle} className="Menus">
         <div className="RestaurantSearchInput">
@@ -77,12 +75,11 @@ const CategoryItemsWrapper = React.memo(
     );
   },
   (prevPorps, nextProps) => {
-    if(prevPorps.categorySelected !== nextProps.categorySelected) return false
-    if(prevPorps.id !== nextProps.id) return false
-    if(prevPorps.isLoading !== nextProps.isLoading) return true
-    return false
-    }
-   
+    if (prevPorps.categorySelected !== nextProps.categorySelected) return false;
+    if (prevPorps.id !== nextProps.id) return false;
+    if (prevPorps.isLoading !== nextProps.isLoading) return true;
+    return false;
+  }
 );
 
 export default CategoryItemsWrapper;

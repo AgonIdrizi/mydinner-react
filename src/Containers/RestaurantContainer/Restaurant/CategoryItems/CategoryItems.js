@@ -21,67 +21,50 @@ const containerVariants = {
   exit: { opacity: 0 }
 };
 
-const CategoryItems = React.memo(
-  ({ categoryTitle, itemMenus, canAddItems, cartItems, searchTerm }) => {
-    const [categorySectionOpen, setCategorySectionOpen] = useState(true);
-    const [filteredData, setFilteredData] = useState([]);
-    const { categorySelected } = useContext(RestaurantContext);
-    const isSearching = searchTerm.length === 0 ? false : true;
+const CategoryItems = ({
+  categoryTitle,
+  itemMenus,
+  canAddItems,
+  cartItems,
+  searchTerm
+}) => {
+  const [categorySectionOpen, setCategorySectionOpen] = useState(true);
+  const { categorySelected } = useContext(RestaurantContext);
+  const isSearching = searchTerm.length === 0 ? false : true;
 
-    useEffect(() => {
-      if (categoryTitle === categorySelected) {
-        setCategorySectionOpen(true);
-      }
-    }, [categorySelected]);
+  useEffect(() => {
+    if (categoryTitle === categorySelected) {
+      setCategorySectionOpen(true);
+    }
+  }, [categorySelected]);
 
-    useEffect(() => {
-      const filteredData = itemMenus.filter(elem => {
-        return elem.menuName.toLowerCase().search(searchTerm) !== -1;
-      });
-      setFilteredData(filteredData);
-    }, [searchTerm]);
-
-    const showCategoryTitle =
-      (isSearching && filteredData.length !== 0) || !isSearching;
-    return (
-      <Fragment>
-        {showCategoryTitle && (
-          <div className="CategoryItems">
-            <div className={`CategoryHeader ${categoryTitle}`}>
-              <span>{categoryTitle}</span>
-              <span
-                onClick={() => setCategorySectionOpen(!categorySectionOpen)}
-              >
-                {categorySectionOpen ? (
-                  <DownOutlined style={{ fontSize: 22 }} />
-                ) : (
-                  <UpOutlined style={{ fontSize: 22 }} />
-                )}
-              </span>
-            </div>
+  const showCategoryTitle =
+    (isSearching && itemMenus.length !== 0) || !isSearching;
+  return (
+    <Fragment>
+      {showCategoryTitle && (
+        <div className="CategoryItems">
+          <div className={`CategoryHeader ${categoryTitle}`}>
+            <span>{itemMenus.length !== 0 ? itemMenus[0].category : null}</span>
+            <span onClick={() => setCategorySectionOpen(!categorySectionOpen)}>
+              {categorySectionOpen ? (
+                <DownOutlined style={{ fontSize: 22 }} />
+              ) : (
+                <UpOutlined style={{ fontSize: 22 }} />
+              )}
+            </span>
           </div>
-        )}
+        </div>
+      )}
 
-        <motion.div variants={containerVariants} initial="initial" animate="animate" exit="exit">
-          {!isSearching &&
-            categorySectionOpen &&
-            itemMenus.map((elem, idx) => (
-              <ItemCard
-                id={elem.id}
-                key={elem.id + categoryTitle + idx}
-                name={elem.menuName}
-                imgUrl={elem.menuImgUrl}
-                price={elem.price}
-                ingrdients={elem.ingredients}
-                showIngredients={true}
-                canAddItems={canAddItems}
-                cartItems={cartItems}
-              />
-            ))}
-        </motion.div>
-        {isSearching &&
-          categorySectionOpen &&
-          filteredData.map((elem, idx) => (
+      <motion.div
+        variants={containerVariants}
+        initial="initial"
+        animate="animate"
+        exit="exit"
+      >
+        {categorySectionOpen &&
+          itemMenus.map((elem, idx) => (
             <ItemCard
               id={elem.id}
               key={elem.id + categoryTitle + idx}
@@ -94,13 +77,9 @@ const CategoryItems = React.memo(
               cartItems={cartItems}
             />
           ))}
-      </Fragment>
-    );
-  },
-  (prevProps, nextProps) => {
-    if (prevProps.searchTerm !== nextProps.searchTerm) return false;
-    return true;
-  }
-);
+      </motion.div>
+    </Fragment>
+  );
+};
 
 export default CategoryItems;
