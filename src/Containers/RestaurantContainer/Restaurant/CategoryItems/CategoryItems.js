@@ -29,7 +29,9 @@ const CategoryItems = ({
   searchTerm
 }) => {
   const [categorySectionOpen, setCategorySectionOpen] = useState(true);
-  const { categorySelected } = useContext(RestaurantContext);
+  const { categorySelected, setCategorySelected } = useContext(
+    RestaurantContext
+  );
   const isSearching = searchTerm.length === 0 ? false : true;
 
   useEffect(() => {
@@ -38,6 +40,16 @@ const CategoryItems = ({
     }
   }, [categorySelected]);
 
+  const categorySectionTitle =
+    itemMenus.length !== 0 ? itemMenus[0].category : null;
+
+  const openCategorySectionHandler = () => {
+    if (categorySectionOpen) {
+      setCategorySelected("");
+    }
+    setCategorySectionOpen(!categorySectionOpen);
+  };
+
   const showCategoryTitle =
     (isSearching && itemMenus.length !== 0) || !isSearching;
   return (
@@ -45,8 +57,8 @@ const CategoryItems = ({
       {showCategoryTitle && (
         <div className="CategoryItems">
           <div className={`CategoryHeader ${categoryTitle}`}>
-            <span>{itemMenus.length !== 0 ? itemMenus[0].category : null}</span>
-            <span onClick={() => setCategorySectionOpen(!categorySectionOpen)}>
+            <span>{categorySectionTitle}</span>
+            <span onClick={openCategorySectionHandler}>
               {categorySectionOpen ? (
                 <DownOutlined style={{ fontSize: 22 }} />
               ) : (
