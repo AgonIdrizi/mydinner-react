@@ -24,7 +24,9 @@ function App() {
       <ReactQueryConfigProvider config={queryConfig}>
         <ReactQueryCacheProvider queryCache={queryCache}>
           <ToastProvider>
-            <ContextProviders component={<MyDinnerBuilder />} />
+            <ContextProviders>
+              <MyDinnerBuilder />
+            </ContextProviders>
           </ToastProvider>
           <ReactQueryDevtools initialIsOpen={false} />
         </ReactQueryCacheProvider>

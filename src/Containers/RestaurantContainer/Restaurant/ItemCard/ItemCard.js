@@ -5,7 +5,7 @@ import { withRouter } from "react-router-dom";
 import imgUrl from "../../../../assets/dishes/dish1.jpg";
 import { OrderContext } from "../../../../contexts/OrderContext";
 import { Button } from "antd";
-import { BUTTON_TYPES } from '../../../../Components/UI/Button/Button';
+import { BUTTON_TYPES } from "../../../../Components/UI/Button/Button";
 import { motion } from "framer-motion";
 import { useDispatch } from "react-redux";
 import { addToCart, clearCart } from "../../../../store/actions/index";
@@ -29,8 +29,7 @@ const ItemCard = React.memo(
     const [showModal, setShowModal] = useState(false);
     const [itemToBeAddedInCart, setItemToBeAddedInCart] = useState();
     const dispatch = useDispatch();
-    const context = useContext(OrderContext);
-    const { setRestaurantSelected } = context;
+    const { setRestaurantSelected } = useContext(OrderContext);
 
     const item = { id, name, imgUrl, ingrdients, price };
 
@@ -105,9 +104,7 @@ const ItemCard = React.memo(
       </>
     );
   },
-  (prevProps, nextProps) => {
-    return true
-  }
+  (prevProps, nextProps) => {}
 );
 
 export default withRouter(ItemCard);

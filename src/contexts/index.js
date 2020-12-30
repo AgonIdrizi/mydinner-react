@@ -3,11 +3,11 @@ import CartContextProvider from "./CartContext";
 import { UserContextProvider } from "./UserContext";
 import {OrderContextProvider} from "./OrderContext";
 
-const ContextProviders = ({ component }) => {
+const ContextProviders = ({ children }) => {
   return (
     <UserContextProvider>
       <CartContextProvider>
-        <OrderContextProvider>{component}</OrderContextProvider>
+        <OrderContextProvider>{children}</OrderContextProvider>
       </CartContextProvider>
     </UserContextProvider>
   );
