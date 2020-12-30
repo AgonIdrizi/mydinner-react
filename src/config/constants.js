@@ -28,7 +28,7 @@ export const ROUTE_PATHS = {
 export const productCards = {
   restaurant: {
     title: "Restaurants",
-    url: "/all-restaurants",
+    url: "/restaurants",
     src: Restaurant,
     description:
       "Find Deals, free delivery, and more from our restaurant partners."
@@ -59,11 +59,13 @@ export const productCards = {
 export const joinUsCards = {
   becomeAPartner: {
     title: "Become a partner",
+    url: "/partner",
     src: BecomePartner,
     description: "Reach more customers and achieve growth with us"
   },
   buildYourCareer: {
     title: "Build a career",
+    url: "/career",
     src: BuildYourCareer,
     description: "Join the dynamic team that makes it all happen"
   }

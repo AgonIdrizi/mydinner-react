@@ -26,10 +26,9 @@ const Home = props => {
   const [confirmModalLoading, setConfirmModalLoading] = useState(false);
   const [deliveryAddressLongLang, setDeliveryAddressLongLang] = useState([]);
   const [deliveryAddress, setDeliveryAddress] = useState(""); //{address_name: string, postalCode: number}
-  const orderContext = useContext(OrderContext);
-  const { setOrderDeliveryAddress } = orderContext;
+  const { setOrderDeliveryAddress } = useContext(OrderContext);
 
-  const debouncedInputValue = useDebounce(inputValue, 800);
+  const debouncedInputValue = useDebounce(inputValue, 600);
 
   // todo
   //ask for browserLocations and then set lan long based on that, otherwise search location from input/map
@@ -78,9 +77,7 @@ const Home = props => {
     }
   }, [deliveryAddressLongLang]);
 
-  const handleSearchClick = () => {
-    console.log("handleSearchClick");
-  };
+
   const handleOnChange = value => {
     if (value === "") {
       setSelected({});
@@ -176,7 +173,6 @@ const Home = props => {
               width: 500,
               zIndex: 1
             }}
-            //onSearch={handleSearch}
             onChange={handleOnChange}
             onSelect={handleOnSelect}
             onClear={() => console.log("OnCancel")}

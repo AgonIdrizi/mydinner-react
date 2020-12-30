@@ -9,6 +9,7 @@ const HomeProductCards = ({cards, className=""}) => {
     <div className={`HomeProductCards`}>
       {Object.keys(cards).map(product => (
         <ProductCard
+          key={product}
           className={className}
           title={cards[product].title}
           url={cards[product].url}
