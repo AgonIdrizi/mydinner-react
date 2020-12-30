@@ -1,32 +1,15 @@
 import React, { useState, useContext, useEffect } from "react";
 import CategoryItems from "./CategoryItems";
-import { useSelector } from "react-redux";
-import { OrderContext } from "../../../../contexts/OrderContext";
+
 import SearchComponent from "../SearchComponent/SearchComponent";
 import { useScrollPosition } from "@n8tb1t/use-scroll-position";
 
-import { v4 as uuidv4 } from "uuid";
-
 const CategoryItemsWrapper = React.memo(
-  ({ menusByCategory, isLoading, menusRef, id }) => {
-    const context = useContext(OrderContext);
-    const { restaurantSelected } = context;
+  ({ menusByCategory, menusRef }) => {
     const [searchTerm, setSearchTerm] = useState("");
-    const [canAddItems, setCanAddItems] = useState(false);
-    const cartItems = useSelector(state => state.CardReducer.itemsInCart);
+
     const [menusStyle, setMenusStyle] = useState({});
     const [filteredMenus, setFilteredMenus] = useState([]);
-
-    useEffect(() => {
-      if (cartItems.length !== 0) {
-        Number(id) == restaurantSelected
-          ? setCanAddItems(true)
-          : setCanAddItems(false);
-      }
-      if (cartItems.length === 0) {
-        setCanAddItems(true);
-      }
-    }, [cartItems]);
 
     useEffect(() => {
       const filtered = Object.keys(menusByCategory).map((key, id) => {
@@ -58,8 +41,6 @@ const CategoryItemsWrapper = React.memo(
       <CategoryItems
         key={key + id}
         categoryTitle={key}
-        canAddItems={canAddItems}
-        cartItems={cartItems}
         itemMenus={items[key]}
         searchTerm={searchTerm}
       />
@@ -74,12 +55,7 @@ const CategoryItemsWrapper = React.memo(
       </section>
     );
   },
-  (prevPorps, nextProps) => {
-    if (prevPorps.categorySelected !== nextProps.categorySelected) return false;
-    if (prevPorps.id !== nextProps.id) return false;
-    if (prevPorps.isLoading !== nextProps.isLoading) return true;
-    return false;
-  }
+  (prevPorps, nextProps) => {}
 );
 
 export default CategoryItemsWrapper;

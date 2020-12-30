@@ -78,5 +78,6 @@
     "react-query-devtools": "^2.6.0",
     "redux-mock-store": "^1.5.4",
     "typescript": "^3.9.7"
-  }
+  },
+  "homepage": "https://my-dinner.netlify.app"
 }

@@ -76,8 +76,6 @@ const Restaurant = props => {
               categoriesData={props.resData.categories}
             />
             <CategoryItemsWrapper
-              id={props.id}
-              isLoading={props.isLoading}
               menusRef={menusRef}
               menusByCategory={menusByCategory}
             />
