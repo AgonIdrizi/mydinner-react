@@ -76,27 +76,20 @@ const CategoryItems = ({ categoryTitle, itemMenus, searchTerm }) => {
         </div>
       )}
 
-      <motion.div
-        variants={containerVariants}
-        initial="initial"
-        animate="animate"
-        exit="exit"
-      >
-        {categorySectionOpen &&
-          itemMenus.map((elem, idx) => (
-            <ItemCard
-              id={elem.id}
-              key={elem.id + categoryTitle + idx}
-              name={elem.menuName}
-              imgUrl={elem.menuImgUrl}
-              price={elem.price}
-              ingrdients={elem.ingredients}
-              showIngredients={true}
-              canAddItems={canAddItems}
-              cartItems={cartItems}
-            />
-          ))}
-      </motion.div>
+      {categorySectionOpen &&
+        itemMenus.map((elem, idx) => (
+          <ItemCard
+            id={elem.id}
+            key={elem.id + categoryTitle + idx}
+            name={elem.menuName}
+            imgUrl={elem.menuImgUrl}
+            price={elem.price}
+            ingrdients={elem.ingredients}
+            showIngredients={true}
+            canAddItems={canAddItems}
+            cartItems={cartItems}
+          />
+        ))}
     </Fragment>
   );
 };

@@ -21,10 +21,7 @@ const Restaurant = props => {
   const menusRef = useRef(null);
   const cartRef = useRef(null);
 
-  
-
   const [menusByCategory, setMenusByCategory] = useState({});
-
 
   /**
    * format restaurant menus data, create refs for each menu section
@@ -33,21 +30,13 @@ const Restaurant = props => {
     const formatedMenus = props.resData.restaurantMenus.reduce((acc, elem) => {
       if (acc[elem.category] == undefined) {
         acc[elem.category] = [elem];
+      } else {
+        acc[elem.category] = [...acc[`${elem.category}`], elem];
       }
-      acc[elem.category] = [...acc[`${elem.category}`], elem];
       return acc;
     }, {});
     setMenusByCategory(formatedMenus);
-    console.log(formatedMenus);
   }, []);
-
-  // useEffect(() => {
-  //   if (categorySelected !== 'all') {
-  //     const divElement = document.querySelector(`.${categorySelected}`)
-  //     console.log(divElement.offsetTop)
-  //     window.scrollTo(0, divElement.offsetTop + )
-  //   }
-  // }, [categorySelected])
 
   return (
     <motion.div
