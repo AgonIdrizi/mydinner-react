@@ -6,7 +6,7 @@
     "@ant-design/icons": "^4.2.1",
     "@google-cloud/storage": "^4.7.0",
     "@n8tb1t/use-scroll-position": "^1.0.43",
-    "axios": "^0.19.2",
+    "axios": "^0.21.1",
     "child-process-promise": "^2.2.1",
     "formik": "^2.1.5",
     "framer-motion": "^2.9.3",
